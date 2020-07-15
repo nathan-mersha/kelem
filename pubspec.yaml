@@ -1,0 +1,32 @@
+name: kelemapp
+description: le kelemu
+version: 1.0.0+1
+
+# Environment
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+# Dependencies
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+
+# Dev dependencies
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# Flutter assets
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/welcome/screen1.png
+    - assets/images/welcome/screen2.png
+    - assets/images/welcome/screen3.png
+    - assets/images/addisababa_silhouet.png
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-Bold.ttf
+          weight: 700
