@@ -11,6 +11,8 @@ class Transaction {
   static const String ANONYMOUS = "anonymous";
   static const String EVENT_ID = "eventId";
   static const String FAILED_REASON = "failedReason";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String transactionId;
   String fromWalletId;
@@ -22,6 +24,8 @@ class Transaction {
   bool anonymous;
   String eventId;
   String failedReason;
+  DateTime firstModified;
+  DateTime lastModified;
 
   Transaction(
       {this.transactionId,
@@ -33,7 +37,9 @@ class Transaction {
       this.status,
       this.anonymous,
       this.eventId,
-      this.failedReason});
+      this.failedReason,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Transaction transaction) {
@@ -48,23 +54,26 @@ class Transaction {
       ANONYMOUS: transaction.anonymous,
       EVENT_ID: transaction.eventId,
       FAILED_REASON: transaction.failedReason,
+      FIRST_MODIFIED: transaction.firstModified,
+      LAST_MODIFIED: transaction.lastModified
     };
   }
 
   /// Converts Map to Model
   static Transaction toModel(Map<String, dynamic> map) {
     return Transaction(
-      transactionId: map[TRANSACTION_ID],
-      fromWalletId: map[FROM_WALLET_ID],
-      toWalletId: map[TO_WALLET_ID],
-      reason: map[REASON],
-      amount: map[AMOUNT],
-      transactionFee: map[TRANSACTION_FEE],
-      status: map[STATUS],
-      anonymous: map[ANONYMOUS],
-      eventId: map[EVENT_ID],
-      failedReason: map[FAILED_REASON],
-    );
+        transactionId: map[TRANSACTION_ID],
+        fromWalletId: map[FROM_WALLET_ID],
+        toWalletId: map[TO_WALLET_ID],
+        reason: map[REASON],
+        amount: map[AMOUNT],
+        transactionFee: map[TRANSACTION_FEE],
+        status: map[STATUS],
+        anonymous: map[ANONYMOUS],
+        eventId: map[EVENT_ID],
+        failedReason: map[FAILED_REASON],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model

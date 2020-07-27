@@ -16,6 +16,8 @@ class Shop {
   static const String DESCRIPTION = "description";
   static const String CATEGORY = "category";
   static const String LOGO = "logo";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String shopId;
   String userId;
@@ -32,6 +34,8 @@ class Shop {
   String description;
   String category;
   dynamic logo;
+  DateTime firstModified;
+  DateTime lastModified;
 
   Shop(
       {this.shopId,
@@ -48,7 +52,9 @@ class Shop {
       this.subscriptionPackage,
       this.description,
       this.category,
-      this.logo});
+      this.logo,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Shop shop) {
@@ -68,28 +74,31 @@ class Shop {
       DESCRIPTION: shop.description,
       CATEGORY: shop.category,
       LOGO: shop.logo,
+      FIRST_MODIFIED: shop.firstModified,
+      LAST_MODIFIED: shop.lastModified
     };
   }
 
   /// Converts Map to Model
   static Shop toModel(Map<String, dynamic> map) {
     return Shop(
-      shopId: map[SHOP_ID],
-      userId: map[USER_ID],
-      name: map[NAME],
-      primaryPhone: map[PRIMARY_PHONE],
-      secondaryPhone: map[SECONDARY_PHONE],
-      email: map[EMAIL],
-      website: map[WEBSITE],
-      physicalAddress: map[PHYSICAL_ADDRESS],
-      coOrdinates: map[CO_ORDINATES],
-      isVirtual: map[IS_VIRTUAL],
-      isVerified: map[IS_VERIFIED],
-      subscriptionPackage: map[SUBSCRIPTION_PACKAGE],
-      description: map[DESCRIPTION],
-      category: map[CATEGORY],
-      logo: map[LOGO],
-    );
+        shopId: map[SHOP_ID],
+        userId: map[USER_ID],
+        name: map[NAME],
+        primaryPhone: map[PRIMARY_PHONE],
+        secondaryPhone: map[SECONDARY_PHONE],
+        email: map[EMAIL],
+        website: map[WEBSITE],
+        physicalAddress: map[PHYSICAL_ADDRESS],
+        coOrdinates: map[CO_ORDINATES],
+        isVirtual: map[IS_VIRTUAL],
+        isVerified: map[IS_VERIFIED],
+        subscriptionPackage: map[SUBSCRIPTION_PACKAGE],
+        description: map[DESCRIPTION],
+        category: map[CATEGORY],
+        logo: map[LOGO],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model

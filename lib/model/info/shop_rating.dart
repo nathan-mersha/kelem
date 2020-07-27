@@ -13,6 +13,8 @@ class RatingShop {
   static const String RICHNESS_RATE = "richnessRate";
   static const String PRICING_RATE = "pricingRate";
   static const String ACTIVITY_RATE = "activityRate";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String ratingShopId;
   Shop shop;
@@ -23,6 +25,8 @@ class RatingShop {
   double richnessRate;
   double pricingRate;
   double activityRate;
+  DateTime firstModified;
+  DateTime lastModified;
 
   RatingShop(
       {this.ratingShopId,
@@ -33,7 +37,9 @@ class RatingShop {
       this.supportRate,
       this.richnessRate,
       this.pricingRate,
-      this.activityRate});
+      this.activityRate,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(RatingShop ratingShop) {
@@ -47,22 +53,25 @@ class RatingShop {
       RICHNESS_RATE: ratingShop.richnessRate,
       PRICING_RATE: ratingShop.pricingRate,
       ACTIVITY_RATE: ratingShop.activityRate,
+      FIRST_MODIFIED: ratingShop.firstModified,
+      LAST_MODIFIED: ratingShop.lastModified
     };
   }
 
   /// Converts Map to Model
   static RatingShop toModel(Map<String, dynamic> map) {
     return RatingShop(
-      ratingShopId: map[RATING_SHOP_ID],
-      shop: map[SHOP],
-      cumulative: map[CUMULATIVE],
-      reliabilityRate: map[RELIABILITY_RATE],
-      deliverableRate: map[DELIVERABLE_RATE],
-      supportRate: map[SUPPORT_RATE],
-      richnessRate: map[RICHNESS_RATE],
-      pricingRate: map[PRICING_RATE],
-      activityRate: map[ACTIVITY_RATE],
-    );
+        ratingShopId: map[RATING_SHOP_ID],
+        shop: Shop.toModel(map[SHOP]),
+        cumulative: map[CUMULATIVE],
+        reliabilityRate: map[RELIABILITY_RATE],
+        deliverableRate: map[DELIVERABLE_RATE],
+        supportRate: map[SUPPORT_RATE],
+        richnessRate: map[RICHNESS_RATE],
+        pricingRate: map[PRICING_RATE],
+        activityRate: map[ACTIVITY_RATE],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model

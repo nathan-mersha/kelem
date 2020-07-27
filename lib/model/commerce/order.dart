@@ -14,6 +14,8 @@ class Order {
   static const String PAYMENT_AND_DELIVERY_PREFERENCE = "paymentAndDeliveryPreference";
   static const String PRE_PAID = "prePaid";
   static const String USER = "user";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String orderId;
   List<ProductDeliveryStatus> productsDeliveryStatus;
@@ -24,6 +26,8 @@ class Order {
   PaymentAndDeliveryPreference paymentAndDeliveryPreference;
   bool prePaid;
   User user;
+  DateTime firstModified;
+  DateTime lastModified;
 
   Order(
       {this.orderId,
@@ -34,7 +38,9 @@ class Order {
       this.refunded,
       this.paymentAndDeliveryPreference,
       this.prePaid,
-      this.user});
+      this.user,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Order order) {
@@ -42,28 +48,31 @@ class Order {
       ORDER_ID: order.orderId,
       PRODUCTS_DELIVERY_STATUS: ProductDeliveryStatus.toMapList(order.productsDeliveryStatus),
       STATUS: order.status,
-      AMOUNT : Amount.toMap(order.amount),
+      AMOUNT: Amount.toMap(order.amount),
       NOTE: order.note,
       REFUNDED: order.refunded,
       PAYMENT_AND_DELIVERY_PREFERENCE: PaymentAndDeliveryPreference.toMap(order.paymentAndDeliveryPreference),
       PRE_PAID: order.prePaid,
       USER: order.user,
+      FIRST_MODIFIED: order.firstModified,
+      LAST_MODIFIED: order.lastModified
     };
   }
 
   /// Converts Map to Model
   static Order toModel(Map<String, dynamic> map) {
     return Order(
-      orderId: map[ORDER_ID],
-      productsDeliveryStatus: ProductDeliveryStatus.toModelList(map[PRODUCTS_DELIVERY_STATUS]),
-      status: map[STATUS],
-      amount: Amount.toModel(map[AMOUNT]),
-      note: map[NOTE],
-      refunded: map[REFUNDED],
-      paymentAndDeliveryPreference: PaymentAndDeliveryPreference.toModel(map[PAYMENT_AND_DELIVERY_PREFERENCE]),
-      prePaid: map[PRE_PAID],
-      user: map[USER],
-    );
+        orderId: map[ORDER_ID],
+        productsDeliveryStatus: ProductDeliveryStatus.toModelList(map[PRODUCTS_DELIVERY_STATUS]),
+        status: map[STATUS],
+        amount: Amount.toModel(map[AMOUNT]),
+        note: map[NOTE],
+        refunded: map[REFUNDED],
+        paymentAndDeliveryPreference: PaymentAndDeliveryPreference.toModel(map[PAYMENT_AND_DELIVERY_PREFERENCE]),
+        prePaid: map[PRE_PAID],
+        user: map[USER],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -92,13 +101,18 @@ class ProductDeliveryStatus {
   static const String PRODUCT = "product";
   static const String QUANTITY = "quantity";
   static const String STATUS = "status";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String productDeliveryStatusId;
   Product product;
   int quantity;
   String status;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  ProductDeliveryStatus({this.productDeliveryStatusId, this.product, this.quantity, this.status});
+  ProductDeliveryStatus(
+      {this.productDeliveryStatusId, this.product, this.quantity, this.status, this.firstModified, this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(ProductDeliveryStatus productDeliveryStatus) {
@@ -106,18 +120,21 @@ class ProductDeliveryStatus {
       PRODUCT_DELIVERY_STATUS_ID: productDeliveryStatus.productDeliveryStatusId,
       PRODUCT: Product.toMap(productDeliveryStatus.product),
       QUANTITY: productDeliveryStatus.quantity,
-      STATUS: productDeliveryStatus.status
+      STATUS: productDeliveryStatus.status,
+      FIRST_MODIFIED: productDeliveryStatus.firstModified,
+      LAST_MODIFIED: productDeliveryStatus.lastModified
     };
   }
 
   /// Converts Map to Model
   static ProductDeliveryStatus toModel(Map<String, dynamic> map) {
     return ProductDeliveryStatus(
-      productDeliveryStatusId: map[PRODUCT_DELIVERY_STATUS_ID],
-      product: Product.toModel(map[PRODUCT]),
-      quantity: map[QUANTITY],
-      status: map[STATUS],
-    );
+        productDeliveryStatusId: map[PRODUCT_DELIVERY_STATUS_ID],
+        product: Product.toModel(map[PRODUCT]),
+        quantity: map[QUANTITY],
+        status: map[STATUS],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -149,6 +166,8 @@ class Amount {
   static const String TRANSACTION_FEE = "transactionFee";
   static const String TAX = "tax";
   static const String TOTAL = "total";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String amountId;
   double subTotal;
@@ -157,16 +176,19 @@ class Amount {
   double transactionFee;
   double tax;
   double total;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  Amount({
-    this.amountId,
-    this.subTotal,
-    this.couponDiscount,
-    this.handlingFee,
-    this.transactionFee,
-    this.tax,
-    this.total
-  });
+  Amount(
+      {this.amountId,
+      this.subTotal,
+      this.couponDiscount,
+      this.handlingFee,
+      this.transactionFee,
+      this.tax,
+      this.total,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Amount amount) {
@@ -178,6 +200,8 @@ class Amount {
       TRANSACTION_FEE: amount.transactionFee,
       TAX: amount.tax,
       TOTAL: amount.total,
+      FIRST_MODIFIED: amount.firstModified,
+      LAST_MODIFIED: amount.lastModified
     };
   }
 
@@ -191,6 +215,8 @@ class Amount {
       transactionFee: map[TRANSACTION_FEE],
       tax: map[TAX],
       total: map[TOTAL],
+      firstModified: map[FIRST_MODIFIED],
+      lastModified: map[LAST_MODIFIED],
     );
   }
 

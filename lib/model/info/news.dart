@@ -9,6 +9,8 @@ class News {
   static const String LINK = "link";
   static const String TAGS = "tags";
   static const String CATEGORY = "category";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String newsId;
   List<NewsValue> values;
@@ -17,8 +19,19 @@ class News {
   String link;
   List<String> tags;
   String category;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  News({this.newsId, this.values, this.publishedDate, this.thumbnail, this.link, this.tags, this.category});
+  News(
+      {this.newsId,
+      this.values,
+      this.publishedDate,
+      this.thumbnail,
+      this.link,
+      this.tags,
+      this.category,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(News news) {
@@ -30,20 +43,23 @@ class News {
       LINK: news.link,
       TAGS: news.tags,
       CATEGORY: news.category,
+      FIRST_MODIFIED: news.firstModified,
+      LAST_MODIFIED: news.lastModified
     };
   }
 
   /// Converts Map to Model
   static News toModel(Map<String, dynamic> map) {
     return News(
-      newsId: map[NEWS_ID],
-      values: NewsValue.toModelList(map[VALUES]),
-      publishedDate: map[PUBLISHED_DATE],
-      thumbnail: map[THUMB_NAIL],
-      link: map[LINK],
-      tags: map[TAGS],
-      category: map[CATEGORY],
-    );
+        newsId: map[NEWS_ID],
+        values: NewsValue.toModelList(map[VALUES]),
+        publishedDate: map[PUBLISHED_DATE],
+        thumbnail: map[THUMB_NAIL],
+        link: map[LINK],
+        tags: map[TAGS],
+        category: map[CATEGORY],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -69,18 +85,22 @@ class News {
 class NewsValue {
   /// Defines key values to extract from a map
   static const String NEWS_VALUE_ID = "newsValueId";
-  static const String LOCALE = "newsValueId";
-  static const String PUBLISHER = "newsValueId";
-  static const String TITLE = "newsValueId";
-  static const String CONTENT = "newsValueId";
+  static const String LOCALE = "locale";
+  static const String PUBLISHER = "publisher";
+  static const String TITLE = "title";
+  static const String CONTENT = "content";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String newsValueId;
   String locale; // todo : make enum
   String publisher;
   String title;
   String content;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  NewsValue({this.newsValueId, this.locale, this.publisher, this.title, this.content});
+  NewsValue({this.newsValueId, this.locale, this.publisher, this.title, this.content, this.firstModified, this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(NewsValue newsValue) {
@@ -90,18 +110,21 @@ class NewsValue {
       PUBLISHER: newsValue.publisher,
       TITLE: newsValue.title,
       CONTENT: newsValue.content,
+      FIRST_MODIFIED: newsValue.firstModified,
+      LAST_MODIFIED: newsValue.lastModified
     };
   }
 
   /// Converts Map to Model
   static NewsValue toModel(Map<String, dynamic> map) {
     return NewsValue(
-      newsValueId: map[NEWS_VALUE_ID],
-      locale: map[LOCALE],
-      publisher: map[PUBLISHER],
-      title: map[TITLE],
-      content: map[CONTENT],
-    );
+        newsValueId: map[NEWS_VALUE_ID],
+        locale: map[LOCALE],
+        publisher: map[PUBLISHER],
+        title: map[TITLE],
+        content: map[CONTENT],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model

@@ -1,14 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:kelemapp/rsr/theme/color.dart';
 
 class Menu {
-
   /// Get menu side drawer
   static getSideDrawer(BuildContext context) {
     return Drawer(
         child: ListView(
       children: <Widget>[
+        Container(
+          child: Padding(
+            padding: EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Image.asset(
+                  "assets/images/icon_primary_color.png",
+                  height: 70,
+                ),
+                SizedBox(height: 15,),
+                Text(
+                  "Kelem market",
+                  style: TextStyle(color: Color(ColorCustom.GRAY_LIGHT)),
+                ),
+                Text("www.kelem.com", style: TextStyle(color: Color(ColorCustom.GRAY)),)
+              ],
+            ),
+          ),
+        ),
         Divider(
-          color: Colors.black26,
+          color: Theme.of(context).primaryColor,
         ),
         ListTile(
           leading: Icon(Icons.home),
@@ -18,8 +38,8 @@ class Menu {
           },
         ),
         ListTile(
-          leading: Icon(Icons.category),
-          title: Text("Category"),
+          leading: Icon(Icons.explore),
+          title: Text("News"),
           subtitle: Text("Select from categories"),
           onTap: () {
             // todo : navigate
@@ -34,16 +54,32 @@ class Menu {
           },
         ),
         ListTile(
-          leading: Icon(Icons.notifications_active),
-          title: Text("Notifications"),
+          leading: Icon(Icons.monetization_on),
+          title: Text("Wallet"),
+          subtitle: Text("Your wallet here"),
+          onTap: () {
+            // todo : navigate
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.local_play),
+          title: Text("Wish list"),
           subtitle: Text("Anything new?"),
           onTap: () {
             // todo : navigate
           },
         ),
         ListTile(
-          leading: Icon(Icons.person),
-          title: Text("Profile"),
+          leading: Icon(Icons.local_mall),
+          title: Text("Orders"),
+          subtitle: Text("View your order here"),
+          onTap: () {
+            // todo : navigate
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.star),
+          title: Text("Best Sellers"),
           subtitle: Text("Customize your profile here"),
           onTap: () {
             // todo : navigate
@@ -60,8 +96,8 @@ class Menu {
         ),
         Divider(indent: 15.0, height: 2, color: Theme.of(context).dividerColor),
         ListTile(
-          leading: Icon(Icons.bubble_chart),
-          title: Text("Wish list"),
+          leading: Icon(Icons.shopping_cart),
+          title: Text("Cart"),
           subtitle: Text("Anything you want?"),
           onTap: () {
             // todo : navigate to wish list page here

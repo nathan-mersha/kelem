@@ -89,7 +89,7 @@ class RouteTo {
 //        builder: buildFirstPage,
 //        future: isFirstTime(),
 //      ),
-      ROOT: (BuildContext context) => ContactUsPage(), // todo uncomment the above code after internet
+      ROOT: (BuildContext context) => HomePage(), // todo uncomment the above code after internet
 
       /// Info pages
       INFO_CONTACT_US: (BuildContext context) => ContactUsPage(),

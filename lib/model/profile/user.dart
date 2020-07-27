@@ -17,6 +17,8 @@ class User {
   static const String GENERAL_SETTINGS = "generalSettings";
   static const String CASH_OUT_PREFERENCE = "cashOutPreference";
   static const String WALLET = "wallet";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String userId;
   String userName;
@@ -33,6 +35,8 @@ class User {
   GeneralSettings generalSettings;
   CashOutPreference cashOutPreference;
   Wallet wallet;
+  DateTime firstModified;
+  DateTime lastModified;
 
   User(
       {this.userId,
@@ -49,7 +53,9 @@ class User {
       this.paymentPreference,
       this.generalSettings,
       this.cashOutPreference,
-      this.wallet});
+      this.wallet,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts User to Map
   static Map<String, dynamic> toMap(User user) {
@@ -69,6 +75,8 @@ class User {
       GENERAL_SETTINGS: GeneralSettings.toMap(user.generalSettings),
       CASH_OUT_PREFERENCE: CashOutPreference.toMap(user.cashOutPreference),
       WALLET: Wallet.toMap(user.wallet),
+      FIRST_MODIFIED: user.firstModified,
+      LAST_MODIFIED: user.lastModified
     };
   }
 
@@ -89,7 +97,9 @@ class User {
         paymentPreference: PaymentAndDeliveryPreference.toModel(map[PAYMENT_PREFERENCE]),
         generalSettings: GeneralSettings.toModel(map[GENERAL_SETTINGS]),
         cashOutPreference: CashOutPreference.toModel(map[CASH_OUT_PREFERENCE]),
-        wallet: Wallet.toModel(map[WALLET]));
+        wallet: Wallet.toModel(map[WALLET]),
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -119,6 +129,8 @@ class PaymentAndDeliveryPreference {
   static const String DELIVERY_ADDRESS = "deliveryAddress";
   static const String DELIVERY_DETAIL = "deliveryDetail";
   static const String CUSTOMER_REPUTATION = "customerReputation";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String primaryMethod;
   String customerName;
@@ -126,6 +138,8 @@ class PaymentAndDeliveryPreference {
   String deliveryAddress;
   String deliveryDetail;
   String customerReputation;
+  DateTime firstModified;
+  DateTime lastModified;
 
   PaymentAndDeliveryPreference(
       {this.primaryMethod,
@@ -133,7 +147,9 @@ class PaymentAndDeliveryPreference {
       this.customerPhoneNumber,
       this.deliveryAddress,
       this.deliveryDetail,
-      this.customerReputation});
+      this.customerReputation,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(PaymentAndDeliveryPreference paymentPreference) {
@@ -144,19 +160,22 @@ class PaymentAndDeliveryPreference {
       DELIVERY_ADDRESS: paymentPreference.deliveryAddress,
       DELIVERY_DETAIL: paymentPreference.deliveryDetail,
       CUSTOMER_REPUTATION: paymentPreference.customerReputation,
+      FIRST_MODIFIED: paymentPreference.firstModified,
+      LAST_MODIFIED: paymentPreference.lastModified
     };
   }
 
   /// Converts Map to Model
   static PaymentAndDeliveryPreference toModel(Map<String, dynamic> map) {
     return PaymentAndDeliveryPreference(
-      primaryMethod: map[PRIMARY_METHOD],
-      customerName: map[CUSTOMER_NAME],
-      customerPhoneNumber: map[CUSTOMER_PHONE_NUMBER],
-      deliveryAddress: map[DELIVERY_ADDRESS],
-      deliveryDetail: map[DELIVERY_DETAIL],
-      customerReputation: map[CUSTOMER_REPUTATION],
-    );
+        primaryMethod: map[PRIMARY_METHOD],
+        customerName: map[CUSTOMER_NAME],
+        customerPhoneNumber: map[CUSTOMER_PHONE_NUMBER],
+        deliveryAddress: map[DELIVERY_ADDRESS],
+        deliveryDetail: map[DELIVERY_DETAIL],
+        customerReputation: map[CUSTOMER_REPUTATION],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -185,8 +204,10 @@ class GeneralSettings {
   static const String SHOW_GENERAL_NOTIFICATIONS = "showGeneralNotifications";
   static const String SHOW_ITEM_NOTIFICATIONS = "showItemNotifications";
   static const String SHOW_NEWS_NOTIFICATIONS = "showNewsNotifications";
-  static const String NEWS_PREFERENCES = "newsPrefereces";
+  static const String NEWS_PREFERENCES = "newsPreferences";
   static const String SHOW_NEWS_IN_HOME = "showNewsInHome";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String language;
   bool showGeneralNotifications;
@@ -194,6 +215,8 @@ class GeneralSettings {
   bool showNewsNotifications;
   List<String> newsPreferences;
   bool showNewsInHome;
+  DateTime firstModified;
+  DateTime lastModified;
 
   GeneralSettings(
       {this.language,
@@ -201,7 +224,9 @@ class GeneralSettings {
       this.showItemNotifications,
       this.showNewsNotifications,
       this.newsPreferences,
-      this.showNewsInHome});
+      this.showNewsInHome,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(GeneralSettings generalSettings) {
@@ -212,6 +237,8 @@ class GeneralSettings {
       SHOW_NEWS_NOTIFICATIONS: generalSettings.showNewsNotifications,
       NEWS_PREFERENCES: generalSettings.newsPreferences,
       SHOW_NEWS_IN_HOME: generalSettings.showNewsInHome,
+      FIRST_MODIFIED: generalSettings.firstModified,
+      LAST_MODIFIED: generalSettings.lastModified
     };
   }
 
@@ -223,7 +250,9 @@ class GeneralSettings {
         showItemNotifications: map[SHOW_ITEM_NOTIFICATIONS],
         showNewsNotifications: map[SHOW_NEWS_NOTIFICATIONS],
         newsPreferences: map[NEWS_PREFERENCES],
-        showNewsInHome: map[SHOW_NEWS_IN_HOME]);
+        showNewsInHome: map[SHOW_NEWS_IN_HOME],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -251,12 +280,16 @@ class CashOutPreference {
   static const String BANK_NAME = "bankName";
   static const String ACCOUNT_NUMBER = "accountNumber";
   static const String ACCOUNT_HOLDER_NAME = "accountHolderName";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String bankName;
   String accountNumber;
   String accountHolderName;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  CashOutPreference({this.bankName, this.accountNumber, this.accountHolderName});
+  CashOutPreference({this.bankName, this.accountNumber, this.accountHolderName, this.firstModified, this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(CashOutPreference cashOutPreference) {
@@ -264,16 +297,19 @@ class CashOutPreference {
       BANK_NAME: cashOutPreference.bankName,
       ACCOUNT_NUMBER: cashOutPreference.accountNumber,
       ACCOUNT_HOLDER_NAME: cashOutPreference.accountHolderName,
+      FIRST_MODIFIED: cashOutPreference.firstModified,
+      LAST_MODIFIED: cashOutPreference.lastModified
     };
   }
 
   /// Converts Map to Model
   static CashOutPreference toModel(Map<String, dynamic> map) {
     return CashOutPreference(
-      bankName: map[BANK_NAME],
-      accountNumber: map[ACCOUNT_NUMBER],
-      accountHolderName: map[ACCOUNT_HOLDER_NAME],
-    );
+        bankName: map[BANK_NAME],
+        accountNumber: map[ACCOUNT_NUMBER],
+        accountHolderName: map[ACCOUNT_HOLDER_NAME],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -306,6 +342,8 @@ class Wallet {
   static const String PASSWORD = "password";
   static const String LOCKED = "locked";
   static const String RETRY_COUNT = "retryCount";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String walletId;
   String accountNumber;
@@ -315,6 +353,8 @@ class Wallet {
   String password;
   bool locked;
   int retryCount;
+  DateTime firstModified;
+  DateTime lastModified;
 
   Wallet(
       {this.walletId,
@@ -324,7 +364,9 @@ class Wallet {
       this.anonymous,
       this.password,
       this.locked,
-      this.retryCount});
+      this.retryCount,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Wallet wallet) {
@@ -337,21 +379,24 @@ class Wallet {
       PASSWORD: wallet.password,
       LOCKED: wallet.locked,
       RETRY_COUNT: wallet.retryCount,
+      FIRST_MODIFIED: wallet.firstModified,
+      LAST_MODIFIED: wallet.lastModified
     };
   }
 
   /// Converts Map to Model
   static Wallet toModel(Map<String, dynamic> map) {
     return Wallet(
-      walletId: map[WALLET_ID],
-      accountNumber: map[ACCOUNT_NUMBER],
-      availableCredit: map[AVAILABLE_CREDIT],
-      recentTransactions: Transaction.toModelList(map[RECENT_TRANSACTIONS]),
-      anonymous: map[ANONYMOUS],
-      password: map[PASSWORD],
-      locked: map[LOCKED],
-      retryCount: map[RETRY_COUNT],
-    );
+        walletId: map[WALLET_ID],
+        accountNumber: map[ACCOUNT_NUMBER],
+        availableCredit: map[AVAILABLE_CREDIT],
+        recentTransactions: Transaction.toModelList(map[RECENT_TRANSACTIONS]),
+        anonymous: map[ANONYMOUS],
+        password: map[PASSWORD],
+        locked: map[LOCKED],
+        retryCount: map[RETRY_COUNT],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model

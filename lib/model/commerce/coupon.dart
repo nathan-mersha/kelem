@@ -14,6 +14,8 @@ class Coupon {
   static const String REVOKED = "revoked"; // Coupon issuer shop
   static const String DISCOUNT_TYPE = "discountType";
   static const String DISCOUNT_VALUE = "discountValue";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String couponId;
   String name;
@@ -25,19 +27,22 @@ class Coupon {
   bool revoked;
   String discountType; // todo : make enum
   double discountValue;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  Coupon({
-     this.couponId,
-     this.name,
-     this.quantity,
-     this.expirationDate,
-     this.code,
-     this.description,
-     this.shop,
-     this.revoked,
-     this.discountType,
-     this.discountValue
-  });
+  Coupon(
+      {this.couponId,
+      this.name,
+      this.quantity,
+      this.expirationDate,
+      this.code,
+      this.description,
+      this.shop,
+      this.revoked,
+      this.discountType,
+      this.discountValue,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Coupon coupon) {
@@ -52,23 +57,26 @@ class Coupon {
       REVOKED: coupon.revoked,
       DISCOUNT_TYPE: coupon.discountType,
       DISCOUNT_VALUE: coupon.discountValue,
+      FIRST_MODIFIED: coupon.firstModified,
+      LAST_MODIFIED: coupon.lastModified
     };
   }
 
   /// Converts Map to Model
   static Coupon toModel(Map<String, dynamic> map) {
     return Coupon(
-      couponId: map[COUPON_ID],
-      name: map[NAME],
-      quantity: map[QUANTITY],
-      expirationDate: map[EXPIRATION_DATE],
-      code: map[CODE],
-      description: map[DESCRIPTION],
-      shop: Shop.toModel(map[SHOP]),
-      revoked: map[REVOKED],
-      discountType: map[DISCOUNT_TYPE],
-      discountValue: map[DISCOUNT_VALUE],
-    );
+        couponId: map[COUPON_ID],
+        name: map[NAME],
+        quantity: map[QUANTITY],
+        expirationDate: map[EXPIRATION_DATE],
+        code: map[CODE],
+        description: map[DESCRIPTION],
+        shop: Shop.toModel(map[SHOP]),
+        revoked: map[REVOKED],
+        discountType: map[DISCOUNT_TYPE],
+        discountValue: map[DISCOUNT_VALUE],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model

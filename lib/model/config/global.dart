@@ -7,6 +7,8 @@ class GlobalConfig {
   static const String FEATURE_PACKAGE = "featurePackage";
   static const String BANK_CONFIG = "bankConfig";
   static const String FORCE_NEWS_ON_HOME = "forceNewsOnHome";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String globalConfigId;
   AdditionalFee additionalFee;
@@ -14,6 +16,8 @@ class GlobalConfig {
   FeaturesConfig featuresConfig;
   List<BankConfig> bankConfigs;
   bool forceNewsOnHome;
+  DateTime firstModified;
+  DateTime lastModified;
 
   GlobalConfig(
       {this.globalConfigId,
@@ -21,7 +25,9 @@ class GlobalConfig {
       this.subscriptionPackages,
       this.featuresConfig,
       this.bankConfigs,
-      this.forceNewsOnHome});
+      this.forceNewsOnHome,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(GlobalConfig globalConfig) {
@@ -31,7 +37,9 @@ class GlobalConfig {
       SUBSCRIPTION_PACKAGE: SubscriptionPackage.toMapList(globalConfig.subscriptionPackages),
       FEATURE_PACKAGE: FeaturesConfig.toMap(globalConfig.featuresConfig),
       BANK_CONFIG: BankConfig.toMapList(globalConfig.bankConfigs),
-      FORCE_NEWS_ON_HOME: globalConfig.forceNewsOnHome
+      FORCE_NEWS_ON_HOME: globalConfig.forceNewsOnHome,
+      FIRST_MODIFIED: globalConfig.firstModified,
+      LAST_MODIFIED: globalConfig.lastModified
     };
   }
 
@@ -43,7 +51,9 @@ class GlobalConfig {
         subscriptionPackages: SubscriptionPackage.toModelList(map[SUBSCRIPTION_PACKAGE]),
         featuresConfig: FeaturesConfig.toModel(map[FEATURE_PACKAGE]),
         bankConfigs: BankConfig.toModelList(map[BANK_CONFIG]),
-        forceNewsOnHome: map[FORCE_NEWS_ON_HOME]);
+        forceNewsOnHome: map[FORCE_NEWS_ON_HOME],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -73,15 +83,25 @@ class AdditionalFee {
   static const String TRANSACTION_FEE_VALUE = "transactionFeeValue";
   static const String DELIVERY_FEE_TYPE = "deliveryFeeType"; // Defines calculation type for delivery fee type, km or flat rate
   static const String DELIVERY_FEE_VALUE = "deliveryFeeValue";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String additionalFeeId;
   String transactionFeeType;
   double transactionFeeValue;
   String deliveryFeeType;
   double deliveryFeeValue;
+  DateTime firstModified;
+  DateTime lastModified;
 
   AdditionalFee(
-      {this.additionalFeeId, this.transactionFeeType, this.transactionFeeValue, this.deliveryFeeType, this.deliveryFeeValue});
+      {this.additionalFeeId,
+      this.transactionFeeType,
+      this.transactionFeeValue,
+      this.deliveryFeeType,
+      this.deliveryFeeValue,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(AdditionalFee additionalFee) {
@@ -91,18 +111,21 @@ class AdditionalFee {
       TRANSACTION_FEE_VALUE: additionalFee.transactionFeeValue,
       DELIVERY_FEE_TYPE: additionalFee.deliveryFeeType,
       DELIVERY_FEE_VALUE: additionalFee.deliveryFeeValue,
+      FIRST_MODIFIED: additionalFee.firstModified,
+      LAST_MODIFIED: additionalFee.lastModified
     };
   }
 
   /// Converts Map to Model
   static AdditionalFee toModel(Map<String, dynamic> map) {
     return AdditionalFee(
-      additionalFeeId: map[ADDITIONAL_FEE_ID],
-      transactionFeeType: map[TRANSACTION_FEE_TYPE],
-      transactionFeeValue: map[TRANSACTION_FEE_VALUE],
-      deliveryFeeType: map[DELIVERY_FEE_TYPE],
-      deliveryFeeValue: map[DELIVERY_FEE_VALUE],
-    );
+        additionalFeeId: map[ADDITIONAL_FEE_ID],
+        transactionFeeType: map[TRANSACTION_FEE_TYPE],
+        transactionFeeValue: map[TRANSACTION_FEE_VALUE],
+        deliveryFeeType: map[DELIVERY_FEE_TYPE],
+        deliveryFeeValue: map[DELIVERY_FEE_VALUE],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -132,14 +155,25 @@ class SubscriptionPackage {
   static const String FEATURES = "features";
   static const String MONTHLY_PRICE = "monthlyPrice";
   static const String YEARLY_PRICE = "yearlyPrice";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String subscriptionPackageId;
   String name;
   List<String> features;
   double monthlyPrice;
   double yearlyPrice;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  SubscriptionPackage({this.subscriptionPackageId, this.name, this.features, this.monthlyPrice, this.yearlyPrice});
+  SubscriptionPackage(
+      {this.subscriptionPackageId,
+      this.name,
+      this.features,
+      this.monthlyPrice,
+      this.yearlyPrice,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(SubscriptionPackage subscriptionPackage) {
@@ -149,18 +183,21 @@ class SubscriptionPackage {
       FEATURES: subscriptionPackage.features,
       MONTHLY_PRICE: subscriptionPackage.monthlyPrice,
       YEARLY_PRICE: subscriptionPackage.yearlyPrice,
+      FIRST_MODIFIED: subscriptionPackage.firstModified,
+      LAST_MODIFIED: subscriptionPackage.lastModified
     };
   }
 
   /// Converts Map to Model
   static SubscriptionPackage toModel(Map<String, dynamic> map) {
     return SubscriptionPackage(
-      subscriptionPackageId: map[SUBSCRIPTION_PACKAGE_ID],
-      name: map[NAME],
-      features: map[FEATURES],
-      monthlyPrice: map[MONTHLY_PRICE],
-      yearlyPrice: map[YEARLY_PRICE],
-    );
+        subscriptionPackageId: map[SUBSCRIPTION_PACKAGE_ID],
+        name: map[NAME],
+        features: map[FEATURES],
+        monthlyPrice: map[MONTHLY_PRICE],
+        yearlyPrice: map[YEARLY_PRICE],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -194,18 +231,35 @@ class FeaturesConfig {
   static const String NEWS = "news";
   static const String ABOUT_US = "aboutUs";
   static const String ORDER = "order";
-  static const String BEST_SELLERS = "bestSellers"; // If toggled on shows best sellers page
-  static const String CASH_OUT = "cashOut"; // If toggled on, supports cash out
-  static const String SHOP_DETAIL = "shopDetail"; // If toggled on, shows detail information about the shop
-  static const String SHOP_INFORMATION = "shopInformation"; // If toggled on, shows the location of the item
-  static const String PAYMENT_METHOD_CASH_ON_DELIVERY =
-      "paymentMethodCashOnDelivery"; // If toggled on, shows cash on delivery payment method
-  static const String PAYMENT_METHOD_KELEM_WALLET =
-      "paymentMethodKelemWallet"; // If toggled on, shows Kelem wallet as a payment method
-  static const String PAYMENT_METHOD_HISAB_WALLET =
-      "paymentMethodHisabWallet"; // If toggled on, shows Hisab Wallet as a payment method.
-  static const String CASH_OUT_SUPPORT_BANKS = "cashOutSupportBanks"; // Contains the list of banks that support cash out methods.
-  static const String TIN = "tin"; // If toggled on, show tin input field in shop and when performing payment
+
+  /// If toggled on shows best sellers page
+  static const String BEST_SELLERS = "bestSellers";
+
+  /// If toggled on, supports cash out
+  static const String CASH_OUT = "cashOut";
+
+  /// If toggled on, shows detail information about the shop
+  static const String SHOP_DETAIL = "shopDetail";
+
+  /// If toggled on, shows the location of the item
+  static const String SHOP_INFORMATION = "shopInformation";
+
+  /// If toggled on, shows cash on delivery payment method
+  static const String PAYMENT_METHOD_CASH_ON_DELIVERY = "paymentMethodCashOnDelivery";
+
+  /// If toggled on, shows Kelem wallet as a payment method
+  static const String PAYMENT_METHOD_KELEM_WALLET = "paymentMethodKelemWallet";
+
+  /// If toggled on, shows Hisab Wallet as a payment method.
+  static const String PAYMENT_METHOD_HISAB_WALLET = "paymentMethodHisabWallet";
+
+  /// Contains the list of banks that support cash out methods.
+  static const String CASH_OUT_SUPPORT_BANKS = "cashOutSupportBanks";
+
+  /// If toggled on, show tin input field in shop and when performing payment
+  static const String TIN = "tin";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String featuresConfigId;
   bool buyCredit;
@@ -225,6 +279,8 @@ class FeaturesConfig {
   bool paymentMethodHisabWallet;
   List<String> cashOutSupportBanks;
   bool tin;
+  DateTime firstModified;
+  DateTime lastModified;
 
   FeaturesConfig(
       {this.featuresConfigId,
@@ -244,7 +300,9 @@ class FeaturesConfig {
       this.paymentMethodKelemWallet,
       this.paymentMethodHisabWallet,
       this.cashOutSupportBanks,
-      this.tin});
+      this.tin,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(FeaturesConfig featuresConfig) {
@@ -267,31 +325,34 @@ class FeaturesConfig {
       PAYMENT_METHOD_HISAB_WALLET: featuresConfig.paymentMethodHisabWallet,
       CASH_OUT_SUPPORT_BANKS: featuresConfig.cashOutSupportBanks,
       TIN: featuresConfig.tin,
+      FIRST_MODIFIED: featuresConfig.firstModified,
+      LAST_MODIFIED: featuresConfig.lastModified
     };
   }
 
   /// Converts Map to Model
   static FeaturesConfig toModel(Map<String, dynamic> map) {
     return FeaturesConfig(
-      featuresConfigId: map[FEATURES_CONFIG_ID],
-      buyCredit: map[BUY_CREDIT],
-      wallet: map[WALLET],
-      transactions: map[TRANSACTIONS],
-      shop: map[SHOP],
-      wishList: map[WISH_LIST],
-      news: map[NEWS],
-      aboutUs: map[ABOUT_US],
-      order: map[ORDER],
-      bestSellers: map[BEST_SELLERS],
-      cashOut: map[CASH_OUT],
-      shopDetail: map[SHOP_DETAIL],
-      shopInformation: map[SHOP_INFORMATION],
-      paymentMethodCashOnDelivery: map[PAYMENT_METHOD_CASH_ON_DELIVERY],
-      paymentMethodKelemWallet: map[PAYMENT_METHOD_KELEM_WALLET],
-      paymentMethodHisabWallet: map[PAYMENT_METHOD_HISAB_WALLET],
-      cashOutSupportBanks: map[CASH_OUT_SUPPORT_BANKS],
-      tin: map[TIN],
-    );
+        featuresConfigId: map[FEATURES_CONFIG_ID],
+        buyCredit: map[BUY_CREDIT],
+        wallet: map[WALLET],
+        transactions: map[TRANSACTIONS],
+        shop: map[SHOP],
+        wishList: map[WISH_LIST],
+        news: map[NEWS],
+        aboutUs: map[ABOUT_US],
+        order: map[ORDER],
+        bestSellers: map[BEST_SELLERS],
+        cashOut: map[CASH_OUT],
+        shopDetail: map[SHOP_DETAIL],
+        shopInformation: map[SHOP_INFORMATION],
+        paymentMethodCashOnDelivery: map[PAYMENT_METHOD_CASH_ON_DELIVERY],
+        paymentMethodKelemWallet: map[PAYMENT_METHOD_KELEM_WALLET],
+        paymentMethodHisabWallet: map[PAYMENT_METHOD_HISAB_WALLET],
+        cashOutSupportBanks: map[CASH_OUT_SUPPORT_BANKS],
+        tin: map[TIN],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -320,13 +381,23 @@ class BankConfig {
   static const String BANK_NAME = "bankName";
   static const String DEPOSIT_TO_DIALLING_PATTERN = "depositToDiallingPattern";
   static const String KELEM_BANK_ACCOUNT = "kelemBankAccount";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String bankConfigId;
   String bankName;
   String depositToDiallingPattern;
   String kelemBankAccount;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  BankConfig({this.bankConfigId, this.bankName, this.depositToDiallingPattern, this.kelemBankAccount});
+  BankConfig(
+      {this.bankConfigId,
+      this.bankName,
+      this.depositToDiallingPattern,
+      this.kelemBankAccount,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(BankConfig bankConfig) {
@@ -335,17 +406,20 @@ class BankConfig {
       BANK_NAME: bankConfig.bankName,
       DEPOSIT_TO_DIALLING_PATTERN: bankConfig.depositToDiallingPattern,
       KELEM_BANK_ACCOUNT: bankConfig.kelemBankAccount,
+      FIRST_MODIFIED: bankConfig.firstModified,
+      LAST_MODIFIED: bankConfig.lastModified
     };
   }
 
   /// Converts Map to Model
   static BankConfig toModel(Map<String, dynamic> map) {
     return BankConfig(
-      bankConfigId: map[BANK_CONFIG_ID],
-      bankName: map[BANK_CONFIG_ID],
-      depositToDiallingPattern: map[BANK_CONFIG_ID],
-      kelemBankAccount: map[BANK_CONFIG_ID],
-    );
+        bankConfigId: map[BANK_CONFIG_ID],
+        bankName: map[BANK_NAME],
+        depositToDiallingPattern: map[DEPOSIT_TO_DIALLING_PATTERN],
+        kelemBankAccount: map[KELEM_BANK_ACCOUNT],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -371,16 +445,26 @@ class BankConfig {
 class KelemWalletUssdDialPatterns {
   /// Defines key values to extract from a map
   static const String KELEM_WALLET_USSD_DIAL_PATTERNS_ID = "kelemWalletUssdDialPatternsId";
-  static const String GET_TRANSACTION_HISTORY = "getTranscationHistory";
+  static const String GET_TRANSACTION_HISTORY = "getTransactionHistory";
   static const String CHECK_BALANCE = "checkBalance";
   static const String SEND_CREDIT = "sendCredit";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String kelemWalletUssdDialPatternsId;
   String getTransactionHistory;
   String checkBalance;
   String sendCredit;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  KelemWalletUssdDialPatterns({this.kelemWalletUssdDialPatternsId, this.getTransactionHistory, this.checkBalance, this.sendCredit});
+  KelemWalletUssdDialPatterns(
+      {this.kelemWalletUssdDialPatternsId,
+      this.getTransactionHistory,
+      this.checkBalance,
+      this.sendCredit,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(KelemWalletUssdDialPatterns kelemWalletUssdDialPatterns) {
@@ -389,6 +473,8 @@ class KelemWalletUssdDialPatterns {
       GET_TRANSACTION_HISTORY: kelemWalletUssdDialPatterns.getTransactionHistory,
       CHECK_BALANCE: kelemWalletUssdDialPatterns.checkBalance,
       SEND_CREDIT: kelemWalletUssdDialPatterns.sendCredit,
+      FIRST_MODIFIED: kelemWalletUssdDialPatterns.firstModified,
+      LAST_MODIFIED: kelemWalletUssdDialPatterns.lastModified
     };
   }
 
@@ -398,7 +484,9 @@ class KelemWalletUssdDialPatterns {
         kelemWalletUssdDialPatternsId: map[KELEM_WALLET_USSD_DIAL_PATTERNS_ID],
         getTransactionHistory: map[GET_TRANSACTION_HISTORY],
         checkBalance: map[CHECK_BALANCE],
-        sendCredit: map[SEND_CREDIT]);
+        sendCredit: map[SEND_CREDIT],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -418,5 +506,4 @@ class KelemWalletUssdDialPatterns {
     });
     return mapList;
   }
-
 }

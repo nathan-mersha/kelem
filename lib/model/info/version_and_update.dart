@@ -3,26 +3,33 @@ class VersionAndUpdate {
   /// Defines key values to extract from a map
   static const String VERSION_AND_UPDATE_ID = "versionAndUpdateId";
   static const String VALUES = "values";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String versionAndUpdateId;
   List<VersionAndUpdateValue> values;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  VersionAndUpdate({this.versionAndUpdateId, this.values});
+  VersionAndUpdate({this.versionAndUpdateId, this.values, this.firstModified, this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(VersionAndUpdate versionAndUpdate) {
     return {
       VERSION_AND_UPDATE_ID: versionAndUpdate.versionAndUpdateId,
-      VALUES: VersionAndUpdateValue.toMapList(versionAndUpdate.values)
+      VALUES: VersionAndUpdateValue.toMapList(versionAndUpdate.values),
+      FIRST_MODIFIED: versionAndUpdate.firstModified,
+      LAST_MODIFIED: versionAndUpdate.lastModified
     };
   }
 
   /// Converts Map to Model
   static VersionAndUpdate toModel(Map<String, dynamic> map) {
     return VersionAndUpdate(
-      versionAndUpdateId: map[VERSION_AND_UPDATE_ID],
-      values: VersionAndUpdateValue.toModelList(map[VALUES]),
-    );
+        versionAndUpdateId: map[VERSION_AND_UPDATE_ID],
+        values: VersionAndUpdateValue.toModelList(map[VALUES]),
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
@@ -50,12 +57,16 @@ class VersionAndUpdateValue {
   static const String VERSION_AND_UPDATE_VALUE_ID = "versionAndUpdateValueId";
   static const String LOCALE = "locale";
   static const String DESCRIPTION = "description";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String versionAndUpdateValueId;
   String locale; // todo : make enum
   String description;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  VersionAndUpdateValue({this.versionAndUpdateValueId, this.locale, this.description});
+  VersionAndUpdateValue({this.versionAndUpdateValueId, this.locale, this.description, this.firstModified, this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(VersionAndUpdateValue versionAndUpdateValues) {
@@ -63,16 +74,19 @@ class VersionAndUpdateValue {
       VERSION_AND_UPDATE_VALUE_ID: versionAndUpdateValues.versionAndUpdateValueId,
       LOCALE: versionAndUpdateValues.locale,
       DESCRIPTION: versionAndUpdateValues.description,
+      FIRST_MODIFIED: versionAndUpdateValues.firstModified,
+      LAST_MODIFIED: versionAndUpdateValues.lastModified
     };
   }
 
   /// Converts Map to Model
   static VersionAndUpdateValue toModel(Map<String, dynamic> map) {
     return VersionAndUpdateValue(
-      versionAndUpdateValueId: map[VERSION_AND_UPDATE_VALUE_ID],
-      locale: map[LOCALE],
-      description: map[DESCRIPTION],
-    );
+        versionAndUpdateValueId: map[VERSION_AND_UPDATE_VALUE_ID],
+        locale: map[LOCALE],
+        description: map[DESCRIPTION],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model

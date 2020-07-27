@@ -23,6 +23,8 @@ class Product {
   static const String META_DATA = "metaData";
   static const String PUBLISHED_STATUS = "publishedStatus";
   static const String SHOP = "shop";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String productId;
   String name;
@@ -42,6 +44,8 @@ class Product {
   Map<String, dynamic> metaData;
   String publishedStatus;
   Shop shop;
+  DateTime firstModified;
+  DateTime lastModified;
 
   Product(
       {this.productId,
@@ -61,7 +65,9 @@ class Product {
       this.shopId,
       this.metaData,
       this.publishedStatus,
-      this.shop});
+      this.shop,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Product product) {
@@ -84,32 +90,34 @@ class Product {
       META_DATA: product.metaData,
       PUBLISHED_STATUS: product.publishedStatus,
       SHOP: Shop.toMap(product.shop),
+      FIRST_MODIFIED: product.firstModified,
+      LAST_MODIFIED: product.lastModified
     };
   }
 
   /// Converts Map to Model
   static Product toModel(Map<String, dynamic> map) {
-
     return Product(
-      productId: map[PRODUCT_ID],
-      name: map[NAME],
-      category: map[CATEGORY],
-      subCategory: map[SUB_CATEGORY],
-      authorOrManufacturer: map[AUTHOR_OR_MANUFACTURER],
-      price: map[PRICE],
-      regularPrice: map[REGULAR_PRICE],
-      tag: map[TAG],
-      description: map[DESCRIPTION],
-      rating: map[RATING],
-      reference: map[REFERENCE],
-      availableStock: map[AVAILABLE_STOCK],
-      image: map[IMAGE],
-      deliverable: map[DELIVERABLE],
-      shopId: map[SHOP_ID],
-      metaData: map[META_DATA],
-      publishedStatus: map[PUBLISHED_STATUS],
-      shop: Shop.toModel(map[SHOP]),
-    );
+        productId: map[PRODUCT_ID],
+        name: map[NAME],
+        category: map[CATEGORY],
+        subCategory: map[SUB_CATEGORY],
+        authorOrManufacturer: map[AUTHOR_OR_MANUFACTURER],
+        price: map[PRICE],
+        regularPrice: map[REGULAR_PRICE],
+        tag: map[TAG],
+        description: map[DESCRIPTION],
+        rating: map[RATING],
+        reference: map[REFERENCE],
+        availableStock: map[AVAILABLE_STOCK],
+        image: map[IMAGE],
+        deliverable: map[DELIVERABLE],
+        shopId: map[SHOP_ID],
+        metaData: map[META_DATA],
+        publishedStatus: map[PUBLISHED_STATUS],
+        shop: Shop.toModel(map[SHOP]),
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model

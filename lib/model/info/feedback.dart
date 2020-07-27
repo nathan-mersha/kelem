@@ -6,13 +6,17 @@ class Feedback {
   static const String USER_ID = "userId";
   static const String TITLE = "title";
   static const String MESSAGE = "message";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String feedbackId;
   String userId;
   String title;
   String message;
+  DateTime firstModified;
+  DateTime lastModified;
 
-  Feedback({this.feedbackId, this.userId, this.title, this.message});
+  Feedback({this.feedbackId, this.userId, this.title, this.message, this.firstModified, this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Feedback feedback) {
@@ -21,17 +25,20 @@ class Feedback {
       USER_ID: feedback.userId,
       TITLE: feedback.title,
       MESSAGE: feedback.message,
+      FIRST_MODIFIED: feedback.firstModified,
+      LAST_MODIFIED: feedback.lastModified
     };
   }
 
   /// Converts Map to Model
   static Feedback toModel(Map<String, dynamic> map) {
     return Feedback(
-      feedbackId: map[FEEDBACK_ID],
-      userId: map[USER_ID],
-      title: map[TITLE],
-      message: map[MESSAGE],
-    );
+        feedbackId: map[FEEDBACK_ID],
+        userId: map[USER_ID],
+        title: map[TITLE],
+        message: map[MESSAGE],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model

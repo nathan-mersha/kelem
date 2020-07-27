@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "656104812451",
+    "firebase_url": "https://kelem-5519d.firebaseio.com",
+    "project_id": "kelem-5519d",
+    "storage_bucket": "kelem-5519d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656104812451:android:932f8011ca5573322ff416",
+        "android_client_info": {
+          "package_name": "com.kelem.kelemapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656104812451-fj3k9ololr2n6tipciunvm4h05uq020l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kelem.kelemapp",
+            "certificate_hash": "c0e30bd92890352e54c947001dbba011f63984e1"
+          }
+        },
+        {
+          "client_id": "656104812451-gv8edqujk852bne828irpd8udvqarf56.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ4jvOQrT821DlRFf9ty_tQZLLdfmkHkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656104812451-gv8edqujk852bne828irpd8udvqarf56.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
