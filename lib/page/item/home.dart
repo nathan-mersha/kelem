@@ -28,18 +28,19 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Card(
               child: TextFormField(
+                textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.search),
-                    contentPadding: EdgeInsets.only(left: 15,),
-                    hintText: "search",
-                    labelText: "",
-                    isDense: true,
+                  border: InputBorder.none,
+                  suffixIcon: Icon(Icons.search),
+                  contentPadding: EdgeInsets.only(
+                    left: 15,
+                  ),
+                  hintText: "search",
                 ),
                 maxLines: 1,
                 autocorrect: true,
               ),
             ),
-
             Container(
               margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Container(
@@ -67,7 +68,6 @@ class _HomePageState extends State<HomePage> {
                           onRetry: () {},
                         );
                       } else {
-                        print("here 2");
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
