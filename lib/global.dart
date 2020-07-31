@@ -1,3 +1,7 @@
 import 'package:kelemapp/model/config/global.dart';
 
-GlobalConfig globalConfig = GlobalConfig();
+/// Here define any singleton global variables wished to be accessed
+/// by any widgets
+
+
+final GlobalConfig globalConfig = GlobalConfig();

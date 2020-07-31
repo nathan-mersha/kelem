@@ -3,7 +3,7 @@ import 'package:kelemapp/api/config/global.dart';
 import 'package:kelemapp/model/config/global.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/global.dart' as global;
-import 'package:kelemapp/widget/custom_app_bar.dart';
+import 'package:kelemapp/widget/category_menu.dart';
 
 class Menu {
   /// Get menu side drawer
@@ -142,7 +142,7 @@ class Menu {
     ));
   }
 
-  static getAppBar(String title, {bool showCategory}){
+  static getAppBar(BuildContext context, String title, {bool showCategory = false}) {
     return AppBar(
       actions: <Widget>[showCategory ? CategoryMenu() : Container()],
       title: Text(title),

@@ -22,18 +22,34 @@ class GlobalConfig with ChangeNotifier {
   DateTime firstModified;
   DateTime lastModified;
 
-  GlobalConfig(
-      {this.globalConfigId,
-      this.additionalFee,
-      this.subscriptionPackages,
-      this.featuresConfig,
-      this.bankConfigs,
-      this.categories,
-      this.firstModified,
-      this.lastModified});
+  GlobalConfig({
+    this.globalConfigId,
+    this.additionalFee,
+    this.subscriptionPackages,
+    this.featuresConfig,
+    this.bankConfigs,
+    this.categories,
+    this.firstModified,
+    this.lastModified,
+  }) {
+    notifyListeners();
+  }
 
-  set setCategories(List<Category> newCategories) {
-    categories = newCategories;
+  /// set's global config values.
+  void setConfig({
+    String globalConfigId,
+    AdditionalFee additionalFee,
+    List<SubscriptionPackage> subscriptionPackages,
+    FeaturesConfig featuresConfig,
+    List<BankConfig> bankConfigs,
+    List<Category> categories
+  }){
+    this.globalConfigId = globalConfigId;
+    this.additionalFee = additionalFee;
+    this.subscriptionPackages = subscriptionPackages;
+    this.featuresConfig = featuresConfig;
+    this.bankConfigs = bankConfigs;
+    this.categories = categories;
     notifyListeners();
   }
 

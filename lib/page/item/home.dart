@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/rsr/theme/main_theme.dart';
-import 'package:kelemapp/widget/custom_app_bar.dart';
+import 'package:kelemapp/widget/category_menu.dart';
 import 'package:kelemapp/widget/loading.dart';
 import 'package:kelemapp/widget/menu.dart';
 import 'package:kelemapp/widget/no_internet.dart';
@@ -20,12 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-
-//      appBar: Menu.getAppBar(context, "Home",showCategory: true),
-      appBar: CustomAppBar(
-        title: "Home",
-        showCategory: true,
-      ),
+      appBar: Menu.getAppBar(context, "Home", showCategory: true),
       drawer: Menu.getSideDrawer(context),
       backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(

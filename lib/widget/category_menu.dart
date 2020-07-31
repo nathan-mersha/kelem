@@ -2,36 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:kelemapp/global.dart' as global;
 import 'package:kelemapp/model/config/global.dart';
 
-class CategoryMenu extends StatefulWidget implements PreferredSizeWidget{
-  final String title;
-  final bool showCategory;
-
-  CategoryMenu({@required this.title, this.showCategory = false});
+class CategoryMenu extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return CategoryMenuState();
   }
-
-  @override
-  Size get preferredSize => null;
 }
 
 class CategoryMenuState extends State<CategoryMenu> {
-  GlobalConfig _globalConfig = global.globalConfig;
-
   @override
-  Widget build(BuildContext context) {
-    _globalConfig.addListener(() {
+  void initState() {
+    super.initState();
+    print("Category build called");
+    global.globalConfig.addListener(() {
       setState(() {
-        _globalConfig = global.globalConfig;
+        print("Global config values changed.");
       });
     });
-    ;
   }
-
-  Widget getCategoryMenu() {
-    return _globalConfig == null
-        ? Icon(Icons.donut_large)
+  @override
+  Widget build(BuildContext context) {
+    print("Category menu build called");
+    print("is categories null ? ${global.globalConfig.categories == null}");
+    return global.globalConfig.categories == null
+        ? IconButton(icon: Icon(Icons.more_vert,color: Colors.white),)
         : PopupMenuButton<String>(
             onSelected: (String result) {
               print("selected result : $result");
@@ -39,9 +33,10 @@ class CategoryMenuState extends State<CategoryMenu> {
             itemBuilder: (BuildContext buildContext) {
               List<PopupMenuEntry<String>> menu = List();
 
-              List<Category> categories = _globalConfig.categories;
+              List<Category> categories = global.globalConfig.categories;
               categories.forEach((Category category) {
                 menu.add(PopupMenuItem(
+                  value: category.name,
                   child: Text(category.name),
                 ));
               });
