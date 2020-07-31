@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kelemapp/api/config/global.dart';
+import 'package:kelemapp/model/config/global.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
+import 'package:kelemapp/global.dart' as global;
+import 'package:kelemapp/widget/custom_app_bar.dart';
 
 class Menu {
   /// Get menu side drawer
@@ -17,12 +21,17 @@ class Menu {
                   "assets/images/icon_primary_color.png",
                   height: 70,
                 ),
-                SizedBox(height: 15,),
+                SizedBox(
+                  height: 15,
+                ),
                 Text(
                   "Kelem market",
                   style: TextStyle(color: Color(ColorCustom.GRAY_LIGHT)),
                 ),
-                Text("www.kelem.com", style: TextStyle(color: Color(ColorCustom.GRAY)),)
+                Text(
+                  "www.kelem.com",
+                  style: TextStyle(color: Color(ColorCustom.GRAY)),
+                )
               ],
             ),
           ),
@@ -133,9 +142,9 @@ class Menu {
     ));
   }
 
-  /// Get menu app bar
-  static getAppBar(BuildContext context, String title) {
+  static getAppBar(String title, {bool showCategory}){
     return AppBar(
+      actions: <Widget>[showCategory ? CategoryMenu() : Container()],
       title: Text(title),
       centerTitle: true,
       elevation: 20.0,

@@ -29,13 +29,13 @@ class NoInternet extends StatelessWidget {
           ),
           onRetry != null
               ? RaisedButton(
-            child: Text(
-              "retry",
-            ),
-            onPressed: () {
-              onRetry();
-            },
-          )
+                  child: Text(
+                    "retry",
+                  ),
+                  onPressed: () {
+                    onRetry();
+                  },
+                )
               : Container()
         ],
       ),

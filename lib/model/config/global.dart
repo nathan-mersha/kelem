@@ -1,12 +1,14 @@
+import 'package:flutter/material.dart';
+
 /// Defines globalConfig model
-class GlobalConfig {
+class GlobalConfig with ChangeNotifier {
   /// Defines key values to extract from a map
   static const String GLOBAL_CONFIG_ID = "globalConfigId";
   static const String ADDITIONAL_FEE = "additionalFee";
-  static const String SUBSCRIPTION_PACKAGE = "subscriptionPackages";
-  static const String FEATURE_PACKAGE = "featurePackage";
+  static const String SUBSCRIPTION_PACKAGES = "subscriptionPackages";
+  static const String FEATURES_CONFIG = "featuresConfig";
   static const String BANK_CONFIG = "bankConfig";
-  static const String FORCE_NEWS_ON_HOME = "forceNewsOnHome";
+  static const String CATEGORIES = "categories";
   static const String FIRST_MODIFIED = "firstModified";
   static const String LAST_MODIFIED = "lastModified";
 
@@ -15,7 +17,8 @@ class GlobalConfig {
   List<SubscriptionPackage> subscriptionPackages;
   FeaturesConfig featuresConfig;
   List<BankConfig> bankConfigs;
-  bool forceNewsOnHome;
+  List<Category> categories;
+
   DateTime firstModified;
   DateTime lastModified;
 
@@ -25,19 +28,24 @@ class GlobalConfig {
       this.subscriptionPackages,
       this.featuresConfig,
       this.bankConfigs,
-      this.forceNewsOnHome,
+      this.categories,
       this.firstModified,
       this.lastModified});
+
+  set setCategories(List<Category> newCategories) {
+    categories = newCategories;
+    notifyListeners();
+  }
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(GlobalConfig globalConfig) {
     return {
       GLOBAL_CONFIG_ID: globalConfig.globalConfigId,
       ADDITIONAL_FEE: AdditionalFee.toMap(globalConfig.additionalFee),
-      SUBSCRIPTION_PACKAGE: SubscriptionPackage.toMapList(globalConfig.subscriptionPackages),
-      FEATURE_PACKAGE: FeaturesConfig.toMap(globalConfig.featuresConfig),
+      SUBSCRIPTION_PACKAGES: SubscriptionPackage.toMapList(globalConfig.subscriptionPackages),
+      FEATURES_CONFIG: FeaturesConfig.toMap(globalConfig.featuresConfig),
       BANK_CONFIG: BankConfig.toMapList(globalConfig.bankConfigs),
-      FORCE_NEWS_ON_HOME: globalConfig.forceNewsOnHome,
+      CATEGORIES: Category.toMapList(globalConfig.categories),
       FIRST_MODIFIED: globalConfig.firstModified,
       LAST_MODIFIED: globalConfig.lastModified
     };
@@ -48,10 +56,10 @@ class GlobalConfig {
     return GlobalConfig(
         globalConfigId: map[GLOBAL_CONFIG_ID],
         additionalFee: AdditionalFee.toModel(map[ADDITIONAL_FEE]),
-        subscriptionPackages: SubscriptionPackage.toModelList(map[SUBSCRIPTION_PACKAGE]),
-        featuresConfig: FeaturesConfig.toModel(map[FEATURE_PACKAGE]),
+        subscriptionPackages: SubscriptionPackage.toModelList(map[SUBSCRIPTION_PACKAGES]),
+        featuresConfig: FeaturesConfig.toModel(map[FEATURES_CONFIG]),
         bankConfigs: BankConfig.toModelList(map[BANK_CONFIG]),
-        forceNewsOnHome: map[FORCE_NEWS_ON_HOME],
+        categories: Category.toModelList(map[CATEGORIES]),
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }
@@ -88,9 +96,9 @@ class AdditionalFee {
 
   String additionalFeeId;
   String transactionFeeType;
-  double transactionFeeValue;
+  num transactionFeeValue;
   String deliveryFeeType;
-  double deliveryFeeValue;
+  num deliveryFeeValue;
   DateTime firstModified;
   DateTime lastModified;
 
@@ -150,7 +158,7 @@ class AdditionalFee {
 /// Defines subscriptionPackage model
 class SubscriptionPackage {
   /// Defines key values to extract from a map
-  static const String SUBSCRIPTION_PACKAGE_ID = "subscriptionPackageId";
+  static const String SUBSCRIPTION_PACKAGES_ID = "subscriptionPackageId";
   static const String NAME = "name";
   static const String FEATURES = "features";
   static const String MONTHLY_PRICE = "monthlyPrice";
@@ -160,9 +168,9 @@ class SubscriptionPackage {
 
   String subscriptionPackageId;
   String name;
-  List<String> features;
-  double monthlyPrice;
-  double yearlyPrice;
+  List<dynamic> features;
+  num monthlyPrice;
+  num yearlyPrice;
   DateTime firstModified;
   DateTime lastModified;
 
@@ -178,7 +186,7 @@ class SubscriptionPackage {
   /// Converts Model to Map
   static Map<String, dynamic> toMap(SubscriptionPackage subscriptionPackage) {
     return {
-      SUBSCRIPTION_PACKAGE_ID: subscriptionPackage.subscriptionPackageId,
+      SUBSCRIPTION_PACKAGES_ID: subscriptionPackage.subscriptionPackageId,
       NAME: subscriptionPackage.name,
       FEATURES: subscriptionPackage.features,
       MONTHLY_PRICE: subscriptionPackage.monthlyPrice,
@@ -189,9 +197,9 @@ class SubscriptionPackage {
   }
 
   /// Converts Map to Model
-  static SubscriptionPackage toModel(Map<String, dynamic> map) {
+  static SubscriptionPackage toModel(dynamic map) {
     return SubscriptionPackage(
-        subscriptionPackageId: map[SUBSCRIPTION_PACKAGE_ID],
+        subscriptionPackageId: map[SUBSCRIPTION_PACKAGES_ID],
         name: map[NAME],
         features: map[FEATURES],
         monthlyPrice: map[MONTHLY_PRICE],
@@ -201,9 +209,9 @@ class SubscriptionPackage {
   }
 
   /// Changes List of Map to List of Model
-  static List<SubscriptionPackage> toModelList(List<Map<String, dynamic>> maps) {
+  static List<SubscriptionPackage> toModelList(List<dynamic> maps) {
     List<SubscriptionPackage> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -231,6 +239,7 @@ class FeaturesConfig {
   static const String NEWS = "news";
   static const String ABOUT_US = "aboutUs";
   static const String ORDER = "order";
+  static const String FORCE_NEWS_ON_HOME = "forceNewsOnHome";
 
   /// If toggled on shows best sellers page
   static const String BEST_SELLERS = "bestSellers";
@@ -270,6 +279,7 @@ class FeaturesConfig {
   bool news;
   bool aboutUs;
   bool order;
+  bool forceNewsOnHome;
   bool bestSellers;
   bool cashOut;
   bool shopDetail;
@@ -277,8 +287,8 @@ class FeaturesConfig {
   bool paymentMethodCashOnDelivery;
   bool paymentMethodKelemWallet;
   bool paymentMethodHisabWallet;
-  List<String> cashOutSupportBanks;
   bool tin;
+  List<dynamic> cashOutSupportBanks;
   DateTime firstModified;
   DateTime lastModified;
 
@@ -292,6 +302,7 @@ class FeaturesConfig {
       this.news,
       this.aboutUs,
       this.order,
+      this.forceNewsOnHome,
       this.bestSellers,
       this.cashOut,
       this.shopDetail,
@@ -316,6 +327,7 @@ class FeaturesConfig {
       NEWS: featuresConfig.news,
       ABOUT_US: featuresConfig.aboutUs,
       ORDER: featuresConfig.order,
+      FORCE_NEWS_ON_HOME: featuresConfig.forceNewsOnHome,
       BEST_SELLERS: featuresConfig.bestSellers,
       CASH_OUT: featuresConfig.cashOut,
       SHOP_DETAIL: featuresConfig.shopDetail,
@@ -342,6 +354,7 @@ class FeaturesConfig {
         news: map[NEWS],
         aboutUs: map[ABOUT_US],
         order: map[ORDER],
+        forceNewsOnHome: map[FORCE_NEWS_ON_HOME],
         bestSellers: map[BEST_SELLERS],
         cashOut: map[CASH_OUT],
         shopDetail: map[SHOP_DETAIL],
@@ -423,9 +436,9 @@ class BankConfig {
   }
 
   /// Changes List of Map to List of Model
-  static List<BankConfig> toModelList(List<Map<String, dynamic>> maps) {
+  static List<BankConfig> toModelList(List<dynamic> maps) {
     List<BankConfig> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -502,6 +515,64 @@ class KelemWalletUssdDialPatterns {
   static List<Map<String, dynamic>> toMapList(List<KelemWalletUssdDialPatterns> models) {
     List<Map<String, dynamic>> mapList = [];
     models.forEach((KelemWalletUssdDialPatterns model) {
+      mapList.add(toMap(model));
+    });
+    return mapList;
+  }
+}
+
+/// Defines items categories
+class Category {
+  /// Defines key values to extract from a map
+  static const String CATEGORY_ID = "categoryId";
+  static const String NAME = "name";
+  static const String SUB_CATEGORIES = "subCategories";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
+
+  String categoryId;
+  String name;
+  List<dynamic> subCategories;
+  DateTime firstModified;
+  DateTime lastModified;
+
+  /// Category constructor
+  Category({this.categoryId, this.name, this.subCategories, this.firstModified, this.lastModified});
+
+  /// Converts Model to Map
+  static Map<String, dynamic> toMap(Category category) {
+    return {
+      CATEGORY_ID: category.categoryId,
+      NAME: category.name,
+      SUB_CATEGORIES: category.subCategories,
+      FIRST_MODIFIED: category.firstModified,
+      LAST_MODIFIED: category.lastModified
+    };
+  }
+
+  /// Converts Map to Model
+  static Category toModel(dynamic map) {
+    return Category(
+        categoryId: map[CATEGORY_ID],
+        name: map[NAME],
+        subCategories: map[SUB_CATEGORIES],
+        firstModified: map[FIRST_MODIFIED],
+        lastModified: map[LAST_MODIFIED]);
+  }
+
+  /// Changes List of Map to List of Model
+  static List<Category> toModelList(dynamic maps) {
+    List<Category> modelList = [];
+    maps.forEach((dynamic map) {
+      modelList.add(toModel(map));
+    });
+    return modelList;
+  }
+
+  /// Changes List of Model to List of Map
+  static List<Map<String, dynamic>> toMapList(List<Category> models) {
+    List<Map<String, dynamic>> mapList = [];
+    models.forEach((Category model) {
       mapList.add(toMap(model));
     });
     return mapList;

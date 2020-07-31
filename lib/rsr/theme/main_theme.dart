@@ -5,10 +5,11 @@ class MainTheme {
     return ThemeData(
         fontFamily: "Nunito",
         primaryColor: Colors.deepOrangeAccent,
+        backgroundColor: Colors.white,
         buttonTheme: ButtonThemeData(buttonColor: Colors.deepOrangeAccent, textTheme: ButtonTextTheme.primary));
   }
 
-  static EdgeInsets getPagePadding(){
-    return EdgeInsets.symmetric(vertical: 10,horizontal: 15);
+  static EdgeInsets getPagePadding() {
+    return EdgeInsets.symmetric(vertical: 10, horizontal: 15);
   }
 }

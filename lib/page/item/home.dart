@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/rsr/theme/main_theme.dart';
+import 'package:kelemapp/widget/custom_app_bar.dart';
 import 'package:kelemapp/widget/loading.dart';
 import 'package:kelemapp/widget/menu.dart';
 import 'package:kelemapp/widget/no_internet.dart';
@@ -18,89 +20,83 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: Menu.getAppBar(context, "Home"),
+
+//      appBar: Menu.getAppBar(context, "Home",showCategory: true),
+      appBar: CustomAppBar(
+        title: "Home",
+        showCategory: true,
+      ),
       drawer: Menu.getSideDrawer(context),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
         padding: MainTheme.getPagePadding(),
         child: Stack(
           alignment: Alignment.topCenter,
           children: <Widget>[
-            Card(
-              child: TextFormField(
-                textAlignVertical: TextAlignVertical.center,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  suffixIcon: Icon(Icons.search),
-                  contentPadding: EdgeInsets.only(
-                    left: 15,
-                  ),
-                  hintText: "search",
-                ),
-                maxLines: 1,
-                autocorrect: true,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Container(
-                margin: EdgeInsets.only(top: 65),
-                child: FutureBuilder(
-                  future: getProducts(),
-                  builder: (BuildContext context, AsyncSnapshot<dynamic> projectSnap) {
-                    if (projectSnap.connectionState == ConnectionState.none && projectSnap.hasData == null) {
-                      return Loading();
-                    } else if (projectSnap.data != null) {
-                      if (projectSnap.data == true) {
-//                        return GridView.builder(
-//                            shrinkWrap: false,
-//                            gridDelegate:
-//                            SliverGridDelegateWithFixedCrossAxisCount(
-//                                crossAxisCount: 3,
-//                                mainAxisSpacing: 8,
-//                                childAspectRatio: 0.6),
-//                            itemCount: 0, // todo : make products.length
-//                            itemBuilder: (BuildContext context, int index) {
-//                              return Container();
-////                              return ProductView(products[index]);
-//                            });
-                        return NoInternet(
-                          onRetry: () {},
-                        );
-                      } else {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            NoInternet(
-                              onRetry: () {
-                                setState(() {
-                                  getProducts();
-                                });
-                              },
-                            ),
-                          ],
-                        );
-                      }
-                    } else {
-                      print("here 3");
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Loading(),
-                        ],
-                      );
-                    }
-                  },
-                ),
-              ),
-            ),
+            getSearchView(),
+            getProductView(),
           ],
         ),
       ),
     );
   }
 
-  Future<bool> getProducts() {
-    return Future.value(true);
+  Widget getProductView() {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).backgroundColor,
+          elevation: 0.0,
+          title: TabBar(
+            tabs: [
+              Tab(
+                child: Text(
+                  "New release",
+                  style: TextStyle(color: Color(ColorCustom.GRAY)),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  "Top picks",
+                  style: TextStyle(color: Color(ColorCustom.GRAY)),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  "My favorite",
+                  style: TextStyle(color: Color(ColorCustom.GRAY)),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            Icon(Icons.directions_car),
+            Icon(Icons.directions_transit),
+            Icon(Icons.directions_bike),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget getSearchView() {
+    return Card(
+      child: TextFormField(
+        textAlignVertical: TextAlignVertical.center,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          suffixIcon: Icon(Icons.search),
+          contentPadding: EdgeInsets.only(
+            left: 15,
+          ),
+          hintText: "search",
+        ),
+        maxLines: 1,
+        autocorrect: true,
+      ),
+    );
   }
 }
