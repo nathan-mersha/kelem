@@ -19,8 +19,8 @@ class _WelcomePageState extends State<WelcomePage> {
 
     // Second welcome page
     {
-      "title": "Add to Wishlist",
-      "description": "If you cold not find what you are looking for then add it to your wishlist, we will notify supliers.",
+      "title": "Add to Wish list",
+      "description": "If you cold not find what you are looking for then add it to your wish list, we will notify supliers.",
       "image": "assets/images/welcome/screen2.png"
     },
 
