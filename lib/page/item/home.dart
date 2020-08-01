@@ -5,6 +5,7 @@ import 'package:kelemapp/widget/category_menu.dart';
 import 'package:kelemapp/widget/loading.dart';
 import 'package:kelemapp/widget/menu.dart';
 import 'package:kelemapp/widget/no_internet.dart';
+import 'package:kelemapp/widget/product_tab_view.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,51 +28,7 @@ class _HomePageState extends State<HomePage> {
         padding: MainTheme.getPagePadding(),
         child: Stack(
           alignment: Alignment.topCenter,
-          children: <Widget>[
-            getSearchView(),
-            getProductView(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget getProductView() {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
-          elevation: 0.0,
-          title: TabBar(
-            tabs: [
-              Tab(
-                child: Text(
-                  "New release",
-                  style: TextStyle(color: Color(ColorCustom.GRAY)),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Top picks",
-                  style: TextStyle(color: Color(ColorCustom.GRAY)),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "My favorite",
-                  style: TextStyle(color: Color(ColorCustom.GRAY)),
-                ),
-              ),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            Icon(Icons.directions_car),
-            Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
-          ],
+          children: <Widget>[getSearchView(), ProductTabView()],
         ),
       ),
     );

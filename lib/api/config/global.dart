@@ -35,6 +35,8 @@ class ApiGlobalConfig {
         featuresConfig: featuresConfig,
         bankConfigs: bankConfigs
       );
+
+      global.localConfig.selectedCategory = categories[0];
     });
   }
 }

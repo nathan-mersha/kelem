@@ -542,24 +542,27 @@ class Category {
   /// Defines key values to extract from a map
   static const String CATEGORY_ID = "categoryId";
   static const String NAME = "name";
+  static const String ICON = "icon";
   static const String SUB_CATEGORIES = "subCategories";
   static const String FIRST_MODIFIED = "firstModified";
   static const String LAST_MODIFIED = "lastModified";
 
   String categoryId;
   String name;
+  String icon;
   List<dynamic> subCategories;
   DateTime firstModified;
   DateTime lastModified;
 
   /// Category constructor
-  Category({this.categoryId, this.name, this.subCategories, this.firstModified, this.lastModified});
+  Category({this.categoryId, this.name, this.icon, this.subCategories, this.firstModified, this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Category category) {
     return {
       CATEGORY_ID: category.categoryId,
       NAME: category.name,
+      ICON: category.icon,
       SUB_CATEGORIES: category.subCategories,
       FIRST_MODIFIED: category.firstModified,
       LAST_MODIFIED: category.lastModified
@@ -571,6 +574,7 @@ class Category {
     return Category(
         categoryId: map[CATEGORY_ID],
         name: map[NAME],
+        icon: map[ICON],
         subCategories: map[SUB_CATEGORIES],
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);

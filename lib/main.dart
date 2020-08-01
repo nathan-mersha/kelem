@@ -23,7 +23,10 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     routes = RouteTo().routes;
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+    /// Creating an open socket connection to listen to global configuration object
     ApiGlobalConfig.get();
+
     return MaterialApp(title: "Kelem", theme: MainTheme.getTheme(), routes: routes);
   }
 }
