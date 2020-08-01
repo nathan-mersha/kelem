@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kelemapp/api/config/global.dart';
-import 'package:kelemapp/model/config/global.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
-import 'package:kelemapp/global.dart' as global;
 import 'package:kelemapp/widget/category_menu.dart';
 
 class Menu {
+
   /// Get menu side drawer
   static getSideDrawer(BuildContext context) {
     return Drawer(

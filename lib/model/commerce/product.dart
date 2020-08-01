@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:kelemapp/model/profile/shop.dart';
 
 /// Defines product model
@@ -19,7 +18,6 @@ class Product {
   static const String AVAILABLE_STOCK = "availableStock";
   static const String IMAGE = "image";
   static const String DELIVERABLE = "deliverable";
-  static const String SHOP_ID = "shopId";
   static const String META_DATA = "metaData";
   static const String PUBLISHED_STATUS = "publishedStatus";
   static const String SHOP = "shop";
@@ -40,7 +38,6 @@ class Product {
   int availableStock;
   String image;
   bool deliverable;
-  String shopId;
   Map<String, dynamic> metaData;
   String publishedStatus;
   Shop shop;
@@ -62,7 +59,6 @@ class Product {
       this.availableStock,
       this.image,
       this.deliverable,
-      this.shopId,
       this.metaData,
       this.publishedStatus,
       this.shop,
@@ -86,7 +82,6 @@ class Product {
       AVAILABLE_STOCK: product.availableStock,
       IMAGE: product.image,
       DELIVERABLE: product.deliverable,
-      SHOP_ID: product.shopId,
       META_DATA: product.metaData,
       PUBLISHED_STATUS: product.publishedStatus,
       SHOP: Shop.toMap(product.shop),
@@ -112,7 +107,6 @@ class Product {
         availableStock: map[AVAILABLE_STOCK],
         image: map[IMAGE],
         deliverable: map[DELIVERABLE],
-        shopId: map[SHOP_ID],
         metaData: map[META_DATA],
         publishedStatus: map[PUBLISHED_STATUS],
         shop: Shop.toModel(map[SHOP]),
