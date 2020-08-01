@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kelemapp/global.dart' as global;
 import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/widget/no_internet.dart';
+import 'package:kelemapp/widget/search.dart';
 
 class ProductTabView extends StatefulWidget {
   @override
@@ -31,28 +32,36 @@ class _ProductTabViewState extends State<ProductTabView> {
         ? Center(
             child: NoInternet(),
           )
-        : DefaultTabController(
-            length: subCategories.length,
-            child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: Theme.of(context).backgroundColor,
-                elevation: 0.0,
-                title: TabBar(
-                    isScrollable: true,
-                    tabs: subCategories.map((dynamic subCategory) {
-                      return Tab(
-                        child: Text(
-                          subCategory.toString(),
-                          style: TextStyle(color: Color(ColorCustom.GRAY)),
-                        ),
-                      );
+        : Column(
+            children: <Widget>[
+              SearchView(),
+              Expanded(
+                child: DefaultTabController(
+                  length: subCategories.length,
+                  child: Scaffold(
+                    appBar: AppBar(
+                      centerTitle: true,
+                      backgroundColor: Theme.of(context).backgroundColor,
+                      elevation: 0.0,
+                      title: TabBar(
+                          isScrollable: true,
+                          tabs: subCategories.map((dynamic subCategory) {
+                            return Tab(
+                              child: Text(
+                                subCategory.toString(),
+                                style: TextStyle(color: Color(ColorCustom.GRAY)),
+                              ),
+                            );
+                          }).toList()),
+                    ),
+                    body: TabBarView(
+                        children: subCategories.map((subCategory) {
+                      return getProductTabViews(subCategory);
                     }).toList()),
-              ),
-              body: TabBarView(
-                  children: subCategories.map((subCategory) {
-                return getProductTabViews(subCategory);
-              }).toList()),
-            ),
+                  ),
+                ),
+              )
+            ],
           );
   }
 

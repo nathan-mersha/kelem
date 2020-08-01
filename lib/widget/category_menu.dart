@@ -10,7 +10,6 @@ class CategoryMenu extends StatefulWidget {
 }
 
 class CategoryMenuState extends State<CategoryMenu> {
-
   @override
   void initState() {
     super.initState();
@@ -26,7 +25,10 @@ class CategoryMenuState extends State<CategoryMenu> {
     print("Category menu build called");
     print("is categories null ? ${global.globalConfig.categories == null}");
     return global.globalConfig.categories == null
-        ? IconButton(icon: Icon(Icons.more_vert,color: Colors.white),onPressed: (){},)
+        ? IconButton(
+            icon: Icon(Icons.more_vert, color: Colors.white),
+            onPressed: () {},
+          )
         : PopupMenuButton<Category>(
             onSelected: (Category result) {
               /// setting selected category to a global scope.

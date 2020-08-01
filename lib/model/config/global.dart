@@ -36,14 +36,13 @@ class GlobalConfig with ChangeNotifier {
   }
 
   /// set's global config values.
-  void setConfig({
-    String globalConfigId,
-    AdditionalFee additionalFee,
-    List<SubscriptionPackage> subscriptionPackages,
-    FeaturesConfig featuresConfig,
-    List<BankConfig> bankConfigs,
-    List<Category> categories
-  }){
+  void setConfig(
+      {String globalConfigId,
+      AdditionalFee additionalFee,
+      List<SubscriptionPackage> subscriptionPackages,
+      FeaturesConfig featuresConfig,
+      List<BankConfig> bankConfigs,
+      List<Category> categories}) {
     this.globalConfigId = globalConfigId;
     this.additionalFee = additionalFee;
     this.subscriptionPackages = subscriptionPackages;

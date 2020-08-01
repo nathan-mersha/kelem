@@ -10,6 +10,6 @@ class MainTheme {
   }
 
   static EdgeInsets getPagePadding() {
-    return EdgeInsets.symmetric(vertical: 10, horizontal: 15);
+    return EdgeInsets.only(top: 10,bottom: 4,right: 10,left: 10);
   }
 }
