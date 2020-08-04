@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelemapp/rsr/theme/main_theme.dart';
-import 'package:kelemapp/widget/menu.dart';
-import 'package:kelemapp/widget/product_tab_view.dart';
+import 'package:kelemapp/widget/nav/menu.dart';
+import 'package:kelemapp/widget/nav/products_nav.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Padding(
         padding: MainTheme.getPagePadding(),
-        child: ProductTabView(),
+        child: ProductNavigation(),
       ),
     );
   }

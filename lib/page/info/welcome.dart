@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kelemapp/route.dart';
+import 'package:kelemapp/route/route.dart';
 
 class WelcomePage extends StatefulWidget {
   @override

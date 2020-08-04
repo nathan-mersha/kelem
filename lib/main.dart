@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kelemapp/api/config/global.dart';
 import 'package:kelemapp/rsr/theme/main_theme.dart';
-import 'route.dart';
+import 'route/route.dart';
 
 void main() {
   runApp(MyApp());

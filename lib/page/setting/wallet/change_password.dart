@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kelemapp/widget/menu.dart';
+import 'package:kelemapp/widget/nav/menu.dart';
 
 class ChangePasswordWalletSettingsPage extends StatelessWidget {
   @override
