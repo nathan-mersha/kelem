@@ -31,7 +31,6 @@ class Seed {
     website: "www.ethioarduino.com",
   );
   static List<Product> products = [
-
     Product(
         name: "Winter",
         authorOrManufacturer: "Markus Aurelies",
@@ -47,7 +46,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
     // todo : modify
     Product(
         name: "Beloved",
@@ -64,7 +63,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -82,7 +81,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -100,7 +99,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -118,7 +117,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -136,7 +135,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -154,7 +153,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -172,7 +171,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -190,7 +189,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -208,7 +207,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -226,7 +225,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -244,7 +243,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -262,7 +261,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -280,7 +279,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // book novel
 
@@ -300,7 +299,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -318,7 +317,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -336,7 +335,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -354,7 +353,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // iot micro-controllers
 
@@ -374,7 +373,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -392,7 +391,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // todo : modify
     Product(
@@ -410,7 +409,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     // iot transistors
 
@@ -429,7 +428,7 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
     Product(
         name: "Infra red distance sensor",
@@ -446,16 +445,14 @@ class Seed {
         publishedStatus: "published",
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
-        "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
-
+            "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
   ];
 
-  static Future<bool> createSeedData(){
-    products.forEach((Product product){
+  static Future<bool> createSeedData() {
+    products.forEach((Product product) {
       print(Product.toMap(product));
       Firestore.instance.collection("product").add(Product.toMap(product));
     });
     return Future.value(true);
   }
-  
 }
