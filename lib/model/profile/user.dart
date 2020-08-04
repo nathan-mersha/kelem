@@ -2,6 +2,8 @@ import 'package:kelemapp/model/commerce/transaction.dart';
 
 /// Defines top level user model
 class User {
+  static const String COLLECTION_NAME = "user";
+
   static const String USER_ID = "userId";
   static const String USER_NAME = "userName";
   static const String DISPLAY_NAME = "displayName";
@@ -71,17 +73,17 @@ class User {
       LAST_SEEN: user.lastSeen,
       MEMBERSHIP_PACKAGE: user.memberShipPackage,
       BANNED: user.banned,
-      PAYMENT_PREFERENCE: PaymentAndDeliveryPreference.toMap(user.paymentPreference),
-      GENERAL_SETTINGS: GeneralSettings.toMap(user.generalSettings),
-      CASH_OUT_PREFERENCE: CashOutPreference.toMap(user.cashOutPreference),
-      WALLET: Wallet.toMap(user.wallet),
+      PAYMENT_PREFERENCE: user.paymentPreference == null ? null : PaymentAndDeliveryPreference.toMap(user.paymentPreference),
+      GENERAL_SETTINGS: user.generalSettings == null ? null : GeneralSettings.toMap(user.generalSettings),
+      CASH_OUT_PREFERENCE: user.cashOutPreference == null ? null : CashOutPreference.toMap(user.cashOutPreference),
+      WALLET: user.wallet == null ? null : Wallet.toMap(user.wallet),
       FIRST_MODIFIED: user.firstModified,
       LAST_MODIFIED: user.lastModified
     };
   }
 
   /// Converts Map to User
-  static User toModel(Map<String, dynamic> map) {
+  static User toModel(dynamic map) {
     return User(
         userId: map[USER_ID],
         userName: map[USER_NAME],
@@ -94,18 +96,21 @@ class User {
         lastSeen: map[LAST_SEEN],
         memberShipPackage: map[MEMBERSHIP_PACKAGE],
         banned: map[BANNED],
-        paymentPreference: PaymentAndDeliveryPreference.toModel(map[PAYMENT_PREFERENCE]),
-        generalSettings: GeneralSettings.toModel(map[GENERAL_SETTINGS]),
-        cashOutPreference: CashOutPreference.toModel(map[CASH_OUT_PREFERENCE]),
-        wallet: Wallet.toModel(map[WALLET]),
+        paymentPreference: map[PAYMENT_PREFERENCE] == null
+            ? PaymentAndDeliveryPreference()
+            : PaymentAndDeliveryPreference.toModel(map[PAYMENT_PREFERENCE]),
+        generalSettings: map[GENERAL_SETTINGS] == null ? GeneralSettings() : GeneralSettings.toModel(map[GENERAL_SETTINGS]),
+        cashOutPreference:
+            map[CASH_OUT_PREFERENCE] == null ? CashOutPreference() : CashOutPreference.toModel(map[CASH_OUT_PREFERENCE]),
+        wallet: map[WALLET] == null ? Wallet() : Wallet.toModel(map[WALLET]),
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
-  static List<User> toModelList(List<Map<String, dynamic>> maps) {
+  static List<User> toModelList(List<dynamic> maps) {
     List<User> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -166,7 +171,7 @@ class PaymentAndDeliveryPreference {
   }
 
   /// Converts Map to Model
-  static PaymentAndDeliveryPreference toModel(Map<String, dynamic> map) {
+  static PaymentAndDeliveryPreference toModel(dynamic map) {
     return PaymentAndDeliveryPreference(
         primaryMethod: map[PRIMARY_METHOD],
         customerName: map[CUSTOMER_NAME],
@@ -179,9 +184,9 @@ class PaymentAndDeliveryPreference {
   }
 
   /// Changes List of Map to List of Model
-  static List<PaymentAndDeliveryPreference> toModelList(List<Map<String, dynamic>> maps) {
+  static List<PaymentAndDeliveryPreference> toModelList(List<dynamic> maps) {
     List<PaymentAndDeliveryPreference> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -213,7 +218,7 @@ class GeneralSettings {
   bool showGeneralNotifications;
   bool showItemNotifications;
   bool showNewsNotifications;
-  List<String> newsPreferences;
+  List<dynamic> newsPreferences;
   bool showNewsInHome;
   DateTime firstModified;
   DateTime lastModified;
@@ -243,7 +248,7 @@ class GeneralSettings {
   }
 
   /// Converts Map to Model
-  static GeneralSettings toModel(Map<String, dynamic> map) {
+  static GeneralSettings toModel(dynamic map) {
     return GeneralSettings(
         language: map[LANGUAGE],
         showGeneralNotifications: map[SHOW_GENERAL_NOTIFICATIONS],
@@ -256,9 +261,9 @@ class GeneralSettings {
   }
 
   /// Changes List of Map to List of Model
-  static List<GeneralSettings> toModelList(List<Map<String, dynamic>> maps) {
+  static List<GeneralSettings> toModelList(List<dynamic> maps) {
     List<GeneralSettings> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -303,7 +308,7 @@ class CashOutPreference {
   }
 
   /// Converts Map to Model
-  static CashOutPreference toModel(Map<String, dynamic> map) {
+  static CashOutPreference toModel(dynamic map) {
     return CashOutPreference(
         bankName: map[BANK_NAME],
         accountNumber: map[ACCOUNT_NUMBER],
@@ -313,9 +318,9 @@ class CashOutPreference {
   }
 
   /// Changes List of Map to List of Model
-  static List<CashOutPreference> toModelList(List<Map<String, dynamic>> maps) {
+  static List<CashOutPreference> toModelList(List<dynamic> maps) {
     List<CashOutPreference> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -347,12 +352,12 @@ class Wallet {
 
   String walletId;
   String accountNumber;
-  double availableCredit;
+  num availableCredit;
   List<Transaction> recentTransactions; // recent 20 transactions
   bool anonymous;
   String password;
   bool locked;
-  int retryCount;
+  num retryCount;
   DateTime firstModified;
   DateTime lastModified;
 
@@ -374,7 +379,7 @@ class Wallet {
       WALLET_ID: wallet.walletId,
       ACCOUNT_NUMBER: wallet.accountNumber,
       AVAILABLE_CREDIT: wallet.availableCredit,
-      RECENT_TRANSACTIONS: Transaction.toMapList(wallet.recentTransactions),
+      RECENT_TRANSACTIONS: wallet.recentTransactions == null ? [] : Transaction.toMapList(wallet.recentTransactions),
       ANONYMOUS: wallet.anonymous,
       PASSWORD: wallet.password,
       LOCKED: wallet.locked,
@@ -385,12 +390,12 @@ class Wallet {
   }
 
   /// Converts Map to Model
-  static Wallet toModel(Map<String, dynamic> map) {
+  static Wallet toModel(dynamic map) {
     return Wallet(
         walletId: map[WALLET_ID],
         accountNumber: map[ACCOUNT_NUMBER],
         availableCredit: map[AVAILABLE_CREDIT],
-        recentTransactions: Transaction.toModelList(map[RECENT_TRANSACTIONS]),
+        recentTransactions: map[RECENT_TRANSACTIONS] == null ? [] : Transaction.toModelList(map[RECENT_TRANSACTIONS]),
         anonymous: map[ANONYMOUS],
         password: map[PASSWORD],
         locked: map[LOCKED],
@@ -400,9 +405,9 @@ class Wallet {
   }
 
   /// Changes List of Map to List of Model
-  static List<Wallet> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Wallet> toModelList(List<dynamic> maps) {
     List<Wallet> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

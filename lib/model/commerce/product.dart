@@ -4,6 +4,8 @@ import 'package:kelemapp/model/profile/shop.dart';
 class Product {
   /// Defines key values to extract from a map
 
+  static const String COLLECTION_NAME = "product";
+
   static const String PRODUCT_ID = "productId";
   static const String NAME = "name";
   static const String CATEGORY = "category";
@@ -29,16 +31,16 @@ class Product {
   String category;
   String subCategory;
   String authorOrManufacturer;
-  double price;
-  double regularPrice;
-  List<String> tag;
+  num price;
+  num regularPrice;
+  List<dynamic> tag;
   String description;
-  double rating;
+  num rating;
   String reference;
-  int availableStock;
+  num availableStock;
   String image;
   bool deliverable;
-  Map<String, dynamic> metaData;
+  dynamic metaData;
   String publishedStatus;
   Shop shop;
   DateTime firstModified;
@@ -84,14 +86,14 @@ class Product {
       DELIVERABLE: product.deliverable,
       META_DATA: product.metaData,
       PUBLISHED_STATUS: product.publishedStatus,
-      SHOP: Shop.toMap(product.shop),
+      SHOP: product.shop == null ? null : Shop.toMap(product.shop),
       FIRST_MODIFIED: product.firstModified,
       LAST_MODIFIED: product.lastModified
     };
   }
 
   /// Converts Map to Model
-  static Product toModel(Map<String, dynamic> map) {
+  static Product toModel(dynamic map) {
     return Product(
         productId: map[PRODUCT_ID],
         name: map[NAME],
@@ -109,15 +111,15 @@ class Product {
         deliverable: map[DELIVERABLE],
         metaData: map[META_DATA],
         publishedStatus: map[PUBLISHED_STATUS],
-        shop: Shop.toModel(map[SHOP]),
+        shop: map[SHOP] == null ? Shop() : Shop.toModel(map[SHOP]),
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
-  static List<Product> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Product> toModelList(List<dynamic> maps) {
     List<Product> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

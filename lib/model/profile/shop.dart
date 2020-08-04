@@ -1,5 +1,7 @@
 /// Defines shop model
 class Shop {
+  static const String COLLECTION_NAME = "shop";
+
   /// Defines key values to extract from a map
   static const String SHOP_ID = "shopId";
   static const String USER_ID = "userId";
@@ -27,7 +29,7 @@ class Shop {
   String email;
   String website;
   String physicalAddress;
-  List<String> coOrdinates;
+  List<dynamic> coOrdinates;
   bool isVirtual;
   bool isVerified;
   String subscriptionPackage;
@@ -102,9 +104,9 @@ class Shop {
   }
 
   /// Changes List of Map to List of Model
-  static List<Shop> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Shop> toModelList(List<dynamic> maps) {
     List<Shop> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

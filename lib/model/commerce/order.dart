@@ -1,9 +1,10 @@
 import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/model/profile/user.dart';
-import 'package:kelemapp/page/setting/general/payment_and_delivery.dart';
 
 /// Defines order model
 class Order {
+  static const String COLLECTION_NAME = "order";
+
   /// Defines key values to extract from a map
   static const String ORDER_ID = "orderId";
   static const String PRODUCTS_DELIVERY_STATUS = "productsDeliveryStatus";
@@ -46,12 +47,15 @@ class Order {
   static Map<String, dynamic> toMap(Order order) {
     return {
       ORDER_ID: order.orderId,
-      PRODUCTS_DELIVERY_STATUS: ProductDeliveryStatus.toMapList(order.productsDeliveryStatus),
+      PRODUCTS_DELIVERY_STATUS:
+          order.productsDeliveryStatus == null ? null : ProductDeliveryStatus.toMapList(order.productsDeliveryStatus),
       STATUS: order.status,
-      AMOUNT: Amount.toMap(order.amount),
+      AMOUNT: order.amount == null ? null : Amount.toMap(order.amount),
       NOTE: order.note,
       REFUNDED: order.refunded,
-      PAYMENT_AND_DELIVERY_PREFERENCE: PaymentAndDeliveryPreference.toMap(order.paymentAndDeliveryPreference),
+      PAYMENT_AND_DELIVERY_PREFERENCE: order.paymentAndDeliveryPreference == null
+          ? null
+          : PaymentAndDeliveryPreference.toMap(order.paymentAndDeliveryPreference),
       PRE_PAID: order.prePaid,
       USER: order.user,
       FIRST_MODIFIED: order.firstModified,
@@ -60,15 +64,19 @@ class Order {
   }
 
   /// Converts Map to Model
-  static Order toModel(Map<String, dynamic> map) {
+  static Order toModel(dynamic map) {
     return Order(
         orderId: map[ORDER_ID],
-        productsDeliveryStatus: ProductDeliveryStatus.toModelList(map[PRODUCTS_DELIVERY_STATUS]),
+        productsDeliveryStatus: map[PRODUCTS_DELIVERY_STATUS] == null
+            ? ProductDeliveryStatus()
+            : ProductDeliveryStatus.toModelList(map[PRODUCTS_DELIVERY_STATUS]),
         status: map[STATUS],
-        amount: Amount.toModel(map[AMOUNT]),
+        amount: map[AMOUNT] == null ? Amount() : Amount.toModel(map[AMOUNT]),
         note: map[NOTE],
         refunded: map[REFUNDED],
-        paymentAndDeliveryPreference: PaymentAndDeliveryPreference.toModel(map[PAYMENT_AND_DELIVERY_PREFERENCE]),
+        paymentAndDeliveryPreference: map[PAYMENT_AND_DELIVERY_PREFERENCE] == null
+            ? PaymentAndDeliveryPreference()
+            : PaymentAndDeliveryPreference.toModel(map[PAYMENT_AND_DELIVERY_PREFERENCE]),
         prePaid: map[PRE_PAID],
         user: map[USER],
         firstModified: map[FIRST_MODIFIED],
@@ -76,9 +84,9 @@ class Order {
   }
 
   /// Changes List of Map to List of Model
-  static List<Order> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Order> toModelList(List<dynamic> maps) {
     List<Order> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -106,7 +114,7 @@ class ProductDeliveryStatus {
 
   String productDeliveryStatusId;
   Product product;
-  int quantity;
+  num quantity;
   String status;
   DateTime firstModified;
   DateTime lastModified;
@@ -118,7 +126,7 @@ class ProductDeliveryStatus {
   static Map<String, dynamic> toMap(ProductDeliveryStatus productDeliveryStatus) {
     return {
       PRODUCT_DELIVERY_STATUS_ID: productDeliveryStatus.productDeliveryStatusId,
-      PRODUCT: Product.toMap(productDeliveryStatus.product),
+      PRODUCT: productDeliveryStatus.product == null ? null : Product.toMap(productDeliveryStatus.product),
       QUANTITY: productDeliveryStatus.quantity,
       STATUS: productDeliveryStatus.status,
       FIRST_MODIFIED: productDeliveryStatus.firstModified,
@@ -127,10 +135,10 @@ class ProductDeliveryStatus {
   }
 
   /// Converts Map to Model
-  static ProductDeliveryStatus toModel(Map<String, dynamic> map) {
+  static ProductDeliveryStatus toModel(dynamic map) {
     return ProductDeliveryStatus(
         productDeliveryStatusId: map[PRODUCT_DELIVERY_STATUS_ID],
-        product: Product.toModel(map[PRODUCT]),
+        product: map[PRODUCT] == null ? Product() : Product.toModel(map[PRODUCT]),
         quantity: map[QUANTITY],
         status: map[STATUS],
         firstModified: map[FIRST_MODIFIED],
@@ -138,9 +146,9 @@ class ProductDeliveryStatus {
   }
 
   /// Changes List of Map to List of Model
-  static List<ProductDeliveryStatus> toModelList(List<Map<String, dynamic>> maps) {
+  static List<ProductDeliveryStatus> toModelList(List<dynamic> maps) {
     List<ProductDeliveryStatus> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -170,12 +178,12 @@ class Amount {
   static const String LAST_MODIFIED = "lastModified";
 
   String amountId;
-  double subTotal;
-  double couponDiscount;
-  double handlingFee;
-  double transactionFee;
-  double tax;
-  double total;
+  num subTotal;
+  num couponDiscount;
+  num handlingFee;
+  num transactionFee;
+  num tax;
+  num total;
   DateTime firstModified;
   DateTime lastModified;
 
@@ -206,7 +214,7 @@ class Amount {
   }
 
   /// Converts Map to Model
-  static Amount toModel(Map<String, dynamic> map) {
+  static Amount toModel(dynamic map) {
     return Amount(
       amountId: map[AMOUNT_ID],
       subTotal: map[SUB_TOTAL],
@@ -221,9 +229,9 @@ class Amount {
   }
 
   /// Changes List of Map to List of Model
-  static List<Amount> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Amount> toModelList(List<dynamic> maps) {
     List<Amount> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

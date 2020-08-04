@@ -3,6 +3,8 @@ import 'package:kelemapp/model/profile/shop.dart';
 /// Defines coupon model [Coupon]
 
 class Coupon {
+  static const String COLLECTION_NAME = "coupon";
+
   /// Defines key values to extract from a map
   static const String COUPON_ID = "couponId";
   static const String NAME = "name";
@@ -19,14 +21,14 @@ class Coupon {
 
   String couponId;
   String name;
-  int quantity;
+  num quantity;
   DateTime expirationDate;
   String code;
   String description;
   Shop shop;
   bool revoked;
   String discountType; // todo : make enum
-  double discountValue;
+  num discountValue;
   DateTime firstModified;
   DateTime lastModified;
 
@@ -53,7 +55,7 @@ class Coupon {
       EXPIRATION_DATE: coupon.expirationDate,
       CODE: coupon.code,
       DESCRIPTION: coupon.description,
-      SHOP: Shop.toMap(coupon.shop),
+      SHOP: coupon.shop == null ? null : Shop.toMap(coupon.shop),
       REVOKED: coupon.revoked,
       DISCOUNT_TYPE: coupon.discountType,
       DISCOUNT_VALUE: coupon.discountValue,
@@ -63,7 +65,7 @@ class Coupon {
   }
 
   /// Converts Map to Model
-  static Coupon toModel(Map<String, dynamic> map) {
+  static Coupon toModel(dynamic map) {
     return Coupon(
         couponId: map[COUPON_ID],
         name: map[NAME],
@@ -71,7 +73,7 @@ class Coupon {
         expirationDate: map[EXPIRATION_DATE],
         code: map[CODE],
         description: map[DESCRIPTION],
-        shop: Shop.toModel(map[SHOP]),
+        shop: map[SHOP] == null ? Shop() : Shop.toModel(map[SHOP]),
         revoked: map[REVOKED],
         discountType: map[DISCOUNT_TYPE],
         discountValue: map[DISCOUNT_VALUE],
@@ -80,9 +82,9 @@ class Coupon {
   }
 
   /// Changes List of Map to List of Model
-  static List<Coupon> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Coupon> toModelList(List<dynamic> maps) {
     List<Coupon> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

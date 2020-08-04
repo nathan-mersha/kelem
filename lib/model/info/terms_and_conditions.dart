@@ -1,5 +1,7 @@
 /// Defines termsAndConditions model [TermsAndConditions]
 class TermsAndConditions {
+  static const String COLLECTION_NAME = "termsAndConditions";
+
   /// Defines key values to extract from a map
   static const String TERMS_AND_CONDITIONS_ID = "termsAndConditionsId";
   static const String VALUES = "values";
@@ -17,25 +19,25 @@ class TermsAndConditions {
   static Map<String, dynamic> toMap(TermsAndConditions termsAndConditions) {
     return {
       TERMS_AND_CONDITIONS_ID: termsAndConditions.termsAndConditionsId,
-      VALUES: TacValue.toMapList(termsAndConditions.values),
+      VALUES: termsAndConditions.values == null ? [] : TacValue.toMapList(termsAndConditions.values),
       FIRST_MODIFIED: termsAndConditions.firstModified,
       LAST_MODIFIED: termsAndConditions.lastModified
     };
   }
 
   /// Converts Map to Model
-  static TermsAndConditions toModel(Map<String, dynamic> map) {
+  static TermsAndConditions toModel(dynamic map) {
     return TermsAndConditions(
         termsAndConditionsId: map[TERMS_AND_CONDITIONS_ID],
-        values: TacValue.toModelList(map[VALUES]),
+        values: map[VALUES] == null ? [] : TacValue.toModelList(map[VALUES]),
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
-  static List<TermsAndConditions> toModelList(List<Map<String, dynamic>> maps) {
+  static List<TermsAndConditions> toModelList(List<dynamic> maps) {
     List<TermsAndConditions> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -79,7 +81,7 @@ class TacValue {
   }
 
   /// Converts Map to Model
-  static TacValue toModel(Map<String, dynamic> map) {
+  static TacValue toModel(dynamic map) {
     return TacValue(
         tacValueId: map[TAC_VALUE_ID],
         locale: map[LOCALE],
@@ -89,9 +91,9 @@ class TacValue {
   }
 
   /// Changes List of Map to List of Model
-  static List<TacValue> toModelList(List<Map<String, dynamic>> maps) {
+  static List<TacValue> toModelList(List<dynamic> maps) {
     List<TacValue> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

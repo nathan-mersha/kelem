@@ -2,6 +2,8 @@ import 'package:kelemapp/model/profile/user.dart';
 
 /// Defines wishList model
 class WishList {
+  static const String COLLECTION_NAME = "wishList";
+
   /// Defines key values to extract from a map
   static const String WISH_LIST_ID = "wishListId";
   static const String USER = "user";
@@ -23,8 +25,8 @@ class WishList {
   static Map<String, dynamic> toMap(WishList wishList) {
     return {
       WISH_LIST_ID: wishList.wishListId,
-      USER: User.toMap(wishList.user),
-      WISHES: Wish.toMapList(wishList.wishes),
+      USER: wishList.user == null ? null : User.toMap(wishList.user),
+      WISHES: wishList.wishes == null ? null : Wish.toMapList(wishList.wishes),
       VISIBILITY: wishList.visibility,
       FIRST_MODIFIED: wishList.firstModified,
       LAST_MODIFIED: wishList.lastModified
@@ -32,20 +34,20 @@ class WishList {
   }
 
   /// Converts Map to Model
-  static WishList toModel(Map<String, dynamic> map) {
+  static WishList toModel(dynamic map) {
     return WishList(
         wishListId: map[WISH_LIST_ID],
-        user: User.toModel(map[USER]),
-        wishes: Wish.toModelList(map[WISHES]),
+        user: map[USER] == null ? User() : User.toModel(map[USER]),
+        wishes: map[WISHES] == null ? Wish : Wish.toModelList(map[WISHES]),
         visibility: map[VISIBILITY],
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
-  static List<WishList> toModelList(List<Map<String, dynamic>> maps) {
+  static List<WishList> toModelList(List<dynamic> maps) {
     List<WishList> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -92,7 +94,7 @@ class Wish {
   }
 
   /// Converts Map to Model
-  static Wish toModel(Map<String, dynamic> map) {
+  static Wish toModel(dynamic map) {
     return Wish(
         wishId: map[WISH_ID],
         productId: map[PRODUCT_ID],
@@ -103,9 +105,9 @@ class Wish {
   }
 
   /// Changes List of Map to List of Model
-  static List<Wish> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Wish> toModelList(List<dynamic> maps) {
     List<Wish> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

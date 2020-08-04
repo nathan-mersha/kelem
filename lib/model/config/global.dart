@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 /// Defines globalConfig model
 class GlobalConfig with ChangeNotifier {
+  static const String COLLECTION_NAME = "globalConfig";
+
   /// Defines key values to extract from a map
   static const String GLOBAL_CONFIG_ID = "globalConfigId";
   static const String ADDITIONAL_FEE = "additionalFee";
@@ -56,11 +58,12 @@ class GlobalConfig with ChangeNotifier {
   static Map<String, dynamic> toMap(GlobalConfig globalConfig) {
     return {
       GLOBAL_CONFIG_ID: globalConfig.globalConfigId,
-      ADDITIONAL_FEE: AdditionalFee.toMap(globalConfig.additionalFee),
-      SUBSCRIPTION_PACKAGES: SubscriptionPackage.toMapList(globalConfig.subscriptionPackages),
-      FEATURES_CONFIG: FeaturesConfig.toMap(globalConfig.featuresConfig),
-      BANK_CONFIG: BankConfig.toMapList(globalConfig.bankConfigs),
-      CATEGORIES: Category.toMapList(globalConfig.categories),
+      ADDITIONAL_FEE: globalConfig.additionalFee == null ? null : AdditionalFee.toMap(globalConfig.additionalFee),
+      SUBSCRIPTION_PACKAGES:
+          globalConfig.subscriptionPackages == null ? null : SubscriptionPackage.toMapList(globalConfig.subscriptionPackages),
+      FEATURES_CONFIG: globalConfig.featuresConfig == null ? null : FeaturesConfig.toMap(globalConfig.featuresConfig),
+      BANK_CONFIG: globalConfig.bankConfigs == null ? null : BankConfig.toMapList(globalConfig.bankConfigs),
+      CATEGORIES: globalConfig.categories == null ? null : Category.toMapList(globalConfig.categories),
       FIRST_MODIFIED: globalConfig.firstModified,
       LAST_MODIFIED: globalConfig.lastModified
     };
@@ -70,11 +73,13 @@ class GlobalConfig with ChangeNotifier {
   static GlobalConfig toModel(Map<String, dynamic> map) {
     return GlobalConfig(
         globalConfigId: map[GLOBAL_CONFIG_ID],
-        additionalFee: AdditionalFee.toModel(map[ADDITIONAL_FEE]),
-        subscriptionPackages: SubscriptionPackage.toModelList(map[SUBSCRIPTION_PACKAGES]),
-        featuresConfig: FeaturesConfig.toModel(map[FEATURES_CONFIG]),
-        bankConfigs: BankConfig.toModelList(map[BANK_CONFIG]),
-        categories: Category.toModelList(map[CATEGORIES]),
+        additionalFee: map[ADDITIONAL_FEE] == null ? AdditionalFee() : AdditionalFee.toModel(map[ADDITIONAL_FEE]),
+        subscriptionPackages: map[SUBSCRIPTION_PACKAGES] == null
+            ? SubscriptionPackage()
+            : SubscriptionPackage.toModelList(map[SUBSCRIPTION_PACKAGES]),
+        featuresConfig: map[FEATURES_CONFIG] == null ? FeaturesConfig() : FeaturesConfig.toModel(map[FEATURES_CONFIG]),
+        bankConfigs: map[BANK_CONFIG] == null ? BankConfig() : BankConfig.toModelList(map[BANK_CONFIG]),
+        categories: map[CATEGORIES] == null ? Category() : Category.toModelList(map[CATEGORIES]),
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }

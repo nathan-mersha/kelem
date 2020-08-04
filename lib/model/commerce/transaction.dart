@@ -1,5 +1,7 @@
 /// Defines transaction model
 class Transaction {
+  static const String COLLECTION_NAME = "transaction";
+
   /// Defines key values to extract from a map
   static const String TRANSACTION_ID = "transactionId";
   static const String FROM_WALLET_ID = "fromWalletId";
@@ -18,8 +20,8 @@ class Transaction {
   String fromWalletId;
   String toWalletId;
   String reason;
-  double amount;
-  double transactionFee;
+  num amount;
+  num transactionFee;
   String status;
   bool anonymous;
   String eventId;
@@ -60,7 +62,7 @@ class Transaction {
   }
 
   /// Converts Map to Model
-  static Transaction toModel(Map<String, dynamic> map) {
+  static Transaction toModel(dynamic map) {
     return Transaction(
         transactionId: map[TRANSACTION_ID],
         fromWalletId: map[FROM_WALLET_ID],
@@ -77,9 +79,9 @@ class Transaction {
   }
 
   /// Changes List of Map to List of Model
-  static List<Transaction> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Transaction> toModelList(List<dynamic> maps) {
     List<Transaction> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

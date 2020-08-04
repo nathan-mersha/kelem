@@ -1,7 +1,8 @@
 /// Defines feedback model
 class Feedback {
-  /// Defines key values to extract from a map
+  static const String COLLECTION_NAME = "feedBack";
 
+  /// Defines key values to extract from a map
   static const String FEEDBACK_ID = "feedbackId";
   static const String USER_ID = "userId";
   static const String TITLE = "title";
@@ -31,7 +32,7 @@ class Feedback {
   }
 
   /// Converts Map to Model
-  static Feedback toModel(Map<String, dynamic> map) {
+  static Feedback toModel(dynamic map) {
     return Feedback(
         feedbackId: map[FEEDBACK_ID],
         userId: map[USER_ID],
@@ -42,9 +43,9 @@ class Feedback {
   }
 
   /// Changes List of Map to List of Model
-  static List<Feedback> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Feedback> toModelList(List<dynamic> maps) {
     List<Feedback> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

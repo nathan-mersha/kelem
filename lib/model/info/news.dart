@@ -1,6 +1,8 @@
 /// Defines news model [News]
 
 class News {
+  static const String COLLECTION_NAME = "news";
+
   /// Defines key values to extract from a map
   static const String NEWS_ID = "newsId";
   static const String VALUES = "values";
@@ -17,7 +19,7 @@ class News {
   DateTime publishedDate;
   String thumbnail;
   String link;
-  List<String> tags;
+  List<dynamic> tags;
   String category;
   DateTime firstModified;
   DateTime lastModified;
@@ -37,7 +39,7 @@ class News {
   static Map<String, dynamic> toMap(News news) {
     return {
       NEWS_ID: news.newsId,
-      VALUES: NewsValue.toMapList(news.values),
+      VALUES: news.values == null ? [] : NewsValue.toMapList(news.values),
       PUBLISHED_DATE: news.publishedDate,
       THUMB_NAIL: news.thumbnail,
       LINK: news.link,
@@ -49,10 +51,10 @@ class News {
   }
 
   /// Converts Map to Model
-  static News toModel(Map<String, dynamic> map) {
+  static News toModel(dynamic map) {
     return News(
         newsId: map[NEWS_ID],
-        values: NewsValue.toModelList(map[VALUES]),
+        values: map[VALUES] == null ? [] : NewsValue.toModelList(map[VALUES]),
         publishedDate: map[PUBLISHED_DATE],
         thumbnail: map[THUMB_NAIL],
         link: map[LINK],
@@ -63,9 +65,9 @@ class News {
   }
 
   /// Changes List of Map to List of Model
-  static List<News> toModelList(List<Map<String, dynamic>> maps) {
+  static List<News> toModelList(List<dynamic> maps) {
     List<News> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -116,7 +118,7 @@ class NewsValue {
   }
 
   /// Converts Map to Model
-  static NewsValue toModel(Map<String, dynamic> map) {
+  static NewsValue toModel(dynamic map) {
     return NewsValue(
         newsValueId: map[NEWS_VALUE_ID],
         locale: map[LOCALE],
@@ -128,9 +130,9 @@ class NewsValue {
   }
 
   /// Changes List of Map to List of Model
-  static List<NewsValue> toModelList(List<Map<String, dynamic>> maps) {
+  static List<NewsValue> toModelList(List<dynamic> maps) {
     List<NewsValue> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

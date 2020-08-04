@@ -2,6 +2,8 @@ import 'package:kelemapp/model/commerce/order.dart';
 import 'package:kelemapp/model/commerce/product.dart';
 
 class Cart {
+  static const String COLLECTION_NAME = "cart";
+
   /// Defines key values to extract from a map
   static const String CART_ID = "cartId";
   static const String PRODUCTS = "products";
@@ -21,27 +23,27 @@ class Cart {
   static Map<String, dynamic> toMap(Cart cart) {
     return {
       CART_ID: cart.cartId,
-      PRODUCTS: Product.toMapList(cart.products),
-      AMOUNT: Amount.toMap(cart.amount),
+      PRODUCTS: cart.products == null ? null : Product.toMapList(cart.products),
+      AMOUNT: cart.amount == null ? null : Amount.toMap(cart.amount),
       FIRST_MODIFIED: cart.firstModified,
       LAST_MODIFIED: cart.lastModified
     };
   }
 
   /// Converts Map to Model
-  static Cart toModel(Map<String, dynamic> map) {
+  static Cart toModel(dynamic map) {
     return Cart(
         cartId: map[CART_ID],
-        products: Product.toModelList(map[PRODUCTS]),
-        amount: Amount.toModel(map[AMOUNT]),
+        products: map[PRODUCTS] == null ? Product() : Product.toModelList(map[PRODUCTS]),
+        amount: map[AMOUNT] == null ? Amount() : Amount.toModel(map[AMOUNT]),
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
-  static List<Cart> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Cart> toModelList(List<dynamic> maps) {
     List<Cart> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

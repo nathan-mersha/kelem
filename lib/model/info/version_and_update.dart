@@ -1,5 +1,7 @@
 /// Defines versionAndUpdate model [VersionAndUpdate]
 class VersionAndUpdate {
+  static const String COLLECTION_NAME = "versionAndUpdate";
+
   /// Defines key values to extract from a map
   static const String VERSION_AND_UPDATE_ID = "versionAndUpdateId";
   static const String VALUES = "values";
@@ -17,25 +19,25 @@ class VersionAndUpdate {
   static Map<String, dynamic> toMap(VersionAndUpdate versionAndUpdate) {
     return {
       VERSION_AND_UPDATE_ID: versionAndUpdate.versionAndUpdateId,
-      VALUES: VersionAndUpdateValue.toMapList(versionAndUpdate.values),
+      VALUES: versionAndUpdate.values == null ? [] : VersionAndUpdateValue.toMapList(versionAndUpdate.values),
       FIRST_MODIFIED: versionAndUpdate.firstModified,
       LAST_MODIFIED: versionAndUpdate.lastModified
     };
   }
 
   /// Converts Map to Model
-  static VersionAndUpdate toModel(Map<String, dynamic> map) {
+  static VersionAndUpdate toModel(dynamic map) {
     return VersionAndUpdate(
         versionAndUpdateId: map[VERSION_AND_UPDATE_ID],
-        values: VersionAndUpdateValue.toModelList(map[VALUES]),
+        values: map[VALUES] == null ? [] : VersionAndUpdateValue.toModelList(map[VALUES]),
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
-  static List<VersionAndUpdate> toModelList(List<Map<String, dynamic>> maps) {
+  static List<VersionAndUpdate> toModelList(List<dynamic> maps) {
     List<VersionAndUpdate> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -80,7 +82,7 @@ class VersionAndUpdateValue {
   }
 
   /// Converts Map to Model
-  static VersionAndUpdateValue toModel(Map<String, dynamic> map) {
+  static VersionAndUpdateValue toModel(dynamic map) {
     return VersionAndUpdateValue(
         versionAndUpdateValueId: map[VERSION_AND_UPDATE_VALUE_ID],
         locale: map[LOCALE],
@@ -90,9 +92,9 @@ class VersionAndUpdateValue {
   }
 
   /// Changes List of Map to List of Model
-  static List<VersionAndUpdateValue> toModelList(List<Map<String, dynamic>> maps) {
+  static List<VersionAndUpdateValue> toModelList(List<dynamic> maps) {
     List<VersionAndUpdateValue> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

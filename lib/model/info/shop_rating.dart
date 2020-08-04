@@ -3,6 +3,8 @@ import 'package:kelemapp/model/profile/shop.dart';
 /// Defines ratingShop model [RatingShop]
 
 class RatingShop {
+  static const String COLLECTION_NAME = "shopRating";
+
   /// Defines key values to extract from a map
   static const String RATING_SHOP_ID = "ratingShopId";
   static const String SHOP = "shop";
@@ -18,13 +20,13 @@ class RatingShop {
 
   String ratingShopId;
   Shop shop;
-  double cumulative;
-  double reliabilityRate;
-  double deliverableRate;
-  double supportRate;
-  double richnessRate;
-  double pricingRate;
-  double activityRate;
+  num cumulative;
+  num reliabilityRate;
+  num deliverableRate;
+  num supportRate;
+  num richnessRate;
+  num pricingRate;
+  num activityRate;
   DateTime firstModified;
   DateTime lastModified;
 
@@ -45,7 +47,7 @@ class RatingShop {
   static Map<String, dynamic> toMap(RatingShop ratingShop) {
     return {
       RATING_SHOP_ID: ratingShop.ratingShopId,
-      SHOP: Shop.toMap(ratingShop.shop),
+      SHOP: ratingShop.shop == null ? null : Shop.toMap(ratingShop.shop),
       CUMULATIVE: ratingShop.cumulative,
       RELIABILITY_RATE: ratingShop.reliabilityRate,
       DELIVERABLE_RATE: ratingShop.deliverableRate,
@@ -59,10 +61,10 @@ class RatingShop {
   }
 
   /// Converts Map to Model
-  static RatingShop toModel(Map<String, dynamic> map) {
+  static RatingShop toModel(dynamic map) {
     return RatingShop(
         ratingShopId: map[RATING_SHOP_ID],
-        shop: Shop.toModel(map[SHOP]),
+        shop: map[SHOP] == null ? Shop() : Shop.toModel(map[SHOP]),
         cumulative: map[CUMULATIVE],
         reliabilityRate: map[RELIABILITY_RATE],
         deliverableRate: map[DELIVERABLE_RATE],
@@ -75,9 +77,9 @@ class RatingShop {
   }
 
   /// Changes List of Map to List of Model
-  static List<RatingShop> toModelList(List<Map<String, dynamic>> maps) {
+  static List<RatingShop> toModelList(List<dynamic> maps) {
     List<RatingShop> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;

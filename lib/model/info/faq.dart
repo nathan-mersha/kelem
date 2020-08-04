@@ -1,5 +1,7 @@
 /// Defines faq model [Faq]
 class Faq {
+  static const String COLLECTION_NAME = "faq";
+
   /// Defines key values to extract from a map
   static const String FAQ_ID = "faqId";
   static const String VALUES = "values";
@@ -17,25 +19,25 @@ class Faq {
   static Map<String, dynamic> toMap(Faq faq) {
     return {
       FAQ_ID: faq.faqId,
-      VALUES: FaqValue.toMapList(faq.values),
+      VALUES: faq.values == null ? [] : FaqValue.toMapList(faq.values),
       FIRST_MODIFIED: faq.firstModified,
       LAST_MODIFIED: faq.lastModified
     };
   }
 
   /// Converts Map to Model
-  static Faq toModel(Map<String, dynamic> map) {
+  static Faq toModel(dynamic map) {
     return Faq(
         faqId: map[FAQ_ID],
-        values: FaqValue.toModelList(map[VALUES]),
+        values: map[VALUES] == null ? [] : FaqValue.toModelList(map[VALUES]),
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }
 
   /// Changes List of Map to List of Model
-  static List<Faq> toModelList(List<Map<String, dynamic>> maps) {
+  static List<Faq> toModelList(List<dynamic> maps) {
     List<Faq> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
@@ -84,7 +86,7 @@ class FaqValue {
   }
 
   /// Converts Map to Model
-  static FaqValue toModel(Map<String, dynamic> map) {
+  static FaqValue toModel(dynamic map) {
     return FaqValue(
         faqValueId: map[FAQ_VALUE_ID],
         locale: map[LOCALE],
@@ -95,9 +97,9 @@ class FaqValue {
   }
 
   /// Changes List of Map to List of Model
-  static List<FaqValue> toModelList(List<Map<String, dynamic>> maps) {
+  static List<FaqValue> toModelList(List<dynamic> maps) {
     List<FaqValue> modelList = [];
-    maps.forEach((Map<String, dynamic> map) {
+    maps.forEach((dynamic map) {
       modelList.add(toModel(map));
     });
     return modelList;
