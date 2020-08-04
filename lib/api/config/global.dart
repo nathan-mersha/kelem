@@ -6,7 +6,7 @@ class ApiGlobalConfig {
   static const String GLOBAL_KEY_ID = "snlopoku8ggZD0x7ZDX8";
   static get() {
     Firestore.instance
-        .collection("globalConfig")
+        .collection(GlobalConfig.COLLECTION_NAME)
         .document(GLOBAL_KEY_ID)
         .snapshots()
         .listen((DocumentSnapshot globalConfigSnapShot) {
