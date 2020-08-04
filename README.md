@@ -1,16 +1,23 @@
-# kelemapp
+# Kelem
+E-commerce application for the nerd
 
-A new Flutter application.
+Project structure
+=================
 
-## Getting Started
+1. api
+Defines service api that communicate with fire-store or any other servers
 
-This project is a starting point for a Flutter application.
+2. model
+Defines Local models usually correspond fire-store models
 
-A few resources to get you started if this is your first Flutter project:
+3. pages
+Defines stand alone pages
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+4. route
+Defines application routing
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+5. rsr
+Defines language, theme and color resources
+
+6. Widgets
+Defines child widgets, that are not stand alone
