@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
-import 'package:kelemapp/widget/category_menu.dart';
+import 'package:kelemapp/widget/nav/category_menu.dart';
 
 class Menu {
-
   /// Get menu side drawer
   static getSideDrawer(BuildContext context) {
     return Drawer(

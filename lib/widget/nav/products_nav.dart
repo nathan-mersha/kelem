@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:kelemapp/global.dart' as global;
+import 'package:kelemapp/model/config/global.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
-import 'package:kelemapp/widget/no_internet.dart';
-import 'package:kelemapp/widget/search.dart';
+import 'package:kelemapp/widget/info/no_internet.dart';
+import 'package:kelemapp/widget/nav/search.dart';
+import 'package:kelemapp/widget/product/product_list.dart';
 
-class ProductTabView extends StatefulWidget {
+class ProductNavigation extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _ProductTabViewState();
+    return _ProductNavigationState();
   }
 }
 
-class _ProductTabViewState extends State<ProductTabView> {
+class _ProductNavigationState extends State<ProductNavigation> {
+  Category category;
   List<dynamic> subCategories;
 
   @override
@@ -21,6 +24,7 @@ class _ProductTabViewState extends State<ProductTabView> {
     global.localConfig.addListener(() {
       // set state for sub categories.
       setState(() {
+        category = global.localConfig.selectedCategory;
         subCategories = global.localConfig.selectedCategory.subCategories;
       });
     });
@@ -56,19 +60,12 @@ class _ProductTabViewState extends State<ProductTabView> {
                     ),
                     body: TabBarView(
                         children: subCategories.map((subCategory) {
-                      return getProductTabViews(subCategory);
+                      return ProductList(category, subCategory.toString());
                     }).toList()),
                   ),
                 ),
               )
             ],
           );
-  }
-
-  Widget getProductTabViews(dynamic subCategory) {
-    // Should definetly return a future builder.
-    return Center(
-      child: Text("Products sub category : ${subCategory.toString()}"),
-    );
   }
 }
