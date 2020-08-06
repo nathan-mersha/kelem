@@ -76,8 +76,8 @@ class Shop {
       DESCRIPTION: shop.description,
       CATEGORY: shop.category,
       LOGO: shop.logo,
-      FIRST_MODIFIED: shop.firstModified,
-      LAST_MODIFIED: shop.lastModified
+      FIRST_MODIFIED: shop.firstModified == null ? null : shop.firstModified.toIso8601String(),
+      LAST_MODIFIED: shop.lastModified == null ? null : shop.lastModified.toIso8601String()
     };
   }
 

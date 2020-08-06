@@ -31,6 +31,12 @@ class _ProductNavigationState extends State<ProductNavigation> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    global.localConfig.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return subCategories == null
         ? Center(

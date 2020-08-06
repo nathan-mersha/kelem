@@ -87,13 +87,14 @@ class Product {
       META_DATA: product.metaData,
       PUBLISHED_STATUS: product.publishedStatus,
       SHOP: product.shop == null ? null : Shop.toMap(product.shop),
-      FIRST_MODIFIED: product.firstModified,
-      LAST_MODIFIED: product.lastModified
+      FIRST_MODIFIED: product.firstModified == null ? null : product.firstModified.toIso8601String(),
+      LAST_MODIFIED: product.lastModified == null ? null : product.lastModified.toIso8601String()
     };
   }
 
   /// Converts Map to Model
   static Product toModel(dynamic map) {
+
     return Product(
         productId: map[PRODUCT_ID],
         name: map[NAME],
@@ -112,8 +113,9 @@ class Product {
         metaData: map[META_DATA],
         publishedStatus: map[PUBLISHED_STATUS],
         shop: map[SHOP] == null ? Shop() : Shop.toModel(map[SHOP]),
-        firstModified: map[FIRST_MODIFIED],
-        lastModified: map[LAST_MODIFIED]);
+        firstModified: DateTime.parse(map[FIRST_MODIFIED]),
+        lastModified: DateTime.parse(map[LAST_MODIFIED])
+    );
   }
 
   /// Changes List of Map to List of Model

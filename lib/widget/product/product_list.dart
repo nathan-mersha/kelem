@@ -5,6 +5,9 @@ import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/model/config/global.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/widget/info/loading.dart';
+import 'package:kelemapp/widget/info/no_internet.dart';
+import 'package:kelemapp/widget/product/product_placeholder.dart';
+import 'package:kelemapp/global.dart' as global;
 
 class ProductList extends StatefulWidget {
   final Category _category;
@@ -19,14 +22,16 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
+  double _childAspectRatio;
   // total amount of data to be retrieved once.
-  static const int PRODUCT_LIMIT = 12;
+  static const int PRODUCT_LIMIT = 4;
 
   // true if item is being retrieved from fire store
-  bool _loading = false; // todo : use flag to display loading animation at the bottom of the screen
+  bool _loading = false;
+  bool _noMoreItem = false;
   DocumentSnapshot _lastDocumentSnapShot;
   List<Product> _products = [];
-  ScrollController _scrollController = new ScrollController();
+  ScrollController _scrollController = ScrollController();
   String _subCategory;
   Category _category;
 
@@ -36,115 +41,116 @@ class _ProductListState extends State<ProductList> {
     _category = widget._category;
     _subCategory = widget._subCategory;
 
-//    _scrollController.addListener(() {
-//      // Reached at 85% of bottom
-//      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent * 0.85) {
-//        print("Reached at the bottom");
-//        setState(() {
-//          _loading = true;
-//        });
-//
-//        // Retrieving next products and adding to existing list.
-//        getProducts().then((List<Product> nextProducts){
-//          setState(() {
-//            _loading = false;
-//            _products.addAll(nextProducts);
-//          });
-//        });
-//
-//      }
-//    });
+    _scrollController.addListener(() {
+      // Reached at 70% of bottom
+      num currentPosition = _scrollController.position.pixels;
+      num maxScrollExtent = _scrollController.position.maxScrollExtent * 0.7;
+      if (currentPosition == maxScrollExtent) {
+        setState(() {
+          _loading = true;
+        });
+
+        // Retrieving next products and adding to existing list.
+        getProducts().then((bool loaded) {
+          setState(() {
+            _loading = false;
+          });
+        });
+      }
+    });
+
+    // listening on global config.
+    global.localConfig.addListener(() {
+      setState(() {
+        // Category value changed from the currently displayed.
+        _products.removeRange(0, _products.length);
+        _category = global.localConfig.selectedCategory;
+        _subCategory = global.localConfig.selectedSubCategory;
+
+      });
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
-    // todo put query for first product
+    _childAspectRatio = widget._category.name == "book" ? 0.6 : 1;
     return Column(
       children: <Widget>[
         Expanded(
           child: FutureBuilder(
             future: getProducts(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
-              print("data -------------- : ${snapshot.data}");
               if (snapshot.connectionState == ConnectionState.done && snapshot.hasData == null) {
                 // Connection terminated and no data available
-                // todo : respond with no data message;
-                print("1---------");
-                return Center(child: Text("Connection state : done, and no data"));
-              } else if (snapshot.connectionState == ConnectionState.active && snapshot.hasData == null) {
-                // Still loading
-                // todo : respond with loading message;
-                return Center(child: Text("Connection state : active and no data"));
+                return NoInternet();
               } else if (snapshot.data != null) {
                 // Got data here
-
-                print("Got data ---------------------- ");
-                print(snapshot.data);
-                return ListView.builder(
-                  itemCount: _products.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    // todo : Replace product view thumbnail with the temp holder
-
-                    // todo : Add loading message if retrieving product is not completed.
-                    return Card(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 60),
-                        child: Column(
-                          children: <Widget>[
-                            Text(_products[index].name),
-//                        Text(_products[index].authorOrManufacturer),
-                            Text(_products[index].subCategory)
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
+                return GridView.builder(
+                    controller: _scrollController,
+                    shrinkWrap: false,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3, mainAxisSpacing: 8, childAspectRatio: _childAspectRatio),
+                    itemCount: _products.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ProductPlaceholder(_products[index]);
+                    });
               } else {
                 // todo : respond with loading message.
                 return Loading(
-                  message: "loading from last",
+                  message: "loading $_subCategory",
                 );
               }
             },
           ),
         ),
-        _loading
+        _loading && !_noMoreItem
             ? SpinKitThreeBounce(
                 color: Color(ColorCustom.GRAY),
+                size: 20,
               )
-            : Container()
+            : Container(),
       ],
     );
   }
 
   Future<bool> getProducts() async {
-    // todo : should order by recent
-
-    QuerySnapshot querySnapshot = _lastDocumentSnapShot == null
+    QuerySnapshot querySnapshot = _lastDocumentSnapShot != null
         ? await Firestore.instance
             .collection(Product.COLLECTION_NAME)
             .where(Product.CATEGORY, isEqualTo: _category.name)
             .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
             .limit(PRODUCT_LIMIT)
+            .orderBy(Product.LAST_MODIFIED)
+            .startAfterDocument(_lastDocumentSnapShot)
             .getDocuments()
+        // if there is a previous document query begins searching from the last document.
         : await Firestore.instance
             .collection(Product.COLLECTION_NAME)
             .where(Product.CATEGORY, isEqualTo: _category.name)
             .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
             .limit(PRODUCT_LIMIT)
-            .startAfterDocument(_lastDocumentSnapShot)
+            .orderBy(Product.LAST_MODIFIED)
             .getDocuments();
 
     List<DocumentSnapshot> documentSnapshot = querySnapshot.documents;
-    _lastDocumentSnapShot = documentSnapshot.last; // Assigning the last document snapshot for future query
 
-    List<Product> products = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
-      Product p = Product.toModel(documentSnapshot.data);
-      return p;
-    }).toList();
+    // Assigning the last document snapshot for future query
+    if (documentSnapshot.length > 0) {
+      _lastDocumentSnapShot = documentSnapshot.last;
+      _noMoreItem = false;
+    } else {
+      _noMoreItem = true;
+    }
 
-    _products.addAll(products);
+    // Adding products if there is still available in fire store.
+    if (!_noMoreItem) {
+      List<Product> products = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
+        Product p = Product.toModel(documentSnapshot.data);
+        return p;
+      }).toList();
+      _products.addAll(products);
+    }
 
     return true;
   }
