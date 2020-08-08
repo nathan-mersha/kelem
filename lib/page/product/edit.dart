@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelemapp/widget/nav/menu.dart';
 
-class ItemEditPage extends StatelessWidget {
+class ProductEditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

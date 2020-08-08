@@ -31,33 +31,30 @@ class ProductPlaceholder extends StatelessWidget {
 
   Widget bookView(Product product) {
     return AspectRatio(
-      aspectRatio: 1.6,
+      aspectRatio: 0.7,
       child: Card(
         color: Color(colorList[random]),
         child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(
                   product.name,
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
+                  maxLines: 3,
                 ),
-                Column(
-                  children: <Widget>[
-                    Text("by",
-                        style: TextStyle(fontSize: 9, fontStyle: FontStyle.italic, color: Colors.white),
-                        textAlign: TextAlign.center),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Text(product.authorOrManufacturer,
-                        style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center)
-                  ],
+                Text("by",
+                    style: TextStyle(fontSize: 9, fontStyle: FontStyle.italic, color: Colors.white),
+                    textAlign: TextAlign.center),
+                SizedBox(
+                  height: 4,
                 ),
-                Text(product.subCategory,
-                    style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center)
+                Text(product.authorOrManufacturer,
+                    style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
+
+                Text(product.subCategory, style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center)
               ],
             )),
       ),

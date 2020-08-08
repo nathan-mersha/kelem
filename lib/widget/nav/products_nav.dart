@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kelemapp/global.dart' as global;
 import 'package:kelemapp/model/config/global.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
-import 'package:kelemapp/widget/info/no_internet.dart';
+import 'package:kelemapp/widget/icon/icons.dart';
+import 'package:kelemapp/widget/info/message.dart';
 import 'package:kelemapp/widget/nav/search.dart';
 import 'package:kelemapp/widget/product/product_list.dart';
 
@@ -40,8 +41,10 @@ class _ProductNavigationState extends State<ProductNavigation> {
   Widget build(BuildContext context) {
     return subCategories == null
         ? Center(
-            child: NoInternet(),
-          )
+            child: Message(
+            icon: CustomIcons.noInternet(),
+            message: "No internet",
+          ))
         : Column(
             children: <Widget>[
               SearchView(),

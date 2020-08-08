@@ -5,13 +5,13 @@ import 'package:kelemapp/page/info/news.dart';
 import 'package:kelemapp/page/info/terms_and_conditions.dart';
 import 'package:kelemapp/page/info/version_and_update.dart';
 import 'package:kelemapp/page/info/welcome.dart';
-import 'package:kelemapp/page/item/best_sellers.dart';
-import 'package:kelemapp/page/item/edit.dart';
-import 'package:kelemapp/page/item/home.dart';
-import 'package:kelemapp/page/item/item_detail.dart';
 import 'package:kelemapp/page/order/cart.dart';
 import 'package:kelemapp/page/order/checkout.dart';
 import 'package:kelemapp/page/order/order.dart';
+import 'package:kelemapp/page/product/best_sellers.dart';
+import 'package:kelemapp/page/product/edit.dart';
+import 'package:kelemapp/page/product/home.dart';
+import 'package:kelemapp/page/product/detail.dart';
 import 'package:kelemapp/page/profile/language.dart';
 import 'package:kelemapp/page/profile/signin.dart';
 import 'package:kelemapp/page/profile/wishlist.dart';
@@ -43,11 +43,11 @@ class RouteTo {
   static const String INFO_VERSION_AND_UPDATE = "/info/versionAndUpdate";
   static const String INFO_WELCOME = "/info/welcome";
 
-  // Item pages
-  static const String ITEM_BEST_SELLERS = "/item/bestSellers";
-  static const String ITEM_DETAIL = "/item/detail";
-  static const String ITEM_EDIT = "/item/edit";
-  static const String HOME = "/item/list";
+  // Product pages
+  static const String PRODUCT_BEST_SELLERS = "/product/bestSellers";
+  static const String PRODUCT_DETAIL = "/product/detail";
+  static const String PRODUCT_EDIT = "/product/edit";
+  static const String HOME = "/product/list";
 
   // Order pages
   static const String ORDER_CART = "/order/cart";
@@ -99,10 +99,10 @@ class RouteTo {
       INFO_VERSION_AND_UPDATE: (BuildContext context) => VersionAndUpdatePage(),
       INFO_WELCOME: (BuildContext context) => WelcomePage(),
 
-      /// Item pages
-      ITEM_BEST_SELLERS: (BuildContext context) => BestSellersPage(),
-      ITEM_DETAIL: (BuildContext context) => ItemDetailPage(),
-      ITEM_EDIT: (BuildContext context) => ItemEditPage(),
+      /// Product pages
+      PRODUCT_BEST_SELLERS: (BuildContext context) => BestSellersPage(),
+      PRODUCT_DETAIL: (BuildContext context) => ProductDetailPage(),
+      PRODUCT_EDIT: (BuildContext context) => ProductEditPage(),
       HOME: (BuildContext context) => HomePage(),
 
       /// Order pages
