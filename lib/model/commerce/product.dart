@@ -94,7 +94,6 @@ class Product {
 
   /// Converts Map to Model
   static Product toModel(dynamic map) {
-
     return Product(
         productId: map[PRODUCT_ID],
         name: map[NAME],
@@ -114,8 +113,7 @@ class Product {
         publishedStatus: map[PUBLISHED_STATUS],
         shop: map[SHOP] == null ? Shop() : Shop.toModel(map[SHOP]),
         firstModified: DateTime.parse(map[FIRST_MODIFIED]),
-        lastModified: DateTime.parse(map[LAST_MODIFIED])
-    );
+        lastModified: DateTime.parse(map[LAST_MODIFIED]));
   }
 
   /// Changes List of Map to List of Model
