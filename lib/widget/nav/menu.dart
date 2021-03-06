@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/widget/nav/category_menu.dart';
 
+import '../../route/route.dart';
+
 class Menu {
   /// Get menu side drawer
   static getSideDrawer(BuildContext context) {
@@ -73,6 +75,8 @@ class Menu {
           title: Text("Wish list"),
           subtitle: Text("Anything new?"),
           onTap: () {
+            Navigator.pushNamed(context, RouteTo.PROFILE_WISH_LIST);
+
             // todo : navigate
           },
         ),

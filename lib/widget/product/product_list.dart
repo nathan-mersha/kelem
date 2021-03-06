@@ -113,7 +113,7 @@ class _ProductListState extends State<ProductList> {
                         controller: _scrollController,
                         shrinkWrap: false,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3, mainAxisSpacing: 8, childAspectRatio: _childAspectRatio),
+                            crossAxisCount: 3, mainAxisSpacing: 4, childAspectRatio: _childAspectRatio),
                         itemCount: _products.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ProductView(_products[index]);

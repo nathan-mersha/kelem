@@ -21,6 +21,7 @@ import 'package:kelemapp/page/setting/wallet/cash_out_method.dart';
 import 'package:kelemapp/page/setting/wallet/change_password.dart';
 import 'package:kelemapp/page/setting/wallet/general.dart';
 import 'package:kelemapp/page/setting/wallet/setup_password.dart';
+import 'package:kelemapp/page/shop/add_item.dart';
 import 'package:kelemapp/page/shop/admin.dart';
 import 'package:kelemapp/page/shop/detail.dart';
 import 'package:kelemapp/page/shop/edit.dart';
@@ -75,6 +76,7 @@ class RouteTo {
   static const String SHOP_EDIT = "/shop/edit";
   static const String SHOP_ISSUE_COUPON = "/shop/issueCoupon";
   static const String SHOP_RATING = "/shop/rating";
+  static const String SHOP_ADD_ITEM = "/shop/add_item";
 
   // Wallet pages
   static const String WALLET_CASH_OUT = "/wallet/cashOut";
@@ -131,7 +133,7 @@ class RouteTo {
       SHOP_EDIT: (BuildContext context) => EditShopPage(),
       SHOP_ISSUE_COUPON: (BuildContext context) => IssueCouponPage(),
       SHOP_RATING: (BuildContext context) => ShopRatingPage(),
-
+      SHOP_ADD_ITEM:(BuildContext context) => AddItemPage(),
       /// Wallet pages
       WALLET_CASH_OUT: (BuildContext context) => CashOutPage(),
       WALLET_DASHBOARD: (BuildContext context) => WalletDashboardPage(),

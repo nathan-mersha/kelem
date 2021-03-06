@@ -11,9 +11,40 @@ import 'package:kelemapp/widget/icon/icons.dart';
 import 'package:kelemapp/widget/info/message.dart';
 import 'package:kelemapp/widget/nav/menu.dart';
 import 'package:kelemapp/widget/product/product_view.dart';
+import 'package:kelemapp/route/route.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class ProductDetailPage extends StatelessWidget {
+class ProductDetailPage extends StatefulWidget {
+  @override
+  _ProductDetailPageState createState() => _ProductDetailPageState();
+
+  static getRatingStarView(Product product) {
+    return RatingBar(
+      itemSize: 20,
+      initialRating: product.rating.toDouble() ?? 0,
+      minRating: 1,
+      direction: Axis.horizontal,
+      glow: true,
+      maxRating: 5,
+      allowHalfRating: true,
+      itemCount: 5,
+      itemBuilder: (context, _) => Icon(
+        Icons.star,
+        color: Colors.amber,
+      ),
+      onRatingUpdate: (rating) {
+        // Send rating information to server
+        // show pop animation and notify user of the updated rating info.
+      },
+    );
+  }
+}
+
+class _ProductDetailPageState extends State<ProductDetailPage> {
   final num relatedProductLimit = 4;
+
+  String cart;
+
   @override
   Widget build(BuildContext context) {
     Product product = ModalRoute.of(context).settings.arguments;
@@ -38,7 +69,7 @@ class ProductDetailPage extends StatelessWidget {
               ),
               // Section 3, Shop Information
 
-              buildShopInformationSection(shop),
+              buildShopInformationSection(shop,context,product),
 
               Divider(
                 color: Theme.of(context).primaryColor,
@@ -66,10 +97,10 @@ class ProductDetailPage extends StatelessWidget {
                   AutoSizeText(
                     product.name,
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 20,
                     ),
                     maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
+                    overflow: TextOverflow.fade,
                   ),
                   AutoSizeText(
                     product.authorOrManufacturer,
@@ -85,24 +116,43 @@ class ProductDetailPage extends StatelessWidget {
                           product.tag.toString().replaceAll("[", "").replaceAll("]", ""),
                           style: TextStyle(color: CustomColor.GRAY_LIGHT),
                         ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: <Widget>[
+                              ProductDetailPage.getRatingStarView(product),
+                              FlatButton(
+                                child: Text(
+                                  "to wishlist",
+                                  textScaleFactor: 0.9,
+                                ),
+                                onPressed: () {
+                                  // todo : Add to wish list
+                                },
+                              )
+                            ],
+                          ),
+                        ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            getRatingStarView(product),
-                            FlatButton(
-                              child: Text(
-                                "to wishlist",
-                                textScaleFactor: 0.9,
-                              ),
+                            Text(cart??" "),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            RaisedButton(
+                              child: Text("Add to cart"),
                               onPressed: () {
-                                // todo : Add to wish list
+                                int add=cart!=null?int.parse(cart):0;
+                                setState((){
+                                  cart=(add+1).toString();
+
+                                });
                               },
                             )
                           ],
                         ),
-                        RaisedButton(
-                          child: Text("Add to cart"),
-                          onPressed: () {},
-                        )
+
                       ],
                     ),
                   )
@@ -129,17 +179,23 @@ class ProductDetailPage extends StatelessWidget {
     );
   }
 
-  Container buildShopInformationSection(Shop shop) {
+  Container buildShopInformationSection(Shop shop,BuildContext context,Product _product) {
 
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            shop.name,
-            textScaleFactor: 1.2,
-            style: TextStyle(
-              color: CustomColor.GRAY_DARK,
+          GestureDetector(
+            onTap: () {
+              /// Navigating to item shop page
+              Navigator.pushNamed(context, RouteTo.SHOP_ADMIN, arguments: _product);
+            },
+            child: Text(
+              shop.name,
+              textScaleFactor: 1.2,
+              style: TextStyle(
+                color: CustomColor.GRAY_DARK,
+              ),
             ),
           ),
           shop.isVerified
@@ -198,6 +254,7 @@ class ProductDetailPage extends StatelessWidget {
                         FlatButton(
                           child: Text("view on map"),
                           onPressed: () {
+                            _lunchMapsUrl(shop.physicalAddress);
                             // Open map application to show the shops physical location
                           },
                         )
@@ -282,27 +339,6 @@ class ProductDetailPage extends StatelessWidget {
     );
   }
 
-  static getRatingStarView(Product product) {
-    return RatingBar(
-      itemSize: 20,
-      initialRating: product.rating.toDouble() ?? 0,
-      minRating: 1,
-      direction: Axis.horizontal,
-      glow: true,
-      maxRating: 5,
-      allowHalfRating: true,
-      itemCount: 5,
-      itemBuilder: (context, _) => Icon(
-        Icons.star,
-        color: Colors.amber,
-      ),
-      onRatingUpdate: (rating) {
-        // Send rating information to server
-        // show pop animation and notify user of the updated rating info.
-      },
-    );
-  }
-
   Future<List<Product>> getRelatedProduct(Product product) async {
     QuerySnapshot querySnapshot = await Firestore.instance
         .collection(Product.COLLECTION_NAME)
@@ -321,5 +357,13 @@ class ProductDetailPage extends StatelessWidget {
     }).toList();
 
     return products;
+  }
+  void _lunchMapsUrl(String address) async{
+    final url='https://www.google.com/maps/search/${Uri.encodeFull(address)}';
+    if(await canLaunch(url)){
+      await launch(url);
+    }else{
+      throw 'Could not Launch $url';
+    }
   }
 }

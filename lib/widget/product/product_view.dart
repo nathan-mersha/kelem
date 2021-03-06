@@ -73,7 +73,8 @@ class ProductView extends StatelessWidget {
         children: <Widget>[
           // Image thumbnail or image place holder
           Expanded(
-            child: getThumbnailView(_product, size: size),
+            flex: 1,
+            child: getThumbnailView(_product, size: ProductView.SIZE_SMALL),
           ),
 
           Container(
@@ -109,7 +110,9 @@ class ProductView extends StatelessWidget {
                   height: 4,
                 ),
 
-                getPricingView(context, _product)
+                SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: getPricingView(context, _product))
 
                 // Product price and regular price
               ],

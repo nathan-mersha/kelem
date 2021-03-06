@@ -39,7 +39,7 @@ class ProductPlaceholder extends StatelessWidget {
         child: Padding(
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 size == ProductView.SIZE_SMALL
                     ? Expanded(
