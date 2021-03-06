@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/model/config/global.dart';
-import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/widget/icon/icons.dart';
 import 'package:kelemapp/widget/info/message.dart';
-import 'package:kelemapp/widget/info/no_internet.dart';
-import 'package:kelemapp/widget/product/product_placeholder.dart';
 import 'package:kelemapp/global.dart' as global;
 import 'package:kelemapp/widget/product/product_view.dart';
 
@@ -162,6 +159,8 @@ class _ProductListState extends State<ProductList> {
             .getDocuments();
 
     List<DocumentSnapshot> documentSnapshot = querySnapshot.documents;
+
+    print("Document snapshot : $documentSnapshot");
 
     // Assigning the last document snapshot for future query
     if (documentSnapshot.length > 0) {

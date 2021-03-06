@@ -23,7 +23,7 @@ class _LanguagePageState extends State<LanguagePage> {
               flex: 1,
               child: Container(
                 alignment: Alignment.bottomCenter,
-                color: Color(ColorCustom.GRAY_VERY_LIGHT),
+                color: CustomColor.GRAY_VERY_LIGHT,
                 width: double.infinity,
                 child: Image.asset(
                   "assets/images/addisababa_silhouet.png",
@@ -48,11 +48,11 @@ class _LanguagePageState extends State<LanguagePage> {
                     ),
                     Text(
                       "ሰላም",
-                      style: TextStyle(fontSize: 28, color: Color(ColorCustom.GRAY_LIGHT)),
+                      style: TextStyle(fontSize: 28, color: CustomColor.GRAY_LIGHT),
                     ),
                     Text(
                       "Hello there,",
-                      style: TextStyle(fontSize: 28, color: Color(ColorCustom.GRAY)),
+                      style: TextStyle(fontSize: 28, color: CustomColor.GRAY),
                     ),
                     Expanded(
                       child: Container(
@@ -62,11 +62,11 @@ class _LanguagePageState extends State<LanguagePage> {
                           children: <Widget>[
                             Text(
                               "እባክዎ ቋንቋ ይምረጡ",
-                              style: TextStyle(fontSize: 16, color: Color(ColorCustom.GRAY_DARK)),
+                              style: TextStyle(fontSize: 16, color: CustomColor.GRAY_DARK),
                             ),
                             Text(
                               "please select a language",
-                              style: TextStyle(fontSize: 16, color: Color(ColorCustom.GRAY)),
+                              style: TextStyle(fontSize: 16, color: CustomColor.GRAY),
                             ),
                             SizedBox(
                               height: 40,

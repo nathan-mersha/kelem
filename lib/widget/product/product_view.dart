@@ -6,41 +6,47 @@ import 'package:kelemapp/widget/product/product_placeholder.dart';
 
 class ProductView extends StatelessWidget {
   final Product _product;
+  final String size;
 
-  ProductView(this._product);
+  static const String SIZE_SMALL = "SIZE_SMALL";
+  static const String SIZE_MEDIUM = "SIZE_MEDIUM";
+  static const String SIZE_LARGE = "SIZE_LARGE";
 
-  static Widget getThumbnailView(Product product, {bool expand = true}) {
+  ProductView(this._product, {this.size = SIZE_MEDIUM});
+
+  static Widget getThumbnailView(Product product, {bool expand = true, String size = SIZE_MEDIUM}) {
     return product.image == null || product.image.isEmpty
-        // todo: begin from here : problem here because of not being wrapped in expanded an
-        ? expand
-            ? Expanded(child: ProductPlaceholder(product))
-            : ProductPlaceholder(product) // If no image is provided, uses Product place holder
-        : Expanded(
-            child: CachedNetworkImage(
-              imageUrl: product.image,
-              useOldImageOnUrlChange: true,
-              placeholderFadeInDuration: Duration(seconds: 1),
-              placeholder: (BuildContext context, String imageURL) {
-                return ProductPlaceholder(product);
-              },
-            ),
+        ? ProductPlaceholder(
+            product: product,
+            size: size,
+          )
+        : CachedNetworkImage(
+            imageUrl: product.image,
+            useOldImageOnUrlChange: true,
+            placeholderFadeInDuration: Duration(seconds: 1),
+            placeholder: (BuildContext context, String imageURL) {
+              return ProductPlaceholder(product: product);
+            },
           );
   }
 
-  static Widget getPricingView(BuildContext context, Product product,
-      {double priceFontSize = 15, double regularPriceFontSize = 13}) {
+  static Widget getPricingView(BuildContext context, Product product, {double priceFontSize = 15, double regularPriceFontSize = 13, size = ProductView.SIZE_MEDIUM}) {
     return Row(
+
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: size == ProductView.SIZE_LARGE ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+
       children: <Widget>[
         Text(
           "${product.price.toString()} br",
-          maxLines: 2,
+          maxLines: 1,
           overflow: TextOverflow.fade,
           textAlign: TextAlign.left,
           softWrap: false,
           style: TextStyle(color: Theme.of(context).accentColor, fontWeight: FontWeight.w800, fontSize: priceFontSize),
         ),
+
+        SizedBox(width: size== ProductView.SIZE_LARGE ? 10 : 0,),
         product.regularPrice == null || product.regularPrice == product.price
             ? Container()
             : Text(
@@ -49,8 +55,7 @@ class ProductView extends StatelessWidget {
                 overflow: TextOverflow.fade,
                 textAlign: TextAlign.left,
                 softWrap: false,
-                style: TextStyle(
-                    color: Colors.red.withOpacity(0.6), decoration: TextDecoration.lineThrough, fontSize: regularPriceFontSize),
+                style: TextStyle(color: Colors.red.withOpacity(0.6), decoration: TextDecoration.lineThrough, fontSize: regularPriceFontSize),
               ),
       ],
     );
@@ -67,7 +72,9 @@ class ProductView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           // Image thumbnail or image place holder
-          getThumbnailView(_product),
+          Expanded(
+            child: getThumbnailView(_product, size: size),
+          ),
 
           Container(
             padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
@@ -82,7 +89,9 @@ class ProductView extends StatelessWidget {
                   overflow: TextOverflow.fade,
                   textAlign: TextAlign.left,
                   softWrap: false,
-                  style: TextStyle(color: Colors.black54),
+                  style: TextStyle(
+                    color: Colors.black54,
+                  ),
                 ),
 
                 // Product Author / Manufacturer

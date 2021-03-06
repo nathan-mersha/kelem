@@ -7,6 +7,6 @@ class CustomIcons {
   }
 
   static Widget getHorizontalLoading(){
-    return SpinKitThreeBounce(color: Colors.black54,size: 50,);
+    return SpinKitThreeBounce(color: Colors.black54,size: 30,);
   }
 }

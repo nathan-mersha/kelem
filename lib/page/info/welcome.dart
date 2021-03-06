@@ -42,7 +42,9 @@ class _WelcomePageState extends State<WelcomePage> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: PageView(
+            child:
+
+            PageView(
               controller: controller,
               children: <Widget>[
                 getWelcomeScreens(0),

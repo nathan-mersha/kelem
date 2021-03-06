@@ -49,7 +49,7 @@ class Seed {
         reference: "https://en.wikipedia.org/wiki/The_Lord_of_the_Rings",
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -69,7 +69,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -89,7 +89,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -109,7 +109,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -129,7 +129,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -149,7 +149,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -169,7 +169,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -189,7 +189,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -209,7 +209,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -229,7 +229,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -249,7 +249,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -269,7 +269,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -289,7 +289,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -311,7 +311,7 @@ class Seed {
 
     // book novel
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -331,7 +331,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -351,7 +351,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -371,7 +371,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -393,7 +393,7 @@ class Seed {
 
     // iot micro-controllers
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -413,7 +413,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),
@@ -433,7 +433,7 @@ class Seed {
         description:
         "Amazon offers customers a chance to give your book a sneak peek before purchase. It’s called the Look Inside feature, and when shoppers click on it, they’re treated to a free preview of your book introduction."),
 
-    // todo : modify
+    
     Product(
         firstModified: DateTime.now(),
         lastModified: DateTime.now(),

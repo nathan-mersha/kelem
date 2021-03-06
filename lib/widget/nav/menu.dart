@@ -6,6 +6,7 @@ class Menu {
   /// Get menu side drawer
   static getSideDrawer(BuildContext context) {
     return Drawer(
+
         child: ListView(
       children: <Widget>[
         Container(
@@ -23,11 +24,11 @@ class Menu {
                 ),
                 Text(
                   "Kelem market",
-                  style: TextStyle(color: Color(ColorCustom.GRAY_LIGHT)),
+                  style: TextStyle(color: CustomColor.GRAY_LIGHT),
                 ),
                 Text(
                   "www.kelem.com",
-                  style: TextStyle(color: Color(ColorCustom.GRAY)),
+                  style: TextStyle(color: CustomColor.GRAY),
                 )
               ],
             ),

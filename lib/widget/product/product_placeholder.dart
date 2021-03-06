@@ -2,11 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:kelemapp/model/commerce/product.dart';
+import 'package:kelemapp/widget/product/product_view.dart';
 
 class ProductPlaceholder extends StatelessWidget {
   final Product product;
+  final String size;
 
-  ProductPlaceholder(this.product);
+  ProductPlaceholder({this.product, this.size});
 
   static final List<dynamic> colorList = [
     0xff220055,
@@ -35,26 +37,61 @@ class ProductPlaceholder extends StatelessWidget {
       child: Card(
         color: Color(colorList[random]),
         child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  product.name,
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.center,
-                  maxLines: 3,
-                ),
-                Text("by",
-                    style: TextStyle(fontSize: 9, fontStyle: FontStyle.italic, color: Colors.white),
-                    textAlign: TextAlign.center),
+                size == ProductView.SIZE_SMALL
+                    ? Expanded(
+                        flex: 2,
+                        child: FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(
+                            product.name,
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                            textScaleFactor: 1.6,
+                            maxLines: 3,
+                          ),
+                        ),
+                      )
+                    : Text(
+                        product.name,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                        textScaleFactor: 1.6,
+                        maxLines: 3,
+                      ),
+                Text("by", style: TextStyle(fontStyle: FontStyle.italic, color: Colors.white), textScaleFactor: 0.7, textAlign: TextAlign.center),
                 SizedBox(
                   height: 4,
                 ),
-                Text(product.authorOrManufacturer,
-                    style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
-
-                Text(product.subCategory, style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center)
+                Expanded(
+                  flex: 1,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
+                      product.authorOrManufacturer,
+                      style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      textScaleFactor: 0.7,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                ),
+                Text(
+                  product.subCategory,
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  textScaleFactor: 0.8,
+                  overflow: TextOverflow.fade,
+                )
               ],
             )),
       ),

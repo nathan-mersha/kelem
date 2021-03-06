@@ -16,6 +16,7 @@ class Shop {
   static const String IS_VERIFIED = "isVerified";
   static const String SUBSCRIPTION_PACKAGE = "subscriptionPackage";
   static const String DESCRIPTION = "description";
+
   static const String CATEGORY = "category";
   static const String LOGO = "logo";
   static const String FIRST_MODIFIED = "firstModified";

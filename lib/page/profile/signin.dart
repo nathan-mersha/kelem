@@ -23,7 +23,7 @@ class _SignInPageState extends State<SignInPage> {
               flex: 1,
               child: Container(
                 alignment: Alignment.bottomCenter,
-                color: Color(ColorCustom.GRAY_VERY_LIGHT),
+                color: CustomColor.GRAY_VERY_LIGHT,
                 width: double.infinity,
                 child: Image.asset(
                   "assets/images/addisababa_silhouet.png",
@@ -41,11 +41,11 @@ class _SignInPageState extends State<SignInPage> {
                   children: <Widget>[
                     Text(
                       "Sign in",
-                      style: TextStyle(fontSize: 28, color: Color(ColorCustom.GRAY_LIGHT), fontWeight: FontWeight.w800),
+                      style: TextStyle(fontSize: 28, color: CustomColor.GRAY_LIGHT, fontWeight: FontWeight.w800),
                     ),
                     Text(
                       "Let us know you more.",
-                      style: TextStyle(color: Color(ColorCustom.GRAY)),
+                      style: TextStyle(color: CustomColor.GRAY),
                     ),
                     Expanded(
                       child: Container(
@@ -96,7 +96,7 @@ class _SignInPageState extends State<SignInPage> {
                       children: <Widget>[
                         Text(
                           "I will do it later !",
-                          style: TextStyle(color: Color(ColorCustom.GRAY)),
+                          style: TextStyle(color: CustomColor.GRAY),
                         ),
                         FlatButton(
                           child: Text(

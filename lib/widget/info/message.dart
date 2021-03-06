@@ -25,7 +25,7 @@ class Message extends StatelessWidget {
               ? Container()
               : Text(
             message,
-            style: TextStyle(color: Color(ColorCustom.GRAY)),
+            style: TextStyle(color: CustomColor.GRAY),
           ),
           SizedBox(
             height: 25,

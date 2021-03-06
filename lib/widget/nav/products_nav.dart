@@ -62,7 +62,7 @@ class _ProductNavigationState extends State<ProductNavigation> {
                             return Tab(
                               child: Text(
                                 subCategory.toString(),
-                                style: TextStyle(color: Color(ColorCustom.GRAY)),
+                                style: TextStyle(color: CustomColor.GRAY),
                               ),
                             );
                           }).toList()),
