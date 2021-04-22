@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelemapp/api/kelemApi.dart';
 
 class SearchView extends StatefulWidget {
   final String query;
@@ -14,15 +15,41 @@ class SearchView extends StatefulWidget {
 }
 
 class SearchState extends State<SearchView> {
+  TextEditingController searchController;
+  String search;
+  static List googleBooks=[];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    searchController=TextEditingController();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    searchController.dispose();
+
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Card(
       child: TextFormField(
+        controller: searchController..text=search,
         textAlignVertical: TextAlignVertical.center,
+        onChanged: (searchValue) {
+            search = searchValue;
+        },
         decoration: InputDecoration(
           border: InputBorder.none,
-          suffixIcon: Icon(Icons.search),
+          suffixIcon: GestureDetector(
+              onTap: (){
+                print("here here $search");
+                getBookByQuery(search);
+                widget.onComplete();
+              },
+              child: Icon(Icons.search)),
           contentPadding: EdgeInsets.only(
             left: 15,
           ),
@@ -32,5 +59,15 @@ class SearchState extends State<SearchView> {
         autocorrect: true,
       ),
     );
+  }
+  Future getBookByQuery(String query) {
+    return BookAPI.getBooks(query).then((List result) {
+       googleBooks = result.isEmpty ? null : result; //
+      print("searchResults $googleBooks");
+      if (googleBooks != null) {
+        return true;
+      }
+      return false;
+    });
   }
 }

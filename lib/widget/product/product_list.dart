@@ -6,6 +6,7 @@ import 'package:kelemapp/model/config/global.dart';
 import 'package:kelemapp/widget/icon/icons.dart';
 import 'package:kelemapp/widget/info/message.dart';
 import 'package:kelemapp/global.dart' as global;
+import 'package:kelemapp/widget/nav/search.dart';
 import 'package:kelemapp/widget/product/product_view.dart';
 
 class ProductList extends StatefulWidget {
@@ -80,7 +81,7 @@ class _ProductListState extends State<ProductList> {
       children: <Widget>[
         Expanded(
           child: FutureBuilder(
-            future: getProducts(),
+            future:  getProducts(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
 
 
@@ -169,9 +170,17 @@ class _ProductListState extends State<ProductList> {
     } else {
       _noMoreItem = true;
     }
-
+    int i =0;
     List<Product> products = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
       Product p = Product.toModel(documentSnapshot.data);
+      //this is only for test
+      if(SearchState.googleBooks!=null && i < SearchState.googleBooks.length){
+        p.name= SearchState.googleBooks[i]["volumeInfo"]["title"] ?? p.name;
+        p.authorOrManufacturer= SearchState.googleBooks[i]["volumeInfo"]["authors"][0] ?? p.authorOrManufacturer;
+        p.description=SearchState.googleBooks[i]["volumeInfo"]["description"] ?? p.description;
+        p.image=SearchState.googleBooks[i]["volumeInfo"]["imageLinks"]["smallThumbnail"] ?? p.image;
+        i=i+1;
+      }
       return p;
     }).toList();
 

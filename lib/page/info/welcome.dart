@@ -20,14 +20,14 @@ class _WelcomePageState extends State<WelcomePage> {
     // Second welcome page
     {
       "title": "Add to Wish list",
-      "description": "If you cold not find what you are looking for then add it to your wish list, we will notify supliers.",
+      "description": "If you cold not find what you are looking for then add it to your wish list, we will notify suppliers.",
       "image": "assets/images/welcome/screen2.png"
     },
 
     // Third welcome page
     {
       "title": "Enjoy the community",
-      "description": "Awra market is a big community of retailers and suppliers, participate in the communtiy, and have fun!",
+      "description": "Awra market is a big community of retailers and suppliers, participate in the community, and have fun!",
       "image": "assets/images/welcome/screen3.png"
     },
   ];

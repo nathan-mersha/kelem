@@ -47,7 +47,11 @@ class _ProductNavigationState extends State<ProductNavigation> {
           ))
         : Column(
             children: <Widget>[
-              SearchView(),
+              SearchView(onComplete: (){
+                setState(() {
+
+                });
+              },),
               Expanded(
                 child: DefaultTabController(
                   length: subCategories.length,
