@@ -78,7 +78,7 @@ class _ProductNavigationState extends State<ProductNavigation> {
                     body: TabBarView(
                         children: subCategories.map((subCategory) {
                           print("subCategory.toString() ${subCategory.toString()} ");
-                      return ProductList(category, subCategory.toString(),searchBooks?? "a");
+                      return ProductList(category, subCategory.toString(),searchBooks?? "b");
                     }).toList()),
                   ),
                 ),
