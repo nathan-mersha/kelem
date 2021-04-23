@@ -17,7 +17,7 @@ class SearchView extends StatefulWidget {
 class SearchState extends State<SearchView> {
   TextEditingController searchController;
   String search;
-  static List googleBooks=[];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -46,8 +46,8 @@ class SearchState extends State<SearchView> {
           suffixIcon: GestureDetector(
               onTap: (){
                 print("here here $search");
-                getBookByQuery(search);
-                widget.onComplete();
+
+                widget.onComplete(search);
               },
               child: Icon(Icons.search)),
           contentPadding: EdgeInsets.only(
@@ -60,14 +60,5 @@ class SearchState extends State<SearchView> {
       ),
     );
   }
-  Future getBookByQuery(String query) {
-    return BookAPI.getBooks(query).then((List result) {
-       googleBooks = result.isEmpty ? null : result; //
-      print("searchResults $googleBooks");
-      if (googleBooks != null) {
-        return true;
-      }
-      return false;
-    });
-  }
+
 }

@@ -44,6 +44,9 @@ class Menu {
           title: Text("Home"),
           onTap: () {
             // todo : navigate to home
+            Navigator.of(context).pop();
+
+
           },
         ),
         ListTile(
@@ -52,6 +55,8 @@ class Menu {
           subtitle: Text("Select from categories"),
           onTap: () {
             // todo : navigate
+            Navigator.of(context).pop();
+
           },
         ),
         ListTile(
@@ -60,6 +65,9 @@ class Menu {
           subtitle: Text("Visit online shops"),
           onTap: () {
             // todo : navigate
+            Navigator.of(context).pop();
+            Navigator.pushNamed(context, RouteTo.SHOP_DETAIL);
+
           },
         ),
         ListTile(
@@ -68,6 +76,8 @@ class Menu {
           subtitle: Text("Your wallet here"),
           onTap: () {
             // todo : navigate
+            Navigator.of(context).pop();
+
           },
         ),
         ListTile(
@@ -75,6 +85,7 @@ class Menu {
           title: Text("Wish list"),
           subtitle: Text("Anything new?"),
           onTap: () {
+            Navigator.of(context).pop();
             Navigator.pushNamed(context, RouteTo.PROFILE_WISH_LIST);
 
             // todo : navigate
@@ -85,6 +96,7 @@ class Menu {
           title: Text("Orders"),
           subtitle: Text("View your order here"),
           onTap: () {
+
             // todo : navigate
           },
         ),
@@ -93,6 +105,8 @@ class Menu {
           title: Text("Best Sellers"),
           subtitle: Text("Customize your profile here"),
           onTap: () {
+            Navigator.of(context).pop();
+
             // todo : navigate
           },
         ),

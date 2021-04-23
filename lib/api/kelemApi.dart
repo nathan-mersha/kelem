@@ -48,7 +48,8 @@ class BookAPI {
     return Helper.gotInternet().then((bool thereIsInternet) {
       // Got internet
       if (thereIsInternet) {
-        String url = "$_bookURL/volumes?q=intitle:$hisabUserId&key=AIzaSyCcDUQ8o9nSt_Esd4by-1xvz2WxtSPwRUs";
+        print("url url $hisabUserId");
+        String url = "$_bookURL/volumes?q=intitle:$hisabUserId&orderBy:relevance&subject:fiction&printType=books&maxResults=40&key=AIzaSyCcDUQ8o9nSt_Esd4by-1xvz2WxtSPwRUs";
         print("url url $url");
         return http.get(
           url,

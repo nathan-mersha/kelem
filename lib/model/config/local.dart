@@ -4,6 +4,7 @@ import 'package:kelemapp/model/config/global.dart';
 class LocalConfig with ChangeNotifier {
   Category _selectedCategory;
   String _selectedSubCategory;
+  String _selectedsearchBook;
 
   Category get selectedCategory => _selectedCategory;
 
@@ -18,6 +19,11 @@ class LocalConfig with ChangeNotifier {
     _selectedSubCategory = value;
     notifyListeners();
   }
+  String get selectedSearchBook => _selectedsearchBook;
 
+  set selectedSearchBook(String value) {
+    _selectedsearchBook = value;
+    notifyListeners();
+  }
   LocalConfig();
 }

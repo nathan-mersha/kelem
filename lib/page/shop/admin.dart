@@ -227,7 +227,7 @@ class _ShopAdminPageState extends State<ShopAdminPage> {
         .collection(Product.COLLECTION_NAME)
         .where(Product.CATEGORY, isEqualTo: product.category)
         .where(Product.SUB_CATEGORY, isEqualTo: product.subCategory)
-        .where(Product.TAG, arrayContainsAny: product.tag)
+       // .where(Product.TAG, arrayContainsAny: product.tag)
         .orderBy(Product.LAST_MODIFIED)
         .getDocuments();
     List<DocumentSnapshot> documentSnapshot = querySnapshot.documents;

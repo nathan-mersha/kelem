@@ -91,23 +91,24 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  AutoSizeText(
-                    product.name,
-                    style: TextStyle(
-                      fontSize: 20,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    AutoSizeText(
+                      product.name,
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.fade,
                     ),
-                    maxLines: 4,
-                    overflow: TextOverflow.fade,
-                  ),
-                  AutoSizeText(
-                    product.authorOrManufacturer,
-                    style: TextStyle(color: CustomColor.GRAY_LIGHT),
-                  ),
-                  Expanded(
-                    child: Column(
+                    AutoSizeText(
+                      product.authorOrManufacturer,
+                      style: TextStyle(color: CustomColor.GRAY_LIGHT),
+                    ),
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -154,9 +155,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ),
 
                       ],
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           )
@@ -171,7 +172,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       child: Text(
         product.description,
         softWrap: true,
-        maxLines: 4,
+        maxLines: 6,
         overflow: TextOverflow.fade,
         textAlign: TextAlign.justify,
         style: TextStyle(color: CustomColor.GRAY),
@@ -344,7 +345,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         .collection(Product.COLLECTION_NAME)
         .where(Product.CATEGORY, isEqualTo: product.category)
         .where(Product.SUB_CATEGORY, isEqualTo: product.subCategory)
-        .where(Product.TAG, arrayContainsAny: product.tag)
+        //.where(Product.TAG, arrayContainsAny: product.tag)
         .limit(relatedProductLimit)
         .orderBy(Product.LAST_MODIFIED)
         .getDocuments();
