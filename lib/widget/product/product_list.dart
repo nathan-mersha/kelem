@@ -141,57 +141,65 @@ class _ProductListState extends State<ProductList> {
 
               if (snapshot.connectionState == ConnectionState.done && snapshot.data == null) {
                 // Connection terminated and no data available
-                if(!bookNotFound){
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Message(
-                        icon: CustomIcons.getHorizontalLoading(),
-                        message: "book called \"$search\" not found do you want to request it",//No internet
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RaisedButton(child: Text("yes"),onPressed: (){
-                            bookNotFound=true;
-                            setState(() {
+               if(notFoundList.contains(search.toString())) {
+                 if (!bookNotFound) {
+                   return Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                       Message(
+                         icon: CustomIcons.getHorizontalLoading(),
+                         message: "book called \"$search\" not found do you want to request it", //No internet
+                       ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           RaisedButton(child: Text("yes"), onPressed: () {
+                             bookNotFound = true;
+                             setState(() {
 
-                            });
-                          },),
-                          SizedBox(width: 20,),
-                          RaisedButton(child: Text("No"),onPressed: (){
-                            search="b";
-                            setState(() {
+                             });
+                           },),
+                           SizedBox(width: 20,),
+                           RaisedButton(child: Text("No"), onPressed: () {
+                             search = "b";
+                             setState(() {
 
-                            });
-                          },),
-                        ],
-                      ),
-                    ],
-                  );
-                }else{
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Message(
-                        icon: CustomIcons.getHorizontalLoading(),
-                        message: "book called $search  has been requested it",//No internet
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RaisedButton(child: Text("okay"),onPressed: (){
-                            search="b";
-                            setState(() {
+                             });
+                           },),
+                         ],
+                       ),
+                     ],
+                   );
+                 } else {
+                   return Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                       Message(
+                         icon: CustomIcons.getHorizontalLoading(),
+                         message: "book called $search  has been requested it", //No internet
+                       ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           RaisedButton(child: Text("okay"), onPressed: () {
+                             search = "b";
+                             bookNotFound=false;
+                             setState(() {
 
-                            });
-                          },),
-                        ],
-                      ),
-                    ],
-                  );
-
-                }
+                             });
+                           },),
+                         ],
+                       ),
+                     ],
+                   );
+                 }
+               }else{
+                 return Center(
+                     child: Message(
+                       icon: CustomIcons.noInternet(),
+                       message: "No internet",
+                     ));
+               }
               } else if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
                 // Got data and connection is done
 
