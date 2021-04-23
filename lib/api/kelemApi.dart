@@ -44,12 +44,12 @@ class BookAPI {
   static String _bookURL = Config.dnAdrs + "/books/v1";
 
 
-  static Future<List> getBooks(String hisabUserId) {
+  static Future<List> getBooks(String title) {
     return Helper.gotInternet().then((bool thereIsInternet) {
       // Got internet
       if (thereIsInternet) {
-        print("url url $hisabUserId");
-        String url = "$_bookURL/volumes?q=intitle:$hisabUserId&orderBy:relevance&subject:fiction&printType=books&maxResults=40&key=AIzaSyCcDUQ8o9nSt_Esd4by-1xvz2WxtSPwRUs";
+        print("url url $title");
+        String url = "$_bookURL/volumes?q=intitle:$title&orderBy:relevance&subject:fiction&printType=books&maxResults=40&key=AIzaSyCcDUQ8o9nSt_Esd4by-1xvz2WxtSPwRUs";
         print("url url $url");
         return http.get(
           url,
