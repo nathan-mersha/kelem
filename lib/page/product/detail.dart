@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/model/profile/shop.dart';
+import 'package:kelemapp/route/route.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/rsr/theme/main_theme.dart';
 import 'package:kelemapp/widget/icon/icons.dart';
 import 'package:kelemapp/widget/info/message.dart';
 import 'package:kelemapp/widget/nav/menu.dart';
 import 'package:kelemapp/widget/product/product_view.dart';
-import 'package:kelemapp/route/route.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -69,7 +69,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
               // Section 3, Shop Information
 
-              buildShopInformationSection(shop,context,product),
+              buildShopInformationSection(shop, context, product),
 
               Divider(
                 color: Theme.of(context).primaryColor,
@@ -112,9 +112,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        ProductView.getPricingView(context, product, size: ProductView.SIZE_LARGE),
+                        ProductView.getPricingView(context, product,
+                            size: ProductView.SIZE_LARGE),
                         Text(
-                          product.tag.toString().replaceAll("[", "").replaceAll("]", ""),
+                          product.tag
+                              .toString()
+                              .replaceAll("[", "")
+                              .replaceAll("]", ""),
                           style: TextStyle(color: CustomColor.GRAY_LIGHT),
                         ),
                         SingleChildScrollView(
@@ -137,23 +141,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(cart??" "),
+                            Text(cart ?? " "),
                             SizedBox(
                               width: 2,
                             ),
                             RaisedButton(
                               child: Text("Add to cart"),
                               onPressed: () {
-                                int add=cart!=null?int.parse(cart):0;
-                                setState((){
-                                  cart=(add+1).toString();
-
+                                int add = cart != null ? int.parse(cart) : 0;
+                                setState(() {
+                                  cart = (add + 1).toString();
                                 });
                               },
                             )
                           ],
                         ),
-
                       ],
                     )
                   ],
@@ -180,8 +182,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  Container buildShopInformationSection(Shop shop,BuildContext context,Product _product) {
-
+  Container buildShopInformationSection(
+      Shop shop, BuildContext context, Product _product) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,7 +191,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           GestureDetector(
             onTap: () {
               /// Navigating to item shop page
-              Navigator.pushNamed(context, RouteTo.SHOP_ADMIN, arguments: _product);
+              Navigator.pushNamed(context, RouteTo.SHOP_ADMIN,
+                  arguments: _product);
             },
             child: Text(
               shop.name,
@@ -215,14 +218,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ],
                 )
               : Row(
-                  children: <Widget>[Icon(Icons.security, color: Colors.red.withOpacity(0.6)), Text("unverified")],
+                  children: <Widget>[
+                    Icon(Icons.security, color: Colors.red.withOpacity(0.6)),
+                    Text("unverified")
+                  ],
                 ),
           SizedBox(
             height: 8,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: <Widget>[
               Expanded(
                 child: Column(
@@ -265,14 +270,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
 
-
-
               // todo : change this with shop's logo
               shop.logo == null
-                  ? Icon(Icons.shopping_basket,color: Colors.orange,size: 30,)
-                  : CircleAvatar(child: Image.network(shop.logo),)
-
-
+                  ? Icon(
+                      Icons.shopping_basket,
+                      color: Colors.orange,
+                      size: 30,
+                    )
+                  : CircleAvatar(
+                      child: Image.asset(shop.logo),
+                    )
             ],
           )
         ],
@@ -287,15 +294,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-
           FutureBuilder(
               future: getRelatedProduct(product),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    !snapshot.hasData) {
                   return Message(
                     message: "Could not find related items",
                   );
-                } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                } else if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
                   List<Product> newProducts = snapshot.data;
                   return newProducts.isEmpty
                       ? Message(
@@ -352,18 +360,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
     List<DocumentSnapshot> documentSnapshot = querySnapshot.documents;
 
-    List<Product> products = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
+    List<Product> products =
+        documentSnapshot.map((DocumentSnapshot documentSnapshot) {
       Product p = Product.toModel(documentSnapshot.data);
       return p;
     }).toList();
 
     return products;
   }
-  void _lunchMapsUrl(String address) async{
-    final url='https://www.google.com/maps/search/${Uri.encodeFull(address)}';
-    if(await canLaunch(url)){
+
+  void _lunchMapsUrl(String address) async {
+    final url = 'https://www.google.com/maps/search/${Uri.encodeFull(address)}';
+    if (await canLaunch(url)) {
       await launch(url);
-    }else{
+    } else {
       throw 'Could not Launch $url';
     }
   }

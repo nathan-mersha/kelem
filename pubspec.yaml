@@ -41,6 +41,7 @@ flutter:
     - assets/images/welcome/screen3.png
     - assets/images/addisababa_silhouet.png
     - assets/images/icon_primary_color.png
+    - assets/images/reliable.png
     
   fonts:
     - family: Nunito
