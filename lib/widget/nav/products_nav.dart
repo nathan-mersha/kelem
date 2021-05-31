@@ -86,14 +86,5 @@ class _ProductNavigationState extends State<ProductNavigation> {
             ],
           );
   }
-  Future getBookByQuery(String query) {
-    return BookAPI.getBooks(query).then((List result) {
-      googleBooks = result.isEmpty ? null : result; //
-      print("searchResults $googleBooks");
-      if (googleBooks != null) {
-        return true;
-      }
-      return false;
-    });
-  }
+
 }

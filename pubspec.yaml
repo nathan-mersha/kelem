@@ -26,7 +26,9 @@ dependencies:
   url_launcher: ^5.7.6
   connectivity: ^0.4.6+2
   dio: ^3.0.8
-
+  equatable: ^1.2.5
+  bloc: ^7.0.0
+  flutter_bloc:
 # Dev dependencies
 dev_dependencies:
   flutter_test:

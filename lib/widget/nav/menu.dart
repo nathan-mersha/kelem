@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kelemapp/bloc/theme/theme_bloc.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
+import 'package:kelemapp/rsr/theme/main_theme.dart';
 import 'package:kelemapp/widget/nav/category_menu.dart';
 
 import '../../route/route.dart';
 
 class Menu {
   /// Get menu side drawer
+  static bool isDark = false;
   static getSideDrawer(BuildContext context) {
     return Drawer(
-
         child: ListView(
       children: <Widget>[
         Container(
@@ -45,8 +48,6 @@ class Menu {
           onTap: () {
             // todo : navigate to home
             Navigator.of(context).pop();
-
-
           },
         ),
         ListTile(
@@ -56,7 +57,6 @@ class Menu {
           onTap: () {
             // todo : navigate
             Navigator.of(context).pop();
-
           },
         ),
         ListTile(
@@ -67,7 +67,6 @@ class Menu {
             // todo : navigate
             Navigator.of(context).pop();
             Navigator.pushNamed(context, RouteTo.SHOP_DETAIL);
-
           },
         ),
         ListTile(
@@ -77,7 +76,6 @@ class Menu {
           onTap: () {
             // todo : navigate
             Navigator.of(context).pop();
-
           },
         ),
         ListTile(
@@ -96,7 +94,6 @@ class Menu {
           title: Text("Orders"),
           subtitle: Text("View your order here"),
           onTap: () {
-
             // todo : navigate
           },
         ),
@@ -154,11 +151,33 @@ class Menu {
             // todo : help page here.
           },
         ),
+        ListTile(
+          leading: Icon(Icons.help),
+          title: Text("change Theme"),
+          trailing: Switch(
+            value: isDark,
+            onChanged: (value) {
+              isDark = value;
+              if (value) {
+                BlocProvider.of<ThemeBloc>(context)
+                    .add(ThemeChange(appData: AppData.Dark));
+              } else {
+                BlocProvider.of<ThemeBloc>(context)
+                    .add(ThemeChange(appData: AppData.Light));
+              }
+            },
+          ),
+          onTap: () {
+            //Navigator.pop(context); // Pops the navigation side drawer
+            // todo : help page here.
+          },
+        ),
       ],
     ));
   }
 
-  static getAppBar(BuildContext context, String title, {bool showCategory = false}) {
+  static getAppBar(BuildContext context, String title,
+      {bool showCategory = false}) {
     return AppBar(
       actions: <Widget>[showCategory ? CategoryMenu() : Container()],
       title: Text(title),

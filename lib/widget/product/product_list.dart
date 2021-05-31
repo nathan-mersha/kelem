@@ -258,87 +258,81 @@ class _ProductListState extends State<ProductList> {
   }
 
   Future<List<Product>> getProducts() async {
-    await getBookByQuery(query: search ?? "b");
+   // await getBookByQuery(query: search ?? "b");
 
-    // QuerySnapshot querySnapshot = _lastDocumentSnapShot != null
-    //     ? await Firestore.instance
-    //         .collection(Product.COLLECTION_NAME)
-    //         .where(Product.CATEGORY, isEqualTo: _category.name)
-    //         .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
-    //         .limit(PRODUCT_LIMIT)
-    //         .orderBy(Product.LAST_MODIFIED)
-    //         .startAfterDocument(_lastDocumentSnapShot)
-    //         .getDocuments()
-    //     // if there is a previous document query begins searching from the last document.
-    //     : await Firestore.instance
-    //         .collection(Product.COLLECTION_NAME)
-    //         .where(Product.CATEGORY, isEqualTo: _category.name)
-    //         .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
-    //         .limit(PRODUCT_LIMIT)
-    //         .orderBy(Product.LAST_MODIFIED)
-    //         .getDocuments();
-    //
-    // List<DocumentSnapshot> documentSnapshot = querySnapshot.documents;
-    //
-    // print("Document snapshot : $documentSnapshot");
-    //
-    // // Assigning the last document snapshot for future query
-    // if (documentSnapshot.length > 0) {
-    //   _lastDocumentSnapShot = documentSnapshot.last;
-    //   _noMoreItem = false;
-    // } else {
-    //   _noMoreItem = true;
-    // }
-    // int i =0;
-    // List<Product> products = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
-    //   Product p = Product.toModel(documentSnapshot.data);
-    //   //this is only for test
-    //   if(SearchState.googleBooks!=null && i < SearchState.googleBooks.length){
-    //     p.name= SearchState.googleBooks[i]["volumeInfo"]["title"] ?? p.name;
-    //     p.authorOrManufacturer= SearchState.googleBooks[i]["volumeInfo"]["authors"][0] ?? p.authorOrManufacturer;
-    //     p.description=SearchState.googleBooks[i]["volumeInfo"]["description"] ?? p.description;
-    //     p.image=SearchState.googleBooks[i]["volumeInfo"]["imageLinks"]["smallThumbnail"] ?? p.image;
-    //     i=i+1;
-    //   }
-    //   return p;
-    // }).toList();
+    QuerySnapshot querySnapshot = _lastDocumentSnapShot != null
+        ? await Firestore.instance
+            .collection(Product.COLLECTION_NAME)
+            .where(Product.CATEGORY, isEqualTo: _category.name)
+            .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
+            .limit(PRODUCT_LIMIT)
+            .orderBy(Product.LAST_MODIFIED)
+            .startAfterDocument(_lastDocumentSnapShot)
+            .getDocuments()
+        // if there is a previous document query begins searching from the last document.
+        : await Firestore.instance
+            .collection(Product.COLLECTION_NAME)
+            .where(Product.CATEGORY, isEqualTo: _category.name)
+            .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
+            .limit(PRODUCT_LIMIT)
+            .orderBy(Product.LAST_MODIFIED)
+            .getDocuments();
 
-    //  return products;
+    List<DocumentSnapshot> documentSnapshot = querySnapshot.documents;
 
-    Random rnd = new Random();
-    int numberRund;
-    List<Product> products = googleBooks.map((book) {
-      numberRund = money[rnd.nextInt(money.length)];
-      Product p = Product(
-        productId: book["id"],
-        name: book["volumeInfo"]["title"] ?? "Could not find title",
-        category: "book",
-        subCategory: "fiction",
-        authorOrManufacturer: book["volumeInfo"]["authors"] != null
-            ? book["volumeInfo"]["authors"][0]
-            : book["volumeInfo"]["publisher"] ?? "Could not find author",
-        price: numberRund,
-        regularPrice: numberRund + 10,
-        tag: book["volumeInfo"]["categories"] ?? ["Could not find tag"],
-        description:
-            book["volumeInfo"]["description"] ?? "Could not find description",
-        rating: 4,
-        reference: book["volumeInfo"]["authors"].toString() ??
-            "Could not find reference",
-        availableStock: 20,
-        image: book["volumeInfo"]["imageLinks"] != null
-            ? book["volumeInfo"]["imageLinks"]["smallThumbnail"]
-            : null,
-        deliverable: true,
-        metaData: book["volumeInfo"]["imageLinks"],
-        publishedStatus: "published",
-        shop: rnd.nextInt(50) % 2 != 0 ? shopOne : shopTwo,
-        firstModified: DateTime.now(),
-        lastModified: DateTime.now(),
-      );
+    print("Document snapshot : $documentSnapshot");
+
+    // Assigning the last document snapshot for future query
+    if (documentSnapshot.length > 0) {
+      _lastDocumentSnapShot = documentSnapshot.last;
+      _noMoreItem = false;
+    } else {
+      _noMoreItem = true;
+    }
+    int i =0;
+    List<Product> products = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
+      Product p = Product.toModel(documentSnapshot.data);
+      //this is only for test
+     
       return p;
     }).toList();
-    return products;
+
+     return products;
+
+    // Random rnd = new Random();
+    // int numberRund;
+    // List<Product> products = googleBooks.map((book) {
+    //   numberRund = money[rnd.nextInt(money.length)];
+    //   Product p = Product(
+    //     productId: book["id"],
+    //     name: book["volumeInfo"]["title"] ?? "Could not find title",
+    //     category: "book",
+    //     subCategory: "fiction",
+    //     authorOrManufacturer: book["volumeInfo"]["authors"] != null
+    //         ? book["volumeInfo"]["authors"][0]
+    //         : book["volumeInfo"]["publisher"] ?? "Could not find author",
+    //     price: numberRund,
+    //     regularPrice: numberRund + 10,
+    //     tag: book["volumeInfo"]["categories"] ?? ["Could not find tag"],
+    //     description:
+    //         book["volumeInfo"]["description"] ?? "Could not find description",
+    //     rating: 4,
+    //     reference: book["volumeInfo"]["authors"].toString() ??
+    //         "Could not find reference",
+    //     availableStock: 20,
+    //     image: book["volumeInfo"]["imageLinks"] != null
+    //         ? book["volumeInfo"]["imageLinks"]["smallThumbnail"]
+    //         : null,
+    //     deliverable: true,
+    //     metaData: book["volumeInfo"]["imageLinks"],
+    //     publishedStatus: "published",
+    //     shop: rnd.nextInt(50) % 2 != 0 ? shopOne : shopTwo,
+    //     firstModified: DateTime.now(),
+    //     lastModified: DateTime.now(),
+    //   );
+    //   return p;
+    // }).toList();
+    //return products;
   }
 
   Future getBookByQuery({String query}) async {
