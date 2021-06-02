@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -258,7 +256,7 @@ class _ProductListState extends State<ProductList> {
   }
 
   Future<List<Product>> getProducts() async {
-   // await getBookByQuery(query: search ?? "b");
+    // await getBookByQuery(query: search ?? "b");
 
     QuerySnapshot querySnapshot = _lastDocumentSnapShot != null
         ? await Firestore.instance
@@ -289,15 +287,16 @@ class _ProductListState extends State<ProductList> {
     } else {
       _noMoreItem = true;
     }
-    int i =0;
-    List<Product> products = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
+    int i = 0;
+    List<Product> products =
+        documentSnapshot.map((DocumentSnapshot documentSnapshot) {
       Product p = Product.toModel(documentSnapshot.data);
       //this is only for test
-     
+
       return p;
     }).toList();
 
-     return products;
+    return products;
 
     // Random rnd = new Random();
     // int numberRund;

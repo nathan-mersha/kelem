@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kelemapp/bloc/down/down_bloc.dart';
 import 'package:kelemapp/model/commerce/product.dart';
-import 'package:kelemapp/route/route.dart';
 import 'package:kelemapp/widget/product/product_placeholder.dart';
 
 class ProductView extends StatelessWidget {
@@ -14,7 +15,8 @@ class ProductView extends StatelessWidget {
 
   ProductView(this._product, {this.size = SIZE_MEDIUM});
 
-  static Widget getThumbnailView(Product product, {bool expand = true, String size = SIZE_MEDIUM}) {
+  static Widget getThumbnailView(Product product,
+      {bool expand = true, String size = SIZE_MEDIUM}) {
     return product.image == null || product.image.isEmpty
         ? ProductPlaceholder(
             product: product,
@@ -30,12 +32,15 @@ class ProductView extends StatelessWidget {
           );
   }
 
-  static Widget getPricingView(BuildContext context, Product product, {double priceFontSize = 15, double regularPriceFontSize = 13, size = ProductView.SIZE_MEDIUM}) {
+  static Widget getPricingView(BuildContext context, Product product,
+      {double priceFontSize = 15,
+      double regularPriceFontSize = 13,
+      size = ProductView.SIZE_MEDIUM}) {
     return Row(
-
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: size == ProductView.SIZE_LARGE ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
-
+      mainAxisAlignment: size == ProductView.SIZE_LARGE
+          ? MainAxisAlignment.start
+          : MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Text(
           "${product.price.toString()} br",
@@ -43,10 +48,14 @@ class ProductView extends StatelessWidget {
           overflow: TextOverflow.fade,
           textAlign: TextAlign.left,
           softWrap: false,
-          style: TextStyle(color: Theme.of(context).accentColor, fontWeight: FontWeight.w800, fontSize: priceFontSize),
+          style: TextStyle(
+              color: Theme.of(context).accentColor,
+              fontWeight: FontWeight.w800,
+              fontSize: priceFontSize),
         ),
-
-        SizedBox(width: size== ProductView.SIZE_LARGE ? 10 : 0,),
+        SizedBox(
+          width: size == ProductView.SIZE_LARGE ? 10 : 0,
+        ),
         product.regularPrice == null || product.regularPrice == product.price
             ? Container()
             : Text(
@@ -55,7 +64,10 @@ class ProductView extends StatelessWidget {
                 overflow: TextOverflow.fade,
                 textAlign: TextAlign.left,
                 softWrap: false,
-                style: TextStyle(color: Colors.red.withOpacity(0.6), decoration: TextDecoration.lineThrough, fontSize: regularPriceFontSize),
+                style: TextStyle(
+                    color: Colors.red.withOpacity(0.6),
+                    decoration: TextDecoration.lineThrough,
+                    fontSize: regularPriceFontSize),
               ),
       ],
     );
@@ -66,7 +78,10 @@ class ProductView extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         /// Navigating to item detail page
-        Navigator.pushNamed(context, RouteTo.PRODUCT_DETAIL, arguments: _product);
+        // Navigator.pushNamed(context, RouteTo.PRODUCT_DETAIL,
+        //     arguments: _product);
+        BlocProvider.of<DownBloc>(context)
+            .add(DownSelectedEvent(product: _product));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

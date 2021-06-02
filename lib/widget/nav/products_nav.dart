@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kelemapp/api/kelemApi.dart';
 import 'package:kelemapp/global.dart' as global;
 import 'package:kelemapp/model/config/global.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
@@ -18,8 +17,8 @@ class ProductNavigation extends StatefulWidget {
 class _ProductNavigationState extends State<ProductNavigation> {
   Category category;
   List<dynamic> subCategories;
-  List googleBooks=[];
-  String searchBooks="a";
+  List googleBooks = [];
+  String searchBooks = "a";
 
   @override
   void initState() {
@@ -50,12 +49,14 @@ class _ProductNavigationState extends State<ProductNavigation> {
           ))
         : Column(
             children: <Widget>[
-              SearchView(onComplete: (String search){
-                print("search $search");
-                global.localConfig.selectedSearchBook=search;
+              SearchView(
+                onComplete: (String search) {
+                  print("search $search");
+                  global.localConfig.selectedSearchBook = search;
 
-                // getBookByQuery(search);
-              },),
+                  // getBookByQuery(search);
+                },
+              ),
               Expanded(
                 child: DefaultTabController(
                   length: subCategories.length,
@@ -77,8 +78,10 @@ class _ProductNavigationState extends State<ProductNavigation> {
                     ),
                     body: TabBarView(
                         children: subCategories.map((subCategory) {
-                          print("subCategory.toString() ${subCategory.toString()} ");
-                      return ProductList(category, subCategory.toString(),searchBooks?? "b");
+                      print(
+                          "subCategory.toString() ${subCategory.toString()} ");
+                      return ProductList(
+                          category, subCategory.toString(), searchBooks ?? "b");
                     }).toList()),
                   ),
                 ),
@@ -86,5 +89,4 @@ class _ProductNavigationState extends State<ProductNavigation> {
             ],
           );
   }
-
 }

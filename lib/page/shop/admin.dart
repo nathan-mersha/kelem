@@ -42,7 +42,7 @@ class _ShopAdminPageState extends State<ShopAdminPage> {
                           CircleAvatar(
                             radius: 50,
                             child: shop.shopId != "1"
-                                ? Image.asset(shop.logo)
+                                ? Text("B") //Image.asset(shop.logo)
                                 : Text("B"),
                             backgroundColor: Theme.of(context).primaryColor,
                           ),
@@ -188,9 +188,9 @@ class _ShopAdminPageState extends State<ShopAdminPage> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(
-                                          context, RouteTo.SHOP_ADD_ITEM,
-                                          arguments: shop);
+                                      // Navigator.pushNamed(
+                                      //     context, RouteTo.SHOP_ADD_ITEM,
+                                      //     arguments: shop);
                                     },
                                     child: Column(
                                       children: [

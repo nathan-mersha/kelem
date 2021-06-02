@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
-import 'package:connectivity/connectivity.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+
 import 'package:http/http.dart' as http;
 
 /// Hisab Public Addresses
 class Config {
   static String dnAdrs = "https://www.googleapis.com";
 }
+
 class Helper {
   /// Checks if either wifi or mobile data is on, but not necessarily if there is internet.
   static Future<bool> gotInternet() {
@@ -19,7 +17,6 @@ class Helper {
       return result.toString() == "ConnectivityResult.wifi" ||
           result.toString() == "ConnectivityResult.mobile";
     });*/
-
   }
 
   /// Trims phone number of format "0967823595" and "251967823595" and "67823595" to "67823595"
@@ -43,12 +40,12 @@ class Helper {
 class BookAPI {
   static String _bookURL = Config.dnAdrs + "/books/v1";
 
-
   static Future<List> getBooks(String title) {
     return Helper.gotInternet().then((bool thereIsInternet) {
       // Got internet
       if (thereIsInternet) {
-        String url = "$_bookURL/volumes?q=intitle:$title&orderBy:relevance&subject:fiction&printType=books&maxResults=40&key=AIzaSyCcDUQ8o9nSt_Esd4by-1xvz2WxtSPwRUs";
+        String url =
+            "$_bookURL/volumes?q=intitle:$title&orderBy:relevance&subject:fiction&printType=books&maxResults=40&key=AIzaSyCcDUQ8o9nSt_Esd4by-1xvz2WxtSPwRUs";
         return http.get(
           url,
           headers: {"Content-Type": "application/json"},
@@ -68,5 +65,4 @@ class BookAPI {
       }
     });
   }
-
 }

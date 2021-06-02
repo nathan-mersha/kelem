@@ -9,9 +9,9 @@ import 'package:kelemapp/page/order/cart.dart';
 import 'package:kelemapp/page/order/checkout.dart';
 import 'package:kelemapp/page/order/order.dart';
 import 'package:kelemapp/page/product/best_sellers.dart';
+import 'package:kelemapp/page/product/detail.dart';
 import 'package:kelemapp/page/product/edit.dart';
 import 'package:kelemapp/page/product/home.dart';
-import 'package:kelemapp/page/product/detail.dart';
 import 'package:kelemapp/page/profile/language.dart';
 import 'package:kelemapp/page/profile/signin.dart';
 import 'package:kelemapp/page/profile/wishlist.dart';
@@ -62,13 +62,17 @@ class RouteTo {
 
   // General settings pages
   static const String SETTING_GENERAL = "/setting/general";
-  static const String SETTING_PAYMENT_AND_DELIVERY = "/setting/paymentAndDelivery";
+  static const String SETTING_PAYMENT_AND_DELIVERY =
+      "/setting/paymentAndDelivery";
 
   // Wallet settings page
-  static const String SETTING_WALLET_CASH_OUT_METHODS = "/setting/wallet/cashOutMethods";
-  static const String SETTING_WALLET_CHANGE_PASSWORD = "/setting/wallet/changePassword";
+  static const String SETTING_WALLET_CASH_OUT_METHODS =
+      "/setting/wallet/cashOutMethods";
+  static const String SETTING_WALLET_CHANGE_PASSWORD =
+      "/setting/wallet/changePassword";
   static const String SETTING_WALLET_GENERAL = "/setting/wallet/general";
-  static const String SETTING_WALLET_SETUP_PASSWORD = "/setting/wallet/setupPassword";
+  static const String SETTING_WALLET_SETUP_PASSWORD =
+      "/setting/wallet/setupPassword";
 
   // Shop pages
   static const String SHOP_ADMIN = "/shop/admin";
@@ -91,13 +95,15 @@ class RouteTo {
 //        builder: buildFirstPage,
 //        future: isFirstTime(),
 //      ),
-      ROOT: (BuildContext context) => HomePage(), // todo uncomment the above code after internet
+      ROOT: (BuildContext context) =>
+          HomePage(), // todo uncomment the above code after internet
 
       /// Info pages
       INFO_CONTACT_US: (BuildContext context) => ContactUsPage(),
       INFO_HELP: (BuildContext context) => HelpPage(),
       INFO_NEWS: (BuildContext context) => NewsPage(),
-      INFO_TERMS_AND_CONDITIONS: (BuildContext context) => TermsAndConditionsPage(),
+      INFO_TERMS_AND_CONDITIONS: (BuildContext context) =>
+          TermsAndConditionsPage(),
       INFO_VERSION_AND_UPDATE: (BuildContext context) => VersionAndUpdatePage(),
       INFO_WELCOME: (BuildContext context) => WelcomePage(),
 
@@ -119,13 +125,17 @@ class RouteTo {
 
       /// General settings pages
       SETTING_GENERAL: (BuildContext context) => GeneralSettingsPage(),
-      SETTING_PAYMENT_AND_DELIVERY: (BuildContext context) => PaymentAndDeliverySettingsPage(),
+      SETTING_PAYMENT_AND_DELIVERY: (BuildContext context) =>
+          PaymentAndDeliverySettingsPage(),
 
       /// Wallet settings pages
-      SETTING_WALLET_CASH_OUT_METHODS: (BuildContext context) => CashOutMethodWalletSettingsPage(),
-      SETTING_WALLET_CHANGE_PASSWORD: (BuildContext context) => ChangePasswordWalletSettingsPage(),
+      SETTING_WALLET_CASH_OUT_METHODS: (BuildContext context) =>
+          CashOutMethodWalletSettingsPage(),
+      SETTING_WALLET_CHANGE_PASSWORD: (BuildContext context) =>
+          ChangePasswordWalletSettingsPage(),
       SETTING_WALLET_GENERAL: (BuildContext context) => WalletSettingsPage(),
-      SETTING_WALLET_SETUP_PASSWORD: (BuildContext context) => SetupPasswordWalletSettingsPage(),
+      SETTING_WALLET_SETUP_PASSWORD: (BuildContext context) =>
+          SetupPasswordWalletSettingsPage(),
 
       /// Shop pages
       SHOP_ADMIN: (BuildContext context) => ShopAdminPage(),

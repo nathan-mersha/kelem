@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelemapp/consetance/enums.dart';
 
 class MainTheme {
   // static ThemeData getTheme() {
@@ -13,8 +14,6 @@ class MainTheme {
     return EdgeInsets.only(top: 10, bottom: 4, right: 10, left: 10);
   }
 }
-
-enum AppData { Light, Dark }
 
 final appThemeData = {
   AppData.Light: ThemeData(
