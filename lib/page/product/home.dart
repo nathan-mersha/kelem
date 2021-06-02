@@ -21,7 +21,6 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Expanded buildProductViewSection(Product product, BuildContext context) {
     return Expanded(
-      flex: 8,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -66,22 +65,20 @@ class _HomePageState extends State<HomePage> {
                                   .replaceAll("]", ""),
                               style: TextStyle(color: CustomColor.GRAY_LIGHT),
                             ),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: <Widget>[
-                                  ProductDetailPage.getRatingStarView(product),
-                                  FlatButton(
-                                    child: Text(
-                                      "to wishlist",
-                                      textScaleFactor: 0.9,
-                                    ),
-                                    onPressed: () {
-                                      // todo : Add to wish list
-                                    },
-                                  )
-                                ],
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                ProductDetailPage.getRatingStarView(product),
+                                FlatButton(
+                                  child: Text(
+                                    "to wishlist",
+                                    textScaleFactor: 0.9,
+                                  ),
+                                  onPressed: () {
+                                    // todo : Add to wish list
+                                  },
+                                )
+                              ],
                             ),
                           ],
                         )
