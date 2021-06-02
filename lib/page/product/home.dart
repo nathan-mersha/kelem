@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 ProductDetailPage.getRatingStarView(product),
-                                FlatButton(
+                                TextButton(
                                   child: Text(
                                     "to wishlist",
                                     textScaleFactor: 0.9,
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              RaisedButton(
+              ElevatedButton(
                 child: Text("book detail"),
                 onPressed: () {
                   Navigator.pushNamed(context, RouteTo.PRODUCT_DETAIL,
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 width: 2,
               ),
-              RaisedButton(
+              ElevatedButton(
                 child: Text("Add to cart"),
                 onPressed: () {
                   // int add = cart != null ? int.parse(cart) : 0;

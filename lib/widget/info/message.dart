@@ -16,38 +16,35 @@ class Message extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          icon == null
-              ? Container()
-              : icon,
+          icon == null ? Container() : icon,
           SizedBox(
             height: 14,
           ),
           message == null
               ? Container()
               : Padding(
-                padding: const EdgeInsets.only(left:20.0,right: 20.0),
-                child: AutoSizeText(
-            message,
-            style: TextStyle(color: CustomColor.GRAY),
-            maxLines: 3,
-            overflow: TextOverflow.fade,
-                  textAlign: TextAlign.justify,
-          ),
-              ),
-
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: AutoSizeText(
+                    message,
+                    style: TextStyle(color: CustomColor.GRAY),
+                    maxLines: 3,
+                    overflow: TextOverflow.fade,
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
           SizedBox(
             height: 25,
           ),
           onRetry == null
               ? Container()
-              : RaisedButton(
-            child: Text(
-              "retry",
-            ),
-            onPressed: () {
-              onRetry();
-            },
-          )
+              : ElevatedButton(
+                  child: Text(
+                    "retry",
+                  ),
+                  onPressed: () {
+                    onRetry();
+                  },
+                )
         ],
       ),
     );

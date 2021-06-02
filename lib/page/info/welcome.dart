@@ -13,21 +13,24 @@ class _WelcomePageState extends State<WelcomePage> {
     // First welcome page
     {
       "title": "Search and Locate",
-      "description": "Search and locate from a variety of items including but not limited to books, medicine and iot devices.",
+      "description":
+          "Search and locate from a variety of items including but not limited to books, medicine and iot devices.",
       "image": "assets/images/welcome/screen1.png"
     },
 
     // Second welcome page
     {
       "title": "Add to Wish list",
-      "description": "If you cold not find what you are looking for then add it to your wish list, we will notify suppliers.",
+      "description":
+          "If you cold not find what you are looking for then add it to your wish list, we will notify suppliers.",
       "image": "assets/images/welcome/screen2.png"
     },
 
     // Third welcome page
     {
       "title": "Enjoy the community",
-      "description": "Awra market is a big community of retailers and suppliers, participate in the community, and have fun!",
+      "description":
+          "Awra market is a big community of retailers and suppliers, participate in the community, and have fun!",
       "image": "assets/images/welcome/screen3.png"
     },
   ];
@@ -42,9 +45,7 @@ class _WelcomePageState extends State<WelcomePage> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child:
-
-            PageView(
+            child: PageView(
               controller: controller,
               children: <Widget>[
                 getWelcomeScreens(0),
@@ -70,22 +71,29 @@ class _WelcomePageState extends State<WelcomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, RouteTo.PROFILE_SIGN_IN);
+                        Navigator.pushReplacementNamed(
+                            context, RouteTo.PROFILE_SIGN_IN);
                       },
                       child: Text(
                         "Register",
-                        style: TextStyle(fontSize: 15, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w800),
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w800),
                       ),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, RouteTo.HOME);
                       },
                       child: Text(
                         "Skip",
-                        style: TextStyle(fontSize: 15, color: Colors.black54, fontWeight: FontWeight.w800),
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w800),
                       ),
                     ),
                   ],
@@ -107,21 +115,27 @@ class _WelcomePageState extends State<WelcomePage> {
             child: CircleAvatar(
               minRadius: 3,
               maxRadius: 3,
-              backgroundColor: currentPage == 0 ? Theme.of(context).primaryColor : Colors.black54,
+              backgroundColor: currentPage == 0
+                  ? Theme.of(context).primaryColor
+                  : Colors.black54,
             )),
         Container(
             padding: EdgeInsets.symmetric(horizontal: 3),
             child: CircleAvatar(
               minRadius: 3,
               maxRadius: 3,
-              backgroundColor: currentPage == 1 ? Theme.of(context).primaryColor : Colors.black54,
+              backgroundColor: currentPage == 1
+                  ? Theme.of(context).primaryColor
+                  : Colors.black54,
             )),
         Container(
             padding: EdgeInsets.symmetric(horizontal: 3),
             child: CircleAvatar(
               minRadius: 3,
               maxRadius: 3,
-              backgroundColor: currentPage == 2 ? Theme.of(context).primaryColor : Colors.black54,
+              backgroundColor: currentPage == 2
+                  ? Theme.of(context).primaryColor
+                  : Colors.black54,
             )),
       ],
     );
@@ -132,39 +146,41 @@ class _WelcomePageState extends State<WelcomePage> {
       color: Colors.white,
       padding: EdgeInsets.only(bottom: 12),
       child: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
-        Image.asset(
-          welcomePage[index]["image"],
-          height: 300,
-        ),
-        Container(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                welcomePage[index]["title"],
-                maxLines: 4,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 19),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 35, horizontal: 95),
-                child: Text(
-                  welcomePage[index]["description"],
-                  maxLines: 4,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black54,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+            Image.asset(
+              welcomePage[index]["image"],
+              height: 300,
+            ),
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    height: 30,
                   ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ])),
+                  Text(
+                    welcomePage[index]["title"],
+                    maxLines: 4,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 19),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 35, horizontal: 95),
+                    child: Text(
+                      welcomePage[index]["description"],
+                      maxLines: 4,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black54,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ])),
     );
   }
 }

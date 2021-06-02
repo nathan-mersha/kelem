@@ -48,7 +48,8 @@ class _LanguagePageState extends State<LanguagePage> {
                     ),
                     Text(
                       "ሰላም",
-                      style: TextStyle(fontSize: 28, color: CustomColor.GRAY_LIGHT),
+                      style: TextStyle(
+                          fontSize: 28, color: CustomColor.GRAY_LIGHT),
                     ),
                     Text(
                       "Hello there,",
@@ -62,11 +63,13 @@ class _LanguagePageState extends State<LanguagePage> {
                           children: <Widget>[
                             Text(
                               "እባክዎ ቋንቋ ይምረጡ",
-                              style: TextStyle(fontSize: 16, color: CustomColor.GRAY_DARK),
+                              style: TextStyle(
+                                  fontSize: 16, color: CustomColor.GRAY_DARK),
                             ),
                             Text(
                               "please select a language",
-                              style: TextStyle(fontSize: 16, color: CustomColor.GRAY),
+                              style: TextStyle(
+                                  fontSize: 16, color: CustomColor.GRAY),
                             ),
                             SizedBox(
                               height: 40,
@@ -80,8 +83,10 @@ class _LanguagePageState extends State<LanguagePage> {
                                 // on package change
                               },
                               value: "english",
-                              items: ["english", "amharic"].map((String package) {
-                                return DropdownMenuItem<String>(value: package, child: Text(package));
+                              items:
+                                  ["english", "amharic"].map((String package) {
+                                return DropdownMenuItem<String>(
+                                    value: package, child: Text(package));
                               }).toList(),
                             ),
                             SizedBox(
@@ -89,8 +94,10 @@ class _LanguagePageState extends State<LanguagePage> {
                             ),
                             Container(
                               width: double.infinity,
-                              child: RaisedButton(
-                                color: Colors.deepOrangeAccent,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.deepOrangeAccent,
+                                ),
                                 child: Text(
                                   "proceed",
                                   style: TextStyle(color: Colors.white),

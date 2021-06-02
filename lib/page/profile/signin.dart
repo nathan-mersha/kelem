@@ -41,7 +41,10 @@ class _SignInPageState extends State<SignInPage> {
                   children: <Widget>[
                     Text(
                       "Sign in",
-                      style: TextStyle(fontSize: 28, color: CustomColor.GRAY_LIGHT, fontWeight: FontWeight.w800),
+                      style: TextStyle(
+                          fontSize: 28,
+                          color: CustomColor.GRAY_LIGHT,
+                          fontWeight: FontWeight.w800),
                     ),
                     Text(
                       "Let us know you more.",
@@ -98,10 +101,13 @@ class _SignInPageState extends State<SignInPage> {
                           "I will do it later !",
                           style: TextStyle(color: CustomColor.GRAY),
                         ),
-                        FlatButton(
+                        TextButton(
                           child: Text(
                             "skip",
-                            style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w800, fontSize: 16),
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 16),
                           ),
                           onPressed: () {
                             // todo : navigate to home

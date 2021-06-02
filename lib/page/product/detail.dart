@@ -133,7 +133,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           child: Row(
                             children: <Widget>[
                               ProductDetailPage.getRatingStarView(product),
-                              FlatButton(
+                              TextButton(
                                 child: Text(
                                   "to wishlist",
                                   textScaleFactor: 0.9,
@@ -152,7 +152,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             SizedBox(
                               width: 2,
                             ),
-                            RaisedButton(
+                            ElevatedButton(
                               child: Text("Add to cart"),
                               onPressed: () {
                                 int add = cart != null ? int.parse(cart) : 0;
@@ -264,7 +264,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           style: TextStyle(color: CustomColor.GRAY),
                           textScaleFactor: 0.9,
                         ),
-                        FlatButton(
+                        TextButton(
                           child: Text("view on map"),
                           onPressed: () {
                             _lunchMapsUrl(shop.physicalAddress);
