@@ -2,7 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:kelemapp/bloc/cart/cart_bloc.dart';
+import 'package:kelemapp/bloc/down/down_bloc.dart';
 import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/model/profile/shop.dart';
 import 'package:kelemapp/route/route.dart';
@@ -11,6 +14,7 @@ import 'package:kelemapp/rsr/theme/main_theme.dart';
 import 'package:kelemapp/widget/icon/icons.dart';
 import 'package:kelemapp/widget/info/message.dart';
 import 'package:kelemapp/widget/nav/menu.dart';
+import 'package:kelemapp/widget/product/bottom_sheet_product.dart';
 import 'package:kelemapp/widget/product/product_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -53,32 +57,56 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return Scaffold(
       appBar: Menu.getAppBar(context, product.name),
       drawer: Menu.getSideDrawer(context),
-      body: Container(
-          padding: MainTheme.getPagePadding(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              // Section 1, Image, title, add to cart rating.
-              buildProductViewSection(product, context),
+      body: BlocListener<DownBloc, DownState>(
+        listener: (context, state) {
+          // TODO: implement listener}
+          if (state is DownSelected) {
+            Scaffold.of(context).showBottomSheet(
+              (context) {
+                return WillPopScope(
+                  onWillPop: () {
+                    BlocProvider.of<DownBloc>(context)
+                        .add(DownUnSelectedEvent());
+                    return Future.value(true);
+                  },
+                  child: Container(
+                    height: 300,
+                    child: buildProductViewSectionBottomSheet(
+                        state.product, context),
+                  ),
+                );
+              },
+              elevation: 3,
+            );
+          }
+        },
+        child: Container(
+            padding: MainTheme.getPagePadding(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                // Section 1, Image, title, add to cart rating.
+                buildProductViewSection(product, context),
 
-              // Section 2, Introduction
-              buildIntroductionSection(product),
+                // Section 2, Introduction
+                buildIntroductionSection(product),
 
-              Divider(
-                height: 20,
-              ),
-              // Section 3, Shop Information
+                Divider(
+                  height: 20,
+                ),
+                // Section 3, Shop Information
 
-              buildShopInformationSection(shop, context, product),
+                buildShopInformationSection(shop, context, product),
 
-              Divider(
-                color: Theme.of(context).primaryColor,
-                height: 20,
-              ),
-              // Section 4, Similar Items
-              buildSimilarItemsSection(product)
-            ],
-          )),
+                Divider(
+                  color: Theme.of(context).primaryColor,
+                  height: 20,
+                ),
+                // Section 4, Similar Items
+                buildSimilarItemsSection(product)
+              ],
+            )),
+      ),
     );
   }
 
@@ -155,10 +183,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             ElevatedButton(
                               child: Text("Add to cart"),
                               onPressed: () {
-                                int add = cart != null ? int.parse(cart) : 0;
-                                setState(() {
-                                  cart = (add + 1).toString();
-                                });
+                                // int add = cart != null ? int.parse(cart) : 0;
+                                // setState(() {
+                                //   cart = (add + 1).toString();
+                                // });
+                                List<Product> cartItem = [];
+
+                                cartItem.add(product);
+
+                                BlocProvider.of<CartBloc>(context)
+                                    .add(CardAddItem(cartItem: cartItem));
                               },
                             )
                           ],
