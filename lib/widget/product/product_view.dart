@@ -78,8 +78,7 @@ class ProductView extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         /// Navigating to item detail page
-        // Navigator.pushNamed(context, RouteTo.PRODUCT_DETAIL,
-        //     arguments: _product);
+
         BlocProvider.of<DownBloc>(context)
             .add(DownSelectedEvent(product: _product));
       },

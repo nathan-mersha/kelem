@@ -86,9 +86,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return Expanded(
       flex: 8,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          ProductView.getThumbnailView(product, expand: false),
           Expanded(
+              flex: 3,
+              child: Center(
+                child: ProductView.getThumbnailView(product,
+                    expand: false, size: ProductView.SIZE_SMALL),
+              )),
+          Expanded(
+            flex: 5,
             child: Padding(
               padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
               child: SingleChildScrollView(

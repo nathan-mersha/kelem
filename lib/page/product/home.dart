@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kelemapp/bloc/down/down_bloc.dart';
 import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/page/product/detail.dart';
+import 'package:kelemapp/route/route.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/rsr/theme/main_theme.dart';
 import 'package:kelemapp/widget/nav/menu.dart';
@@ -100,7 +101,13 @@ class _HomePageState extends State<HomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(" "),
+              RaisedButton(
+                child: Text("book detail"),
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteTo.PRODUCT_DETAIL,
+                      arguments: product);
+                },
+              ),
               SizedBox(
                 width: 2,
               ),
@@ -112,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                   //   cart = (add + 1).toString();
                   // });
                 },
-              )
+              ),
             ],
           ),
         ],
