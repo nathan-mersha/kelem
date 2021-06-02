@@ -22,96 +22,102 @@ class _HomePageState extends State<HomePage> {
   Expanded buildProductViewSection(Product product, BuildContext context) {
     return Expanded(
       flex: 8,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-              flex: 1,
-              child: ProductView.getThumbnailView(product,
-                  size: ProductView.SIZE_SMALL)),
-          Expanded(
-            flex: 4,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    AutoSizeText(
-                      product.name,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                      maxLines: 3,
-                      overflow: TextOverflow.fade,
-                    ),
-                    AutoSizeText(
-                      product.authorOrManufacturer,
-                      style: TextStyle(color: CustomColor.GRAY_LIGHT),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                  flex: 1,
+                  child: ProductView.getThumbnailView(product,
+                      size: ProductView.SIZE_SMALL)),
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        ProductView.getPricingView(context, product,
-                            size: ProductView.SIZE_LARGE),
-                        Text(
-                          product.tag
-                              .toString()
-                              .replaceAll("[", "")
-                              .replaceAll("]", ""),
-                          style: TextStyle(color: CustomColor.GRAY_LIGHT),
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: <Widget>[
-                              ProductDetailPage.getRatingStarView(product),
-                              FlatButton(
-                                child: Text(
-                                  "to wishlist",
-                                  textScaleFactor: 0.9,
-                                ),
-                                onPressed: () {
-                                  // todo : Add to wish list
-                                },
-                              )
-                            ],
-                          ),
-                        ),
                         AutoSizeText(
-                          product.description,
+                          product.name,
                           style: TextStyle(
                             fontSize: 20,
                           ),
                           maxLines: 3,
                           overflow: TextOverflow.fade,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(" "),
-                            SizedBox(
-                              width: 2,
-                            ),
-                            RaisedButton(
-                              child: Text("Add to cart"),
-                              onPressed: () {
-                                // int add = cart != null ? int.parse(cart) : 0;
-                                // setState(() {
-                                //   cart = (add + 1).toString();
-                                // });
-                              },
-                            )
-                          ],
+                        AutoSizeText(
+                          product.authorOrManufacturer,
+                          style: TextStyle(color: CustomColor.GRAY_LIGHT),
                         ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            ProductView.getPricingView(context, product,
+                                size: ProductView.SIZE_LARGE),
+                            Text(
+                              product.tag
+                                  .toString()
+                                  .replaceAll("[", "")
+                                  .replaceAll("]", ""),
+                              style: TextStyle(color: CustomColor.GRAY_LIGHT),
+                            ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: <Widget>[
+                                  ProductDetailPage.getRatingStarView(product),
+                                  FlatButton(
+                                    child: Text(
+                                      "to wishlist",
+                                      textScaleFactor: 0.9,
+                                    ),
+                                    onPressed: () {
+                                      // todo : Add to wish list
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
                       ],
-                    )
-                  ],
+                    ),
+                  ),
                 ),
-              ),
+              )
+            ],
+          ),
+          AutoSizeText(
+            product.description,
+            style: TextStyle(
+              fontSize: 20,
             ),
-          )
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(" "),
+              SizedBox(
+                width: 2,
+              ),
+              RaisedButton(
+                child: Text("Add to cart"),
+                onPressed: () {
+                  // int add = cart != null ? int.parse(cart) : 0;
+                  // setState(() {
+                  //   cart = (add + 1).toString();
+                  // });
+                },
+              )
+            ],
+          ),
         ],
       ),
     );
@@ -137,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                     return Future.value(true);
                   },
                   child: Container(
-                    height: 250,
+                    height: 300,
                     child: buildProductViewSection(state.product, context),
                   ),
                 );
