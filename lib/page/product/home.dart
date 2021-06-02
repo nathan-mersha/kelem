@@ -30,8 +30,10 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Expanded(
                   flex: 1,
-                  child: ProductView.getThumbnailView(product,
-                      size: ProductView.SIZE_SMALL)),
+                  child: Center(
+                    child: ProductView.getThumbnailView(product,
+                        size: ProductView.SIZE_SMALL),
+                  )),
               Expanded(
                 flex: 3,
                 child: Padding(
