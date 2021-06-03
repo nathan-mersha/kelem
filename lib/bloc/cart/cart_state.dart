@@ -10,8 +10,18 @@ class CartInitial extends CartState {
 }
 
 class CartAddItemState extends CartState {
+  @override
+  List<Object> get props => [];
+}
+
+class CartRemoveItemState extends CartState {
+  @override
+  List<Object> get props => [];
+}
+
+class CartGetItemState extends CartState {
   final List<Product> cartItem;
-  CartAddItemState({this.cartItem});
+  CartGetItemState({this.cartItem});
   @override
   List<Object> get props => [cartItem];
 }
