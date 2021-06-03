@@ -46,7 +46,7 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   final num relatedProductLimit = 4;
-
+  List<Product> cartItem = [];
   String cart;
 
   @override
@@ -176,7 +176,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(cart ?? " "),
+                            BlocBuilder<CartBloc, CartState>(
+                              builder: (context, state) {
+                                if (state is CartGetItemState) {
+                                  return Text("len ${state.cartItem.length}");
+                                }
+                                return Text(cart ?? " ");
+                              },
+                            ),
                             SizedBox(
                               width: 2,
                             ),
@@ -187,12 +194,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 // setState(() {
                                 //   cart = (add + 1).toString();
                                 // });
-                                List<Product> cartItem = [];
-
-                                cartItem.add(product);
 
                                 BlocProvider.of<CartBloc>(context)
-                                    .add(CardAddItem(cartItem: cartItem));
+                                    .add(CardAddItem(cartItem: product));
                               },
                             )
                           ],
