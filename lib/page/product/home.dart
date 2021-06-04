@@ -27,13 +27,6 @@ class _HomePageState extends State<HomePage> {
         listener: (context, state) {
           // TODO: implement listener}
           if (state is DownSelected) {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   SnackBar(
-            //     content: Text('A SnackBar!'),
-            //     duration: Duration(milliseconds: 300),
-            //   ),
-            // );
-
             Scaffold.of(context).showBottomSheet(
               (context) {
                 return WillPopScope(
@@ -44,8 +37,12 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: Container(
                     height: 300,
-                    child: buildProductViewSectionBottomSheet(
-                        state.product, context),
+                    child: Row(
+                      children: [
+                        buildProductViewSectionBottomSheet(
+                            state.product, context),
+                      ],
+                    ),
                   ),
                 );
               },

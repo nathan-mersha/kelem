@@ -71,8 +71,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   },
                   child: Container(
                     height: 300,
-                    child: buildProductViewSectionBottomSheet(
-                        state.product, context),
+                    child: Row(
+                      children: [
+                        buildProductViewSectionBottomSheet(
+                            state.product, context),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -173,34 +177,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             ],
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            BlocBuilder<CartBloc, CartState>(
-                              builder: (context, state) {
-                                if (state is CartGetItemState) {
-                                  return Text("len ${state.cartItem.length}");
-                                }
-                                return Text(cart ?? " ");
-                              },
-                            ),
-                            SizedBox(
-                              width: 2,
-                            ),
-                            ElevatedButton(
-                              child: Text("Add to cart"),
-                              onPressed: () {
-                                // int add = cart != null ? int.parse(cart) : 0;
-                                // setState(() {
-                                //   cart = (add + 1).toString();
-                                // });
-
-                                BlocProvider.of<CartBloc>(context)
-                                    .add(CardAddItem(cartItem: product));
-                              },
-                            )
-                          ],
-                        ),
+                        cardButton(product),
                       ],
                     )
                   ],

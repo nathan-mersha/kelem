@@ -1,5 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kelemapp/bloc/cart/cart_bloc.dart';
+import 'package:kelemapp/bloc/down/down_bloc.dart';
 import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/page/product/detail.dart';
 import 'package:kelemapp/route/route.dart';
@@ -93,6 +96,8 @@ Expanded buildProductViewSectionBottomSheet(
             ElevatedButton(
               child: Text("book detail"),
               onPressed: () {
+                BlocProvider.of<DownBloc>(context).add(DownUnSelectedEvent());
+                Navigator.pop(context);
                 Navigator.pushNamed(context, RouteTo.PRODUCT_DETAIL,
                     arguments: product);
               },
@@ -100,18 +105,56 @@ Expanded buildProductViewSectionBottomSheet(
             SizedBox(
               width: 2,
             ),
-            ElevatedButton(
-              child: Text("Add to cart"),
-              onPressed: () {
-                // int add = cart != null ? int.parse(cart) : 0;
-                // setState(() {
-                //   cart = (add + 1).toString();
-                // });
-              },
-            ),
+            cardButton(product)
           ],
         ),
       ],
     ),
+  );
+}
+
+Widget cardButton(Product product) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+      BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
+          if (state is CartGetItemState) {
+            return Text("len ${state.cartItem.length}");
+          }
+          return Text(" ");
+        },
+      ),
+      SizedBox(
+        width: 2,
+      ),
+      BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
+          if (state is CartGetItemState) {
+            if (state.cartItem.contains(product)) {
+              return ElevatedButton(
+                child: Text("Remove from cart"),
+                onPressed: () {
+                  BlocProvider.of<CartBloc>(context)
+                      .add(CardRemoveItem(cartItem: product));
+                },
+              );
+            }
+          }
+          return ElevatedButton(
+            child: Text("Add to cart"),
+            onPressed: () {
+              // int add = cart != null ? int.parse(cart) : 0;
+              // setState(() {
+              //   cart = (add + 1).toString();
+              // });
+
+              BlocProvider.of<CartBloc>(context)
+                  .add(CardAddItem(cartItem: product));
+            },
+          );
+        },
+      )
+    ],
   );
 }
