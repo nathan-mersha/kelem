@@ -38,7 +38,6 @@ class _ProductNavigationState extends State<ProductNavigation> {
     // });
   }
 
-
   @override
   void dispose() {
     super.dispose();
@@ -49,63 +48,66 @@ class _ProductNavigationState extends State<ProductNavigation> {
   Widget build(BuildContext context) {
     return BlocBuilder<LoaclBloc, LoaclState>(
       builder: (context, state) {
-        if(state is LoaclBState) {
+        if (state is LoaclBState) {
           category = state.selectedCategory;
           //subCategories = state.selectedSubCategory;
         }
         return Builder(builder: (context) {
           return subCategories == null
               ? Center(
-              child: Message(
-                icon: CustomIcons.noInternet(),
-                message: "No internet",
-              ))
+                  child: Message(
+                  icon: CustomIcons.noInternet(),
+                  message: "No internet",
+                ))
               : Column(
-            children: <Widget>[
-              SearchView(
-                onComplete: (String search) {
-                  print("search $search");
-                  global.localConfig.selectedSearchBook = search;
+                  children: <Widget>[
+                    SearchView(
+                      onComplete: (String search) {
+                        print("search $search");
+                        global.localConfig.selectedSearchBook = search;
 
-                  // getBookByQuery(search);
-                },
-              ),
-              Expanded(
-                child: DefaultTabController(
-                  length: subCategories.length,
-                  child: Scaffold(
-                    body: SafeArea(
-                      child: Column(
-                        children: [
-                          TabBar(
-                              isScrollable: true,
-                              tabs: subCategories.map((dynamic subCategory) {
-                                return Tab(
-                                  child: Text(
-                                    subCategory.toString(),
-                                    style: TextStyle(color: CustomColor.GRAY),
-                                  ),
-                                );
-                              }).toList()),
-                          Expanded(
-                            child: TabBarView(
-                                children: subCategories.map((subCategory) {
-                                  print(
-                                      "subCategory.toString() ${subCategory
-                                          .toString()} ");
-                                  return ProductList(category,
-                                      subCategory.toString(),
-                                      searchBooks ?? "b");
-                                }).toList()),
-                          ),
-                        ],
-                      ),
+                        // getBookByQuery(search);
+                      },
                     ),
-                  ),
-                ),
-              )
-            ],
-          );
+                    Expanded(
+                      child: DefaultTabController(
+                        length: subCategories.length,
+                        child: Scaffold(
+                          body: SafeArea(
+                            child: Column(
+                              children: [
+                                TabBar(
+                                    isScrollable: true,
+                                    tabs: subCategories
+                                        .map((dynamic subCategory) {
+                                      return Tab(
+                                        child: Text(
+                                          subCategory.toString(),
+                                          style: TextStyle(
+                                              color: CustomColor.GRAY),
+                                        ),
+                                      );
+                                    }).toList()),
+                                Expanded(
+                                  child: TabBarView(
+                                      children:
+                                          subCategories.map((subCategory) {
+                                    print(
+                                        "subCategory.toString() ${subCategory.toString()} ");
+                                    return ProductList(
+                                        category,
+                                        subCategory.toString(),
+                                        searchBooks ?? "b");
+                                  }).toList()),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                );
         });
       },
     );
