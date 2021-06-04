@@ -17,7 +17,7 @@ class DownBloc extends Bloc<DownEvent, DownState> {
   ) async* {
     // TODO: implement mapEventToState
     if (event is DownSelectedEvent) {
-      yield DownSelected(product: event.product);
+      yield DownSelected(product: event.product, context: event.context);
     } else if (event is DownUnSelectedEvent) {
       yield DownInitial();
     }

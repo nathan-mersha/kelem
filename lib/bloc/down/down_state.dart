@@ -11,7 +11,8 @@ class DownInitial extends DownState {
 
 class DownSelected extends DownState {
   final Product product;
-  DownSelected({this.product});
+  final BuildContext context;
+  DownSelected({this.product, this.context});
   @override
   // TODO: implement props
   List<Object> get props => [product];

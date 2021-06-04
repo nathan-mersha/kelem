@@ -7,7 +7,8 @@ abstract class DownEvent extends Equatable {
 
 class DownSelectedEvent extends DownEvent {
   final Product product;
-  DownSelectedEvent({this.product});
+  final BuildContext context;
+  DownSelectedEvent({this.product, this.context});
   @override
   // TODO: implement props
   List<Object> get props => [product];

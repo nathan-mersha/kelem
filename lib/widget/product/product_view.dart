@@ -80,7 +80,7 @@ class ProductView extends StatelessWidget {
         /// Navigating to item detail page
 
         BlocProvider.of<DownBloc>(context)
-            .add(DownSelectedEvent(product: _product));
+            .add(DownSelectedEvent(product: _product, context: context));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

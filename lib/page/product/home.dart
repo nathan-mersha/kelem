@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kelemapp/bloc/down/down_bloc.dart';
-import 'package:kelemapp/rsr/theme/main_theme.dart';
 import 'package:kelemapp/widget/nav/menu.dart';
 import 'package:kelemapp/widget/nav/products_nav.dart';
 import 'package:kelemapp/widget/product/bottom_sheet_product.dart';
@@ -27,8 +26,9 @@ class _HomePageState extends State<HomePage> {
         listener: (context, state) {
           // TODO: implement listener}
           if (state is DownSelected) {
-            Scaffold.of(context).showBottomSheet(
+            Scaffold.of(state.context).showBottomSheet(
               (context) {
+                print("${state.context.widget}");
                 return WillPopScope(
                   onWillPop: () {
                     BlocProvider.of<DownBloc>(context)
@@ -50,10 +50,7 @@ class _HomePageState extends State<HomePage> {
             );
           }
         },
-        child: Padding(
-          padding: MainTheme.getPagePadding(),
-          child: ProductNavigation(),
-        ),
+        child: ProductNavigation(),
       ),
     );
   }
