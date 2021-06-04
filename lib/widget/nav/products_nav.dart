@@ -51,7 +51,7 @@ class _ProductNavigationState extends State<ProductNavigation> {
       builder: (context, state) {
         if(state is LoaclBState) {
           category = state.selectedCategory;
-          subCategories = state.selectedSubCategory;
+          //subCategories = state.selectedSubCategory;
         }
         return Builder(builder: (context) {
           return subCategories == null
