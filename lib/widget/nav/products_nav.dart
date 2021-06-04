@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kelemapp/bloc/local/loacl_bloc.dart';
 import 'package:kelemapp/global.dart' as global;
 import 'package:kelemapp/model/config/global.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
@@ -19,19 +21,23 @@ class _ProductNavigationState extends State<ProductNavigation> {
   List<dynamic> subCategories;
   List googleBooks = [];
   String searchBooks = "a";
+  bool seter = false;
 
   @override
   void initState() {
     super.initState();
     // Will be called when there is a change in the local config.
-    global.localConfig.addListener(() {
-      // set state for sub categories.
-      setState(() {
-        category = global.localConfig.selectedCategory;
-        subCategories = global.localConfig.selectedCategory.subCategories;
-      });
-    });
+
+    // global.localConfig.addListener(() {
+    //   // set state for sub categories.
+    //   setState(() {
+    //     category = global.localConfig.selectedCategory;
+    //     subCategories = global.localConfig.selectedCategory.subCategories;
+    //     print("here subCategories subCategories");
+    //   });
+    // });
   }
+
 
   @override
   void dispose() {
@@ -41,13 +47,20 @@ class _ProductNavigationState extends State<ProductNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return subCategories == null
-        ? Center(
-            child: Message(
-            icon: CustomIcons.noInternet(),
-            message: "No internet",
-          ))
-        : Column(
+    return BlocBuilder<LoaclBloc, LoaclState>(
+      builder: (context, state) {
+        if(state is LoaclBState) {
+          category = state.selectedCategory;
+          subCategories = state.selectedSubCategory;
+        }
+        return Builder(builder: (context) {
+          return subCategories == null
+              ? Center(
+              child: Message(
+                icon: CustomIcons.noInternet(),
+                message: "No internet",
+              ))
+              : Column(
             children: <Widget>[
               SearchView(
                 onComplete: (String search) {
@@ -77,11 +90,13 @@ class _ProductNavigationState extends State<ProductNavigation> {
                           Expanded(
                             child: TabBarView(
                                 children: subCategories.map((subCategory) {
-                              print(
-                                  "subCategory.toString() ${subCategory.toString()} ");
-                              return ProductList(category,
-                                  subCategory.toString(), searchBooks ?? "b");
-                            }).toList()),
+                                  print(
+                                      "subCategory.toString() ${subCategory
+                                          .toString()} ");
+                                  return ProductList(category,
+                                      subCategory.toString(),
+                                      searchBooks ?? "b");
+                                }).toList()),
                           ),
                         ],
                       ),
@@ -91,5 +106,8 @@ class _ProductNavigationState extends State<ProductNavigation> {
               )
             ],
           );
+        });
+      },
+    );
   }
 }

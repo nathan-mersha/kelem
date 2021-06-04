@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelemapp/api/config/global.dart';
 import 'package:kelemapp/route/route.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -41,6 +42,7 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     controller = PageController(initialPage: 0);
+    ApiGlobalConfig.get();
     return Scaffold(
       body: Column(
         children: <Widget>[

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:kelemapp/model/commerce/product.dart';
+import 'package:kelemapp/model/commerce/coupon.dart';
 
 Future<bool> signIn(String email, String emailLink) async {
   try {
@@ -41,28 +41,26 @@ Future<bool> signInWithGoogle() async {
   }
 }
 
-Future<bool> addCoin(Product product) async {
+Future<bool> addCoupon(Coupon coupon) async {
   try {
     var uid = FirebaseAuth.instance.currentUser.uid;
-    var value = double.parse(product.price.toString());
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection("Users")
         .doc(uid)
-        .collection("Coin")
-        .doc(product.productId);
+        .collection("Coupon")
+        .doc(coupon.code);
 
     FirebaseFirestore.instance.runTransaction((transaction) async {
       DocumentSnapshot snapshot = await transaction.get(documentReference);
       if (!snapshot.exists) {
-        documentReference.set({"Amount": value});
+        documentReference.set({"Coupon": coupon});
         return true;
       }
-      double newAmount = snapshot.data()["Amount"] + value;
-      transaction.update(documentReference, {"Amount": newAmount});
+      // double newAmount = snapshot.data()["Amount"] + value;
+      // transaction.update(documentReference, {"Amount": newAmount});
       return true;
     });
 
-    //await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email.trim(), password: password);
     return true;
   } catch (e) {
     print(e.toString());

@@ -159,8 +159,10 @@ class RouteTo {
       return CircularProgressIndicator();
     } else if (snapshot.data == true) {
       return LanguagePage();
-    } else {
+    } else if (snapshot.data == false) {
       return HomePage(); // change to home page
+    } else {
+      return CircularProgressIndicator();
     }
   }
 
@@ -168,6 +170,6 @@ class RouteTo {
     HSharedPreference localPreference = GetHSPInstance.hSharedPreference;
     return await localPreference
         .get(HSharedPreference.KEY_FIRST_TIME)
-        .then((firstTime) => firstTime == null ? true : false);
+        .then((firstTime) => firstTime != null ? true : false);
   }
 }

@@ -15,6 +15,12 @@ class _LanguagePageState extends State<LanguagePage> {
   HSharedPreference localPreference = GetHSPInstance.hSharedPreference;
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -110,8 +116,8 @@ class _LanguagePageState extends State<LanguagePage> {
                                   // todo : navigate to welcome page
                                   await localPreference.set(
                                       HSharedPreference.KEY_FIRST_TIME, true);
-                                  Navigator.pushNamed(
-                                      context, RouteTo.INFO_WELCOME);
+                                  Navigator.pushReplacementNamed(
+                                      context, RouteTo.HOME);
                                 },
                               ),
                             )
