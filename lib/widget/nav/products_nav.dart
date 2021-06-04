@@ -28,14 +28,14 @@ class _ProductNavigationState extends State<ProductNavigation> {
     super.initState();
     // Will be called when there is a change in the local config.
 
-    // global.localConfig.addListener(() {
-    //   // set state for sub categories.
-    //   setState(() {
-    //     category = global.localConfig.selectedCategory;
-    //     subCategories = global.localConfig.selectedCategory.subCategories;
-    //     print("here subCategories subCategories");
-    //   });
-    // });
+    global.localConfig.addListener(() {
+      // set state for sub categories.
+      setState(() {
+        category = global.localConfig.selectedCategory;
+        subCategories = global.localConfig.selectedCategory.subCategories;
+        print("here subCategories subCategories");
+      });
+    });
   }
 
   @override
