@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/widget/nav/menu.dart';
 
-class ProductEditPage extends StatelessWidget {
+class AddItemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Menu.getAppBar(context, "Item edit"),
+      appBar: Menu.getAppBar(context, "Add Item"),
       drawer: Menu.getSideDrawer(context),
       body: ListView(
         children: [

@@ -10,7 +10,7 @@ class LocalConfig with ChangeNotifier {
 
   set selectedCategory(Category value) {
     _selectedCategory = value;
-
+    print("this is good");
     notifyListeners();
   }
 

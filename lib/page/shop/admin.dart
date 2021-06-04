@@ -188,9 +188,9 @@ class _ShopAdminPageState extends State<ShopAdminPage> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      // Navigator.pushNamed(
-                                      //     context, RouteTo.SHOP_ADD_ITEM,
-                                      //     arguments: shop);
+                                      Navigator.pushNamed(
+                                          context, RouteTo.SHOP_ADD_ITEM,
+                                          arguments: shop);
                                     },
                                     child: Column(
                                       children: [
