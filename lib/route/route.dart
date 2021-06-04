@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelemapp/db/k_shared_preference.dart';
 import 'package:kelemapp/page/info/contact_us.dart';
 import 'package:kelemapp/page/info/help.dart';
 import 'package:kelemapp/page/info/news.dart';
@@ -91,12 +92,12 @@ class RouteTo {
   var routes;
   RouteTo() {
     routes = {
-//      ROOT: (BuildContext context) => FutureBuilder(
-//        builder: buildFirstPage,
-//        future: isFirstTime(),
-//      ),
-      ROOT: (BuildContext context) =>
-          HomePage(), // todo uncomment the above code after internet
+      ROOT: (BuildContext context) => FutureBuilder(
+            builder: buildFirstPage,
+            future: isFirstTime(),
+          ),
+      // ROOT: (BuildContext context) =>
+      //     HomePage(), // todo uncomment the above code after internet
 
       /// Info pages
       INFO_CONTACT_US: (BuildContext context) => ContactUsPage(),
@@ -152,22 +153,21 @@ class RouteTo {
     };
   }
 
-//  Widget buildFirstPage(BuildContext context, AsyncSnapshot snapshot) {
-//    if (snapshot.connectionState == ConnectionState.none &&
-//        snapshot.hasData == null) {
-//      return CircularProgressIndicator();
-//    } else if (snapshot.data == true) {
-//      return LanguageSelectorPage();
-//    } else {
-//      return GeneralSettingsPage(); // change to home page
-//    }
-//  }
+  Widget buildFirstPage(BuildContext context, AsyncSnapshot snapshot) {
+    if (snapshot.connectionState == ConnectionState.none &&
+        snapshot.hasData == null) {
+      return CircularProgressIndicator();
+    } else if (snapshot.data == true) {
+      return LanguagePage();
+    } else {
+      return HomePage(); // change to home page
+    }
+  }
 
-//  Future<bool> isFirstTime() async {
-//    LocalPreference localPreference =
-//        GetLocalPreferenceInstance.localPreference;
-//    return await localPreference
-//        .get(LocalPreference.KEY_FIRST_TIME)
-//        .then((firstTime) => firstTime == null ? true : false);
-//  }
+  Future<bool> isFirstTime() async {
+    HSharedPreference localPreference = GetHSPInstance.hSharedPreference;
+    return await localPreference
+        .get(HSharedPreference.KEY_FIRST_TIME)
+        .then((firstTime) => firstTime == null ? true : false);
+  }
 }

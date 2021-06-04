@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kelemapp/db/k_shared_preference.dart';
+import 'package:kelemapp/route/route.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 
 class LanguagePage extends StatefulWidget {
@@ -9,7 +11,8 @@ class LanguagePage extends StatefulWidget {
 }
 
 class _LanguagePageState extends State<LanguagePage> {
-//  LocalPreference aSP = GetLocalPreferenceInstance.localPreference;
+  // LocalPreference aSP = GetLocalPreferenceInstance.localPreference;
+  HSharedPreference localPreference = GetHSPInstance.hSharedPreference;
 
   @override
   Widget build(BuildContext context) {
@@ -102,9 +105,13 @@ class _LanguagePageState extends State<LanguagePage> {
                                   "proceed",
                                   style: TextStyle(color: Colors.white),
                                 ),
-                                onPressed: () {
+                                onPressed: () async {
                                   // todo : set first time flag to false
                                   // todo : navigate to welcome page
+                                  await localPreference.set(
+                                      HSharedPreference.KEY_FIRST_TIME, true);
+                                  Navigator.pushNamed(
+                                      context, RouteTo.INFO_WELCOME);
                                 },
                               ),
                             )

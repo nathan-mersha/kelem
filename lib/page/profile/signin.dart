@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:kelemapp/api/flutterfire.dart';
+import 'package:kelemapp/route/route.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 
 class SignInPage extends StatefulWidget {
@@ -74,15 +76,22 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                               SignInButton(
                                 Buttons.Google,
-                                onPressed: () {
+                                onPressed: () async {
                                   // todo : signin with the prefered method
                                   // todo : navigate to home
 //                                  authService
-//                                      .signInWithGoogle()
+//                                       .signInWithGoogle()
 //                                      .then((firebaseUser) {
 //                                    Navigator.pushReplacementNamed(
 //                                        context, RouteTo.HOME);
 //                                  });
+                                  bool registerResult =
+                                      await signInWithGoogle();
+                                  print("registerResult $registerResult");
+                                  if (registerResult) {
+                                    Navigator.pushReplacementNamed(
+                                        context, RouteTo.HOME);
+                                  }
                                 },
                               ),
                               SignInButton(
@@ -110,9 +119,8 @@ class _SignInPageState extends State<SignInPage> {
                                 fontSize: 16),
                           ),
                           onPressed: () {
-                            // todo : navigate to home
-//                            Navigator.pushReplacementNamed(
-//                                context, RouteTo.HOME);
+                            Navigator.pushReplacementNamed(
+                                context, RouteTo.HOME);
                           },
                         )
                       ],

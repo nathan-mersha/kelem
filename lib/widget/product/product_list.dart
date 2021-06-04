@@ -259,24 +259,24 @@ class _ProductListState extends State<ProductList> {
     // await getBookByQuery(query: search ?? "b");
 
     QuerySnapshot querySnapshot = _lastDocumentSnapShot != null
-        ? await Firestore.instance
+        ? await FirebaseFirestore.instance
             .collection(Product.COLLECTION_NAME)
             .where(Product.CATEGORY, isEqualTo: _category.name)
             .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
             .limit(PRODUCT_LIMIT)
             .orderBy(Product.LAST_MODIFIED)
             .startAfterDocument(_lastDocumentSnapShot)
-            .getDocuments()
+            .get()
         // if there is a previous document query begins searching from the last document.
-        : await Firestore.instance
+        : await FirebaseFirestore.instance
             .collection(Product.COLLECTION_NAME)
             .where(Product.CATEGORY, isEqualTo: _category.name)
             .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
             .limit(PRODUCT_LIMIT)
             .orderBy(Product.LAST_MODIFIED)
-            .getDocuments();
+            .get();
 
-    List<DocumentSnapshot> documentSnapshot = querySnapshot.documents;
+    List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
 
     print("Document snapshot : $documentSnapshot");
 
@@ -290,9 +290,9 @@ class _ProductListState extends State<ProductList> {
     int i = 0;
     List<Product> products =
         documentSnapshot.map((DocumentSnapshot documentSnapshot) {
-      Product p = Product.toModel(documentSnapshot.data);
+      Product p = Product.toModel(documentSnapshot.data());
       //this is only for test
-
+      print("pname ${p.name}");
       return p;
     }).toList();
 

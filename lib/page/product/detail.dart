@@ -340,20 +340,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Future<List<Product>> getRelatedProduct(Product product) async {
-    QuerySnapshot querySnapshot = await Firestore.instance
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection(Product.COLLECTION_NAME)
         .where(Product.CATEGORY, isEqualTo: product.category)
         .where(Product.SUB_CATEGORY, isEqualTo: product.subCategory)
         //.where(Product.TAG, arrayContainsAny: product.tag)
         .limit(relatedProductLimit)
         .orderBy(Product.LAST_MODIFIED)
-        .getDocuments();
+        .get();
 
-    List<DocumentSnapshot> documentSnapshot = querySnapshot.documents;
+    List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
 
     List<Product> products =
         documentSnapshot.map((DocumentSnapshot documentSnapshot) {
-      Product p = Product.toModel(documentSnapshot.data);
+      Product p = Product.toModel(documentSnapshot.data());
       return p;
     }).toList();
 

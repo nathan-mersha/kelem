@@ -15,23 +15,22 @@ class WishListPage extends StatelessWidget {
       drawer: Menu.getSideDrawer(context),
       body: Container(
         child: Column(
-          children: [
-            buildSimilarItemsSection()
-
-          ],
+          children: [buildSimilarItemsSection()],
         ),
       ),
     );
   }
+
   Future<List<Product>> getRelatedProduct() async {
-    QuerySnapshot querySnapshot = await Firestore.instance
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection(Product.COLLECTION_NAME)
         .orderBy(Product.LAST_MODIFIED)
-        .getDocuments();
-    List<DocumentSnapshot> documentSnapshot = querySnapshot.documents;
+        .get();
+    List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
 
-    List<Product> products = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
-      Product p = Product.toModel(documentSnapshot.data);
+    List<Product> products =
+        documentSnapshot.map((DocumentSnapshot documentSnapshot) {
+      Product p = Product.toModel(documentSnapshot.data());
       return p;
     }).toList();
 
@@ -45,37 +44,41 @@ class WishListPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-
           FutureBuilder(
               future: getRelatedProduct(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    !snapshot.hasData) {
                   return Message(
                     message: "Could not find related items",
                   );
-                } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                } else if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
                   List<Product> newProducts = snapshot.data;
                   return newProducts.isEmpty
                       ? Message(
-                    message: "Could not find related items",
-                  )
+                          message: "Could not find related items",
+                        )
                       : Expanded(
-                    child:  GridView.builder(
-                        shrinkWrap: false,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, mainAxisSpacing: 4,),
-                        itemCount: newProducts.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ProductView(newProducts[index]);
-                        }),
-                  );
+                          child: GridView.builder(
+                              shrinkWrap: false,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 4,
+                              ),
+                              itemCount: newProducts.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ProductView(newProducts[index]);
+                              }),
+                        );
                 } else if (snapshot.hasError) {
                   return Container(
                     child: Center(
                         child: Text(
-                          snapshot.error.toString(),
-                          style: TextStyle(color: Colors.black45),
-                        )),
+                      snapshot.error.toString(),
+                      style: TextStyle(color: Colors.black45),
+                    )),
                   );
                 } else {
                   return Expanded(
@@ -92,5 +95,4 @@ class WishListPage extends StatelessWidget {
       ),
     );
   }
-
 }

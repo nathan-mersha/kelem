@@ -254,18 +254,18 @@ class _ShopAdminPageState extends State<ShopAdminPage> {
   }
 
   Future<List<Product>> getRelatedProduct(Product product) async {
-    QuerySnapshot querySnapshot = await Firestore.instance
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection(Product.COLLECTION_NAME)
         .where(Product.CATEGORY, isEqualTo: product.category)
         .where(Product.SUB_CATEGORY, isEqualTo: product.subCategory)
         // .where(Product.TAG, arrayContainsAny: product.tag)
         .orderBy(Product.LAST_MODIFIED)
-        .getDocuments();
-    List<DocumentSnapshot> documentSnapshot = querySnapshot.documents;
+        .get();
+    List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
 
     List<Product> products =
         documentSnapshot.map((DocumentSnapshot documentSnapshot) {
-      Product p = Product.toModel(documentSnapshot.data);
+      Product p = Product.toModel(documentSnapshot.data());
       return p;
     }).toList();
 
