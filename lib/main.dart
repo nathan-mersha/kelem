@@ -9,7 +9,6 @@ import 'package:kelemapp/bloc/down/down_bloc.dart';
 import 'package:kelemapp/bloc/internet/internet_bloc.dart';
 import 'package:kelemapp/route/route.dart';
 
-import 'bloc/local/loacl_bloc.dart';
 import 'bloc/mybloc.dart';
 import 'bloc/theme/theme_bloc.dart';
 
@@ -42,9 +41,6 @@ class MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(
           create: (context) => ThemeBloc(),
-        ),
-        BlocProvider(
-          create: (context) => LoaclBloc(),
         ),
         BlocProvider(
           create: (context) => DownBloc(),

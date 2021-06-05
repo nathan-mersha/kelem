@@ -213,14 +213,22 @@ Widget cardButton(Product product) {
       BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state is CartGetItemState) {
-            if (state.cartItem.contains(product)) {
-              return ElevatedButton(
-                child: Text("Remove from cart"),
-                onPressed: () {
-                  BlocProvider.of<CartBloc>(context)
-                      .add(CardRemoveItem(cartItem: product));
-                },
-              );
+            if (state.cartItem != null) {
+              for (int i = 0; i < state.cartItem.length; i++) {
+                if (state.cartItem[i].name == product.name) {
+                  print("product.quantity ${product.productId}");
+                  return ElevatedButton(
+                    child: Text("Remove from cart"),
+                    onPressed: () {
+                      BlocProvider.of<CartBloc>(context)
+                          .add(CardRemoveItem(cartItem: product));
+                    },
+                  );
+                } else {
+                  print(
+                      "state.cartItem[i].name ${state.cartItem[i].name} and ${product.name}");
+                }
+              }
             }
           }
           return ElevatedButton(
