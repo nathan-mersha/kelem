@@ -292,7 +292,7 @@ class _ProductListState extends State<ProductList> {
         documentSnapshot.map((DocumentSnapshot documentSnapshot) {
       Product p = Product.toModel(documentSnapshot.data());
       //this is only for test
-      print("pname ${p.name}");
+      p.productId = documentSnapshot.id;
       return p;
     }).toList();
 

@@ -215,7 +215,7 @@ Widget cardButton(Product product) {
           if (state is CartGetItemState) {
             if (state.cartItem != null) {
               for (int i = 0; i < state.cartItem.length; i++) {
-                if (state.cartItem[i].name == product.name) {
+                if (state.cartItem[i].productId == product.productId) {
                   print("product.quantity ${product.productId}");
                   return ElevatedButton(
                     child: Text("Remove from cart"),
