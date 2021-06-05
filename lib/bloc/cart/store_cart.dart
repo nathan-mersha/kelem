@@ -21,6 +21,16 @@ class StoreCart {
   void removeCartDetails(Product product) {
     _productListData.remove(product);
     _cartListData.products = _productListData;
+
+    // Cart cart=Cart(products: _productListData);
+    // _cartListData.add(cart);
+  }
+
+  void replaceCartDetails(Product product, index) {
+    _productListData.removeAt(index);
+    _productListData.insert(index, product);
+    _cartListData.products = _productListData;
+
     // Cart cart=Cart(products: _productListData);
     // _cartListData.add(cart);
   }

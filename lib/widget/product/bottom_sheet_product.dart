@@ -113,6 +113,88 @@ Expanded buildProductViewSectionBottomSheet(
   );
 }
 
+Expanded buildProductViewCart(
+    Product product, BuildContext context, int index) {
+  return Expanded(
+    child: Stack(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+                flex: 1,
+                child: Center(
+                  child: ProductView.getThumbnailView(product,
+                      size: ProductView.SIZE_SMALL),
+                )),
+            Expanded(
+              flex: 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          AutoSizeText(
+                            product.name,
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                            maxLines: 3,
+                            overflow: TextOverflow.fade,
+                          ),
+                          AutoSizeText(
+                            product.authorOrManufacturer,
+                            style: TextStyle(color: CustomColor.GRAY_LIGHT),
+                          ),
+                          AutoSizeText(
+                            "${product.price.toString()} br",
+                            style:
+                                TextStyle(color: Theme.of(context).accentColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 0, 10),
+                    child: Container(
+                        width: 20,
+                        child: TextFormField(
+                          initialValue: product.quantity,
+                          onChanged: (value) {
+                            print("value here $value");
+                            if (value != "" && value != "0") {
+                              product.quantity = value;
+                              BlocProvider.of<CartBloc>(context).add(
+                                  ReplaceCartDetails(
+                                      cartItem: product, index: index));
+                            }
+                          },
+                        )),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        Align(
+            alignment: Alignment.centerRight,
+            child: Icon(
+              Icons.close,
+              size: 15,
+              color: CustomColor.GRAY_LIGHT,
+            )),
+      ],
+    ),
+  );
+}
+
 Widget cardButton(Product product) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -169,7 +169,6 @@ class RouteTo {
   }
 
   Future<bool> isFirstTime() async {
-
     HSharedPreference localPreference = GetHSPInstance.hSharedPreference;
     return await localPreference
         .get(HSharedPreference.KEY_FIRST_TIME)

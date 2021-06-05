@@ -25,3 +25,12 @@ class CardRemoveItem extends CartEvent {
   // TODO: implement props
   List<Object> get props => [cartItem];
 }
+
+class ReplaceCartDetails extends CartEvent {
+  final Product cartItem;
+  final int index;
+  ReplaceCartDetails({this.cartItem, this.index});
+  @override
+  // TODO: implement props
+  List<Object> get props => [cartItem, index];
+}

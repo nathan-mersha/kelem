@@ -9,9 +9,8 @@ class IssueCouponPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Shop shop = ModalRoute.of(context).settings.arguments;
 
-
     return Scaffold(
-     // resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       appBar: Menu.getAppBar(context, "Issue coupon page"),
       drawer: Menu.getSideDrawer(context),
       body: ListView(
@@ -28,16 +27,14 @@ class IssueCouponPage extends StatelessWidget {
                     Text(
                       "Issue Coupon",
                       textScaleFactor: 1.2,
-                      style: TextStyle(
-                          color: CustomColor.GRAY_DARK,
-                          fontSize: 20
-                      ),
+                      style:
+                          TextStyle(color: CustomColor.GRAY_DARK, fontSize: 20),
                     ),
                     Text(
                       "Issue Coupon to attract more loyality",
                       textScaleFactor: 1.2,
                       style: TextStyle(
-                          color: CustomColor.GRAY_LIGHT,
+                        color: CustomColor.GRAY_LIGHT,
                       ),
                     ),
                     SizedBox(
@@ -47,58 +44,61 @@ class IssueCouponPage extends StatelessWidget {
                       child: ListView(
                         shrinkWrap: true,
                         primary: false,
-
                         children: [
                           TextFormField(
                             decoration: InputDecoration(labelText: "name"),
                           ),
-
                           TextFormField(
-                            decoration: InputDecoration(labelText: "how much would you like to issue"),
+                            decoration: InputDecoration(
+                                labelText: "how much would you like to issue"),
                           ),
-
                           TextFormField(
-                            decoration: InputDecoration(labelText: "expiration date"),
+                            decoration:
+                                InputDecoration(labelText: "expiration date"),
                           ),
-
                           TextFormField(
-                            decoration: InputDecoration(labelText: "description"),
+                            decoration:
+                                InputDecoration(labelText: "description"),
                           ),
-
                           SizedBox(
                             height: 30,
                           ),
-
                           Row(
                             children: [
-                              Icon(Icons.info_outline,color: Theme.of(context).primaryColor,),
-                              SizedBox(width: 2,),
+                              Icon(
+                                Icons.info_outline,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              SizedBox(
+                                width: 2,
+                              ),
                               Text("discount"),
                             ],
                           ),
-
                           TextFormField(
-                            decoration: InputDecoration(labelText: "discount type"),
+                            decoration:
+                                InputDecoration(labelText: "discount type"),
                           ),
-
                           TextFormField(
                             decoration: InputDecoration(labelText: "value"),
                           ),
-
                           SizedBox(
                             height: 30,
                           ),
-
                           ElevatedButton(
                             child: Text("issue coupon"),
-                            onPressed: (){},
+                            onPressed: () {},
                           ),
-
                           SizedBox(
                             height: 30,
                           ),
-
-                          Expanded(child: Text("Once have issued a coupon you are obligeted to hold on your promise, in both physical and virtual transaction")),
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: Text(
+                                      "Once have issued a coupon you are obligeted to hold on your promise, in both physical and virtual transaction")),
+                            ],
+                          ),
                         ],
                       ),
                     ),

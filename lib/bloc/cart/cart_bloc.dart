@@ -21,6 +21,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       yield* _addToCartList(event);
     } else if (event is CardRemoveItem) {
       yield* _removeFromCartList(event);
+    } else if (event is ReplaceCartDetails) {
+      yield* _replaceFromCartList(event);
     } else if (event is CardGetItemEvent) {
       yield* _getCartList(event);
     }
@@ -38,6 +40,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     yield CartInitial();
     _storeCart.removeCartDetails(event.cartItem);
     yield CartRemoveItemState();
+    List<Product> cartList = _storeCart.retrieveFoodDetails();
+    yield CartGetItemState(cartItem: cartList);
+  }
+
+  Stream<CartState> _replaceFromCartList(event) async* {
+    yield CartInitial();
+    _storeCart.replaceCartDetails(event.cartItem, event.index);
+    yield CartReplaceItemState();
     List<Product> cartList = _storeCart.retrieveFoodDetails();
     yield CartGetItemState(cartItem: cartList);
   }
