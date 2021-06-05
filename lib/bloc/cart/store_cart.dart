@@ -18,7 +18,6 @@ class StoreCart {
     // _cartListData.add(cart);
   }
 
-
   void removeCartDetails(Product product) {
     for (int i = 0; i < _productListData.length; i++) {
       if (_productListData[i].productId == product.productId) {
