@@ -354,6 +354,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     List<Product> products =
         documentSnapshot.map((DocumentSnapshot documentSnapshot) {
       Product p = Product.toModel(documentSnapshot.data());
+      p.productId = documentSnapshot.id;
+
       return p;
     }).toList();
 
