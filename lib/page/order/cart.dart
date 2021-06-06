@@ -21,7 +21,8 @@ class CartPage extends StatelessWidget {
                 padding: const EdgeInsets.all(30.0),
                 child: BlocBuilder<CartBloc, CartState>(
                   builder: (context, state) {
-                    if (state is CartGetItemState) {
+                    if (state is CartGetItemState &&
+                        state.cartItem.products.length != 0) {
                       return ListView.builder(
                           itemCount: state.cartItem.products.length,
                           itemBuilder: (context, index) {
@@ -42,7 +43,21 @@ class CartPage extends StatelessWidget {
                             );
                           });
                     }
-                    return Container();
+                    return Center(
+                        child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "no item in cart",
+                            style:
+                                TextStyle(color: Theme.of(context).accentColor),
+                          ),
+                          Text("add items to cart to checkout"),
+                        ],
+                      ),
+                    ));
                   },
                 ),
               ),
@@ -52,7 +67,8 @@ class CartPage extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 30, right: 40),
                 child: BlocBuilder<CartBloc, CartState>(
                   builder: (context, state) {
-                    if (state is CartGetItemState) {
+                    if (state is CartGetItemState &&
+                        state.cartItem.products.length != 0) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -119,7 +135,67 @@ class CartPage extends StatelessWidget {
                         ],
                       );
                     }
-                    return Container();
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text("subtotal(0 items)"),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("delivering and handling"),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("transaction fee"),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("tax"),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Text("total"),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Column(
+                              children: [
+                                Text("0.00"),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("0.00"),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("0.00"),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("0.00"),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Text("0.00"),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 250,
+                          child: ElevatedButton(
+                              child: Text("proceed to checkout")),
+                        ),
+                      ],
+                    );
                   },
                 ),
               ),

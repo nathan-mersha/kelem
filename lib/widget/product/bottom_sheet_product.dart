@@ -163,20 +163,46 @@ Expanded buildProductViewCart(
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                    child: Container(
-                        width: 20,
-                        child: TextFormField(
-                          initialValue: product.quantity,
-                          onChanged: (value) {
-                            print("value here $value");
-                            if (value != "" && value != "0") {
-                              product.quantity = value;
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              if (num.parse(product.quantity) <= 1) return;
+                              product.quantity =
+                                  (num.parse(product.quantity) - 1).toString();
                               BlocProvider.of<CartBloc>(context).add(
                                   ReplaceCartDetails(
                                       cartItem: product, index: index));
-                            }
-                          },
-                        )),
+                            },
+                            icon: Icon(Icons.remove)),
+                        // Container(
+                        //     width: 20,
+                        //     child: TextFormField(
+                        //       initialValue: product.quantity,
+                        //       onChanged: (value) {
+                        //         print("value here $value");
+                        //         if (value != "" && value != "0") {
+                        //           product.quantity = value;
+                        //           BlocProvider.of<CartBloc>(context).add(
+                        //               ReplaceCartDetails(
+                        //                   cartItem: product, index: index));
+                        //         }
+                        //       },
+                        //     )),
+                        TextButton(
+                          child: Text(product.quantity),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              product.quantity =
+                                  (num.parse(product.quantity) + 1).toString();
+                              BlocProvider.of<CartBloc>(context).add(
+                                  ReplaceCartDetails(
+                                      cartItem: product, index: index));
+                            },
+                            icon: Icon(Icons.add)),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -185,10 +211,16 @@ Expanded buildProductViewCart(
         ),
         Align(
             alignment: Alignment.centerRight,
-            child: Icon(
-              Icons.close,
-              size: 15,
-              color: CustomColor.GRAY_LIGHT,
+            child: GestureDetector(
+              onTap: () {
+                BlocProvider.of<CartBloc>(context)
+                    .add(CardRemoveItem(cartItem: product));
+              },
+              child: Icon(
+                Icons.close,
+                size: 15,
+                color: CustomColor.GRAY_LIGHT,
+              ),
             )),
       ],
     ),
@@ -199,17 +231,27 @@ Widget cardButton(Product product) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
-      BlocBuilder<CartBloc, CartState>(
-        builder: (context, state) {
-          if (state is CartGetItemState) {
-            return Text("len ${state.cartItem.products.length}");
-          }
-          return Text(" ");
-        },
-      ),
-      SizedBox(
-        width: 2,
-      ),
+      // BlocBuilder<CartBloc, CartState>(
+      //   builder: (context, state) {
+      //     if (state is CartGetItemState) {
+      //       return Text("len ${state.cartItem.products.length}");
+      //     }
+      //     return Text(" ");
+      //   },
+      // ),
+      // SizedBox(
+      //   width: 2,
+      // ),   // BlocBuilder<CartBloc, CartState>(
+      //   builder: (context, state) {
+      //     if (state is CartGetItemState) {
+      //       return Text("len ${state.cartItem.products.length}");
+      //     }
+      //     return Text(" ");
+      //   },
+      // ),
+      // SizedBox(
+      //   width: 2,
+      // ),
       BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state is CartGetItemState) {
