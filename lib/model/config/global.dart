@@ -58,12 +58,21 @@ class GlobalConfig with ChangeNotifier {
   static Map<String, dynamic> toMap(GlobalConfig globalConfig) {
     return {
       GLOBAL_CONFIG_ID: globalConfig.globalConfigId,
-      ADDITIONAL_FEE: globalConfig.additionalFee == null ? null : AdditionalFee.toMap(globalConfig.additionalFee),
-      SUBSCRIPTION_PACKAGES:
-          globalConfig.subscriptionPackages == null ? null : SubscriptionPackage.toMapList(globalConfig.subscriptionPackages),
-      FEATURES_CONFIG: globalConfig.featuresConfig == null ? null : FeaturesConfig.toMap(globalConfig.featuresConfig),
-      BANK_CONFIG: globalConfig.bankConfigs == null ? null : BankConfig.toMapList(globalConfig.bankConfigs),
-      CATEGORIES: globalConfig.categories == null ? null : Category.toMapList(globalConfig.categories),
+      ADDITIONAL_FEE: globalConfig.additionalFee == null
+          ? null
+          : AdditionalFee.toMap(globalConfig.additionalFee),
+      SUBSCRIPTION_PACKAGES: globalConfig.subscriptionPackages == null
+          ? null
+          : SubscriptionPackage.toMapList(globalConfig.subscriptionPackages),
+      FEATURES_CONFIG: globalConfig.featuresConfig == null
+          ? null
+          : FeaturesConfig.toMap(globalConfig.featuresConfig),
+      BANK_CONFIG: globalConfig.bankConfigs == null
+          ? null
+          : BankConfig.toMapList(globalConfig.bankConfigs),
+      CATEGORIES: globalConfig.categories == null
+          ? null
+          : Category.toMapList(globalConfig.categories),
       FIRST_MODIFIED: globalConfig.firstModified,
       LAST_MODIFIED: globalConfig.lastModified
     };
@@ -73,13 +82,21 @@ class GlobalConfig with ChangeNotifier {
   static GlobalConfig toModel(Map<String, dynamic> map) {
     return GlobalConfig(
         globalConfigId: map[GLOBAL_CONFIG_ID],
-        additionalFee: map[ADDITIONAL_FEE] == null ? AdditionalFee() : AdditionalFee.toModel(map[ADDITIONAL_FEE]),
+        additionalFee: map[ADDITIONAL_FEE] == null
+            ? AdditionalFee()
+            : AdditionalFee.toModel(map[ADDITIONAL_FEE]),
         subscriptionPackages: map[SUBSCRIPTION_PACKAGES] == null
             ? SubscriptionPackage()
             : SubscriptionPackage.toModelList(map[SUBSCRIPTION_PACKAGES]),
-        featuresConfig: map[FEATURES_CONFIG] == null ? FeaturesConfig() : FeaturesConfig.toModel(map[FEATURES_CONFIG]),
-        bankConfigs: map[BANK_CONFIG] == null ? BankConfig() : BankConfig.toModelList(map[BANK_CONFIG]),
-        categories: map[CATEGORIES] == null ? Category() : Category.toModelList(map[CATEGORIES]),
+        featuresConfig: map[FEATURES_CONFIG] == null
+            ? FeaturesConfig()
+            : FeaturesConfig.toModel(map[FEATURES_CONFIG]),
+        bankConfigs: map[BANK_CONFIG] == null
+            ? BankConfig()
+            : BankConfig.toModelList(map[BANK_CONFIG]),
+        categories: map[CATEGORIES] == null
+            ? Category()
+            : Category.toModelList(map[CATEGORIES]),
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }
@@ -107,9 +124,12 @@ class GlobalConfig with ChangeNotifier {
 class AdditionalFee {
   /// Defines key values to extract from a map
   static const String ADDITIONAL_FEE_ID = "additionalFeeId";
-  static const String TRANSACTION_FEE_TYPE = "transactionFeeType"; // Defines calculation type, flat rate or percentage
+  static const String TRANSACTION_FEE_TYPE =
+      "transactionFeeType"; // Defines calculation type, flat rate or percentage
   static const String TRANSACTION_FEE_VALUE = "transactionFeeValue";
-  static const String DELIVERY_FEE_TYPE = "deliveryFeeType"; // Defines calculation type for delivery fee type, km or flat rate
+  static const String TAX_FEE_VALUE = "taxFeeValue";
+  static const String DELIVERY_FEE_TYPE =
+      "deliveryFeeType"; // Defines calculation type for delivery fee type, km or flat rate
   static const String DELIVERY_FEE_VALUE = "deliveryFeeValue";
   static const String FIRST_MODIFIED = "firstModified";
   static const String LAST_MODIFIED = "lastModified";
@@ -117,6 +137,8 @@ class AdditionalFee {
   String additionalFeeId;
   String transactionFeeType;
   num transactionFeeValue;
+  num taxFeeValue;
+
   String deliveryFeeType;
   num deliveryFeeValue;
   DateTime firstModified;
@@ -126,6 +148,7 @@ class AdditionalFee {
       {this.additionalFeeId,
       this.transactionFeeType,
       this.transactionFeeValue,
+      this.taxFeeValue,
       this.deliveryFeeType,
       this.deliveryFeeValue,
       this.firstModified,
@@ -137,6 +160,7 @@ class AdditionalFee {
       ADDITIONAL_FEE_ID: additionalFee.additionalFeeId,
       TRANSACTION_FEE_TYPE: additionalFee.transactionFeeType,
       TRANSACTION_FEE_VALUE: additionalFee.transactionFeeValue,
+      TAX_FEE_VALUE: additionalFee.taxFeeValue,
       DELIVERY_FEE_TYPE: additionalFee.deliveryFeeType,
       DELIVERY_FEE_VALUE: additionalFee.deliveryFeeValue,
       FIRST_MODIFIED: additionalFee.firstModified,
@@ -150,6 +174,7 @@ class AdditionalFee {
         additionalFeeId: map[ADDITIONAL_FEE_ID],
         transactionFeeType: map[TRANSACTION_FEE_TYPE],
         transactionFeeValue: map[TRANSACTION_FEE_VALUE],
+        taxFeeValue: map[TAX_FEE_VALUE],
         deliveryFeeType: map[DELIVERY_FEE_TYPE],
         deliveryFeeValue: map[DELIVERY_FEE_VALUE],
         firstModified: map[FIRST_MODIFIED],
@@ -238,7 +263,8 @@ class SubscriptionPackage {
   }
 
   /// Changes List of Model to List of Map
-  static List<Map<String, dynamic>> toMapList(List<SubscriptionPackage> models) {
+  static List<Map<String, dynamic>> toMapList(
+      List<SubscriptionPackage> models) {
     List<Map<String, dynamic>> mapList = [];
     models.forEach((SubscriptionPackage model) {
       mapList.add(toMap(model));
@@ -274,7 +300,8 @@ class FeaturesConfig {
   static const String SHOP_INFORMATION = "shopInformation";
 
   /// If toggled on, shows cash on delivery payment method
-  static const String PAYMENT_METHOD_CASH_ON_DELIVERY = "paymentMethodCashOnDelivery";
+  static const String PAYMENT_METHOD_CASH_ON_DELIVERY =
+      "paymentMethodCashOnDelivery";
 
   /// If toggled on, shows Kelem wallet as a payment method
   static const String PAYMENT_METHOD_KELEM_WALLET = "paymentMethodKelemWallet";
@@ -352,7 +379,8 @@ class FeaturesConfig {
       CASH_OUT: featuresConfig.cashOut,
       SHOP_DETAIL: featuresConfig.shopDetail,
       SHOP_INFORMATION: featuresConfig.shopInformation,
-      PAYMENT_METHOD_CASH_ON_DELIVERY: featuresConfig.paymentMethodCashOnDelivery,
+      PAYMENT_METHOD_CASH_ON_DELIVERY:
+          featuresConfig.paymentMethodCashOnDelivery,
       PAYMENT_METHOD_KELEM_WALLET: featuresConfig.paymentMethodKelemWallet,
       PAYMENT_METHOD_HISAB_WALLET: featuresConfig.paymentMethodHisabWallet,
       CASH_OUT_SUPPORT_BANKS: featuresConfig.cashOutSupportBanks,
@@ -477,7 +505,8 @@ class BankConfig {
 /// Defines kelemWalletUssdDialPatterns model [KelemWalletUssdDialPatterns]
 class KelemWalletUssdDialPatterns {
   /// Defines key values to extract from a map
-  static const String KELEM_WALLET_USSD_DIAL_PATTERNS_ID = "kelemWalletUssdDialPatternsId";
+  static const String KELEM_WALLET_USSD_DIAL_PATTERNS_ID =
+      "kelemWalletUssdDialPatternsId";
   static const String GET_TRANSACTION_HISTORY = "getTransactionHistory";
   static const String CHECK_BALANCE = "checkBalance";
   static const String SEND_CREDIT = "sendCredit";
@@ -500,10 +529,13 @@ class KelemWalletUssdDialPatterns {
       this.lastModified});
 
   /// Converts Model to Map
-  static Map<String, dynamic> toMap(KelemWalletUssdDialPatterns kelemWalletUssdDialPatterns) {
+  static Map<String, dynamic> toMap(
+      KelemWalletUssdDialPatterns kelemWalletUssdDialPatterns) {
     return {
-      KELEM_WALLET_USSD_DIAL_PATTERNS_ID: kelemWalletUssdDialPatterns.kelemWalletUssdDialPatternsId,
-      GET_TRANSACTION_HISTORY: kelemWalletUssdDialPatterns.getTransactionHistory,
+      KELEM_WALLET_USSD_DIAL_PATTERNS_ID:
+          kelemWalletUssdDialPatterns.kelemWalletUssdDialPatternsId,
+      GET_TRANSACTION_HISTORY:
+          kelemWalletUssdDialPatterns.getTransactionHistory,
       CHECK_BALANCE: kelemWalletUssdDialPatterns.checkBalance,
       SEND_CREDIT: kelemWalletUssdDialPatterns.sendCredit,
       FIRST_MODIFIED: kelemWalletUssdDialPatterns.firstModified,
@@ -523,7 +555,8 @@ class KelemWalletUssdDialPatterns {
   }
 
   /// Changes List of Map to List of Model
-  static List<KelemWalletUssdDialPatterns> toModelList(List<Map<String, dynamic>> maps) {
+  static List<KelemWalletUssdDialPatterns> toModelList(
+      List<Map<String, dynamic>> maps) {
     List<KelemWalletUssdDialPatterns> modelList = [];
     maps.forEach((Map<String, dynamic> map) {
       modelList.add(toModel(map));
@@ -532,7 +565,8 @@ class KelemWalletUssdDialPatterns {
   }
 
   /// Changes List of Model to List of Map
-  static List<Map<String, dynamic>> toMapList(List<KelemWalletUssdDialPatterns> models) {
+  static List<Map<String, dynamic>> toMapList(
+      List<KelemWalletUssdDialPatterns> models) {
     List<Map<String, dynamic>> mapList = [];
     models.forEach((KelemWalletUssdDialPatterns model) {
       mapList.add(toMap(model));
@@ -559,7 +593,13 @@ class Category {
   DateTime lastModified;
 
   /// Category constructor
-  Category({this.categoryId, this.name, this.icon, this.subCategories, this.firstModified, this.lastModified});
+  Category(
+      {this.categoryId,
+      this.name,
+      this.icon,
+      this.subCategories,
+      this.firstModified,
+      this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Category category) {

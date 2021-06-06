@@ -18,6 +18,8 @@ dependencies:
   cloud_firestore: "^0.16.0+1"
   google_sign_in: "^4.5.1"
   firebase_core: "^0.7.0"
+  firebase_storage: "^7.0.0"
+  material_tag_editor: ^0.0.1
   firebase_analytics: ^5.0.15
   rxdart: ^0.20.0
   flutter_signin_button: ^1.0.0

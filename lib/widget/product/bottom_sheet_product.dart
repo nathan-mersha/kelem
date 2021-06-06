@@ -202,7 +202,7 @@ Widget cardButton(Product product) {
       BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state is CartGetItemState) {
-            return Text("len ${state.cartItem.length}");
+            return Text("len ${state.cartItem.products.length}");
           }
           return Text(" ");
         },
@@ -214,8 +214,8 @@ Widget cardButton(Product product) {
         builder: (context, state) {
           if (state is CartGetItemState) {
             if (state.cartItem != null) {
-              for (int i = 0; i < state.cartItem.length; i++) {
-                if (state.cartItem[i].productId == product.productId) {
+              for (int i = 0; i < state.cartItem.products.length; i++) {
+                if (state.cartItem.products[i].productId == product.productId) {
                   print("product.quantity ${product.productId}");
                   return ElevatedButton(
                     child: Text("Remove from cart"),
@@ -226,7 +226,7 @@ Widget cardButton(Product product) {
                   );
                 } else {
                   print(
-                      "state.cartItem[i].name ${state.cartItem[i].name} and ${product.name}");
+                      "state.cartItem[i].name ${state.cartItem.products[i].name} and ${product.name}");
                 }
               }
             }

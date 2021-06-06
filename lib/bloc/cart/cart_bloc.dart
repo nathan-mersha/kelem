@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:kelemapp/bloc/cart/store_cart.dart';
+import 'package:kelemapp/model/commerce/cart.dart';
 import 'package:kelemapp/model/commerce/product.dart';
 
 part 'cart_event.dart';
@@ -32,7 +33,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     yield CartInitial();
     _storeCart.storeCartDetails(event.cartItem);
     yield CartAddItemState();
-    List<Product> cartList = _storeCart.retrieveFoodDetails();
+    Cart cartList = _storeCart.retrieveFoodDetails();
     yield CartGetItemState(cartItem: cartList);
   }
 
@@ -40,7 +41,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     yield CartInitial();
     _storeCart.removeCartDetails(event.cartItem);
     yield CartRemoveItemState();
-    List<Product> cartList = _storeCart.retrieveFoodDetails();
+    Cart cartList = _storeCart.retrieveFoodDetails();
     yield CartGetItemState(cartItem: cartList);
   }
 
@@ -48,13 +49,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     yield CartInitial();
     _storeCart.replaceCartDetails(event.cartItem, event.index);
     yield CartReplaceItemState();
-    List<Product> cartList = _storeCart.retrieveFoodDetails();
+    Cart cartList = _storeCart.retrieveFoodDetails();
     yield CartGetItemState(cartItem: cartList);
   }
 
   Stream<CartState> _getCartList(event) async* {
     yield CartInitial();
-    List<Product> cartList = _storeCart.retrieveFoodDetails();
+    Cart cartList = _storeCart.retrieveFoodDetails();
     yield CartGetItemState(cartItem: cartList);
   }
 }

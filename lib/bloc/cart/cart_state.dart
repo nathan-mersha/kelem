@@ -25,7 +25,7 @@ class CartReplaceItemState extends CartState {
 }
 
 class CartGetItemState extends CartState {
-  final List<Product> cartItem;
+  final Cart cartItem;
   CartGetItemState({this.cartItem});
   @override
   List<Object> get props => [cartItem];

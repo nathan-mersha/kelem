@@ -47,8 +47,8 @@ class _ProductNavigationState extends State<ProductNavigation> {
     return subCategories == null
         ? Center(
             child: Message(
-            icon: CustomIcons.noInternet(),
-            message: "No internet",
+            icon: CustomIcons.getHorizontalLoading(),
+            message: "waiting for Data",
           ))
         : Column(
             children: <Widget>[
