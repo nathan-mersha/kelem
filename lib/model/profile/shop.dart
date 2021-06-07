@@ -77,31 +77,43 @@ class Shop {
       DESCRIPTION: shop.description,
       CATEGORY: shop.category,
       LOGO: shop.logo,
-      FIRST_MODIFIED: shop.firstModified == null ? null : shop.firstModified.toIso8601String(),
-      LAST_MODIFIED: shop.lastModified == null ? null : shop.lastModified.toIso8601String()
+      FIRST_MODIFIED: shop.firstModified == null
+          ? null
+          : shop.lastModified.toIso8601String(),
+      LAST_MODIFIED:
+          shop.lastModified == null ? null : shop.lastModified.toIso8601String()
     };
   }
 
   /// Converts Map to Model
   static Shop toModel(Map<String, dynamic> map) {
-    return Shop(
-        shopId: map[SHOP_ID],
-        userId: map[USER_ID],
-        name: map[NAME],
-        primaryPhone: map[PRIMARY_PHONE],
-        secondaryPhone: map[SECONDARY_PHONE],
-        email: map[EMAIL],
-        website: map[WEBSITE],
-        physicalAddress: map[PHYSICAL_ADDRESS],
-        coOrdinates: map[CO_ORDINATES],
-        isVirtual: map[IS_VIRTUAL],
-        isVerified: map[IS_VERIFIED],
-        subscriptionPackage: map[SUBSCRIPTION_PACKAGE],
-        description: map[DESCRIPTION],
-        category: map[CATEGORY],
-        logo: map[LOGO],
-        firstModified: map[FIRST_MODIFIED],
-        lastModified: map[LAST_MODIFIED]);
+    try {
+      return Shop(
+          shopId: map[SHOP_ID],
+          userId: map[USER_ID],
+          name: map[NAME],
+          primaryPhone: map[PRIMARY_PHONE],
+          secondaryPhone: map[SECONDARY_PHONE],
+          email: map[EMAIL],
+          website: map[WEBSITE],
+          physicalAddress: map[PHYSICAL_ADDRESS],
+          coOrdinates: map[CO_ORDINATES],
+          isVirtual: map[IS_VIRTUAL],
+          isVerified: map[IS_VERIFIED],
+          subscriptionPackage: map[SUBSCRIPTION_PACKAGE],
+          description: map[DESCRIPTION],
+          category: map[CATEGORY],
+          logo: map[LOGO],
+          firstModified: map[FIRST_MODIFIED] != null
+              ? DateTime.parse(map[FIRST_MODIFIED])
+              : null,
+          lastModified: map[LAST_MODIFIED] != null
+              ? DateTime.parse(map[LAST_MODIFIED])
+              : null);
+    } catch (e) {
+      print(e);
+      return null;
+    }
   }
 
   /// Changes List of Map to List of Model

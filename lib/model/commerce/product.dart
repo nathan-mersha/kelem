@@ -14,6 +14,7 @@ class Product {
   static const String PRICE = "price";
   static const String REGULAR_PRICE = "regularPrice";
   static const String TAG = "tag";
+  static const String QUANTITY = "quantity";
   static const String DESCRIPTION = "description";
   static const String RATING = "rating";
   static const String REFERENCE = "reference";
@@ -35,6 +36,7 @@ class Product {
   num regularPrice;
   List<dynamic> tag;
   String description;
+  String quantity;
   num rating;
   String reference;
   num availableStock;
@@ -55,6 +57,7 @@ class Product {
       this.price,
       this.regularPrice,
       this.tag,
+      this.quantity = "1",
       this.description,
       this.rating,
       this.reference,
@@ -87,8 +90,12 @@ class Product {
       META_DATA: product.metaData,
       PUBLISHED_STATUS: product.publishedStatus,
       SHOP: product.shop == null ? null : Shop.toMap(product.shop),
-      FIRST_MODIFIED: product.firstModified == null ? null : product.firstModified.toIso8601String(),
-      LAST_MODIFIED: product.lastModified == null ? null : product.lastModified.toIso8601String()
+      FIRST_MODIFIED: product.firstModified == null
+          ? null
+          : product.firstModified.toIso8601String(),
+      LAST_MODIFIED: product.lastModified == null
+          ? null
+          : product.lastModified.toIso8601String()
     };
   }
 

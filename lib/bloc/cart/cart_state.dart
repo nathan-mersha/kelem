@@ -19,8 +19,13 @@ class CartRemoveItemState extends CartState {
   List<Object> get props => [];
 }
 
+class CartReplaceItemState extends CartState {
+  @override
+  List<Object> get props => [];
+}
+
 class CartGetItemState extends CartState {
-  final List<Product> cartItem;
+  final Cart cartItem;
   CartGetItemState({this.cartItem});
   @override
   List<Object> get props => [cartItem];

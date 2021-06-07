@@ -110,7 +110,7 @@ class _LanguagePageState extends State<LanguagePage> {
                                   // todo : navigate to welcome page
                                   await localPreference.set(
                                       HSharedPreference.KEY_FIRST_TIME, true);
-                                  Navigator.pushNamed(
+                                  Navigator.pushReplacementNamed(
                                       context, RouteTo.INFO_WELCOME);
                                 },
                               ),

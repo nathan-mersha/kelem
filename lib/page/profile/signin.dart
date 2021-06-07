@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:kelemapp/api/config/global.dart';
 import 'package:kelemapp/api/flutterfire.dart';
 import 'package:kelemapp/route/route.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
@@ -15,6 +16,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
+    ApiGlobalConfig.get();
     return Scaffold(
       body: Container(
         width: double.infinity,

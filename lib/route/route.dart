@@ -22,6 +22,7 @@ import 'package:kelemapp/page/setting/wallet/cash_out_method.dart';
 import 'package:kelemapp/page/setting/wallet/change_password.dart';
 import 'package:kelemapp/page/setting/wallet/general.dart';
 import 'package:kelemapp/page/setting/wallet/setup_password.dart';
+import 'package:kelemapp/page/shop/add_item.dart';
 //import 'package:kelemapp/page/shop/add_item.dart';
 import 'package:kelemapp/page/shop/admin.dart';
 import 'package:kelemapp/page/shop/detail.dart';
@@ -144,7 +145,8 @@ class RouteTo {
       SHOP_EDIT: (BuildContext context) => EditShopPage(),
       SHOP_ISSUE_COUPON: (BuildContext context) => IssueCouponPage(),
       SHOP_RATING: (BuildContext context) => ShopRatingPage(),
-      //SHOP_ADD_ITEM:(BuildContext context) => AddItemPage(),
+      SHOP_ADD_ITEM: (BuildContext context) => AddItemPage(),
+
       /// Wallet pages
       WALLET_CASH_OUT: (BuildContext context) => CashOutPage(),
       WALLET_DASHBOARD: (BuildContext context) => WalletDashboardPage(),
@@ -159,8 +161,10 @@ class RouteTo {
       return CircularProgressIndicator();
     } else if (snapshot.data == true) {
       return LanguagePage();
-    } else {
+    } else if (snapshot.data == false) {
       return HomePage(); // change to home page
+    } else {
+      return CircularProgressIndicator();
     }
   }
 

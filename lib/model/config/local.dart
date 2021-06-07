@@ -10,6 +10,7 @@ class LocalConfig with ChangeNotifier {
 
   set selectedCategory(Category value) {
     _selectedCategory = value;
+    print("this is good");
     notifyListeners();
   }
 
@@ -19,11 +20,13 @@ class LocalConfig with ChangeNotifier {
     _selectedSubCategory = value;
     notifyListeners();
   }
+
   String get selectedSearchBook => _selectedsearchBook;
 
   set selectedSearchBook(String value) {
     _selectedsearchBook = value;
     notifyListeners();
   }
+
   LocalConfig();
 }

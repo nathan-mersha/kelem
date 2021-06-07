@@ -19,16 +19,19 @@ class _ProductNavigationState extends State<ProductNavigation> {
   List<dynamic> subCategories;
   List googleBooks = [];
   String searchBooks = "a";
+  bool seter = false;
 
   @override
   void initState() {
     super.initState();
     // Will be called when there is a change in the local config.
+
     global.localConfig.addListener(() {
       // set state for sub categories.
       setState(() {
         category = global.localConfig.selectedCategory;
         subCategories = global.localConfig.selectedCategory.subCategories;
+        print("here subCategories subCategories");
       });
     });
   }
@@ -44,8 +47,8 @@ class _ProductNavigationState extends State<ProductNavigation> {
     return subCategories == null
         ? Center(
             child: Message(
-            icon: CustomIcons.noInternet(),
-            message: "No internet",
+            icon: CustomIcons.getHorizontalLoading(),
+            message: "waiting for Data",
           ))
         : Column(
             children: <Widget>[

@@ -275,9 +275,9 @@ class _ProductListState extends State<ProductList> {
             .limit(PRODUCT_LIMIT)
             .orderBy(Product.LAST_MODIFIED)
             .get();
-
+    print("Document snapshot web web a");
     List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
-
+    print("Document snapshot web web");
     print("Document snapshot : $documentSnapshot");
 
     // Assigning the last document snapshot for future query
@@ -292,7 +292,8 @@ class _ProductListState extends State<ProductList> {
         documentSnapshot.map((DocumentSnapshot documentSnapshot) {
       Product p = Product.toModel(documentSnapshot.data());
       //this is only for test
-      print("pname ${p.name}");
+      p.productId = documentSnapshot.id;
+      print("proda p ${p.shop}");
       return p;
     }).toList();
 

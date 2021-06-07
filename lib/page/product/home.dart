@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kelemapp/api/config/global.dart';
 import 'package:kelemapp/bloc/down/down_bloc.dart';
 import 'package:kelemapp/widget/nav/menu.dart';
 import 'package:kelemapp/widget/nav/products_nav.dart';
@@ -14,9 +15,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
+    ApiGlobalConfig.get();
     return Scaffold(
       key: _scaffoldKey,
       appBar: Menu.getAppBar(context, "Home", showCategory: true),

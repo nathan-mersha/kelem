@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kelemapp/bloc/theme/theme_bloc.dart';
 import 'package:kelemapp/consetance/enums.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
-import 'package:kelemapp/rsr/theme/main_theme.dart';
 import 'package:kelemapp/widget/nav/category_menu.dart';
 
 import '../../route/route.dart';
@@ -67,7 +66,7 @@ class Menu {
           onTap: () {
             // todo : navigate
             Navigator.of(context).pop();
-            Navigator.pushNamed(context, RouteTo.SHOP_DETAIL);
+            Navigator.pushNamed(context, RouteTo.SHOP_ADMIN);
           },
         ),
         ListTile(
@@ -123,6 +122,9 @@ class Menu {
           title: Text("Cart"),
           subtitle: Text("Anything you want?"),
           onTap: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, RouteTo.ORDER_CART);
+
             // todo : navigate to wish list page here
           },
         ),
