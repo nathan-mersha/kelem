@@ -58,8 +58,8 @@ UploadTask uploadFileStore(String des, File file) {
 
 Future<bool> addCoupon(Coupon coupon) async {
   try {
-    //  var uid = FirebaseAuth.instance.currentUser.uid;
-    var uid = "f9fWxOCNn0eI84R1A8Fa";
+    var uid = FirebaseAuth.instance.currentUser.uid;
+    //var uid = "f9fWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection("Users")
         .doc(uid)
@@ -86,8 +86,8 @@ Future<bool> addCoupon(Coupon coupon) async {
 
 Future<bool> addProduct(Product product) async {
   try {
-    //  var uid = FirebaseAuth.instance.currentUser.uid;
-    var uid = "mixWxOCNn0eI84R1A8Fa";
+    var uid = FirebaseAuth.instance.currentUser.uid;
+    //var uid = "mixWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection("product").doc(uid);
 
@@ -110,8 +110,8 @@ Future<bool> addProduct(Product product) async {
 
 Future<bool> addShop(Shop shop) async {
   try {
-    //  var uid = FirebaseAuth.instance.currentUser.uid;
-    var uid = "VHSWxOCNn0eI84R1A8Fa";
+    var uid = FirebaseAuth.instance.currentUser.uid;
+    //var uid = "VHSWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection(Shop.COLLECTION_NAME).doc(uid);
 

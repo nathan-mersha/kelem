@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "656104812451-e6hlp786ne7420ilb47qbopple062b3g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kelem.kelemapp",
+            "certificate_hash": "55264ca6406a88a888fa2c6f91be692ef696f2a5"
+          }
+        },
+        {
           "client_id": "656104812451-fj3k9ololr2n6tipciunvm4h05uq020l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
