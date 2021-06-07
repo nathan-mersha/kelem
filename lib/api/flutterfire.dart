@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kelemapp/model/commerce/coupon.dart';
 import 'package:kelemapp/model/commerce/product.dart';
+import 'package:kelemapp/model/profile/shop.dart';
 
 Future<bool> signIn(String email, String emailLink) async {
   try {
@@ -86,7 +87,7 @@ Future<bool> addCoupon(Coupon coupon) async {
 Future<bool> addProduct(Product product) async {
   try {
     //  var uid = FirebaseAuth.instance.currentUser.uid;
-    var uid = "micWxOCNn0eI84R1A8Fa";
+    var uid = "mixWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection("product").doc(uid);
 
@@ -96,8 +97,31 @@ Future<bool> addProduct(Product product) async {
         documentReference.set(Product.toMap(product));
         return true;
       }
-      // double newAmount = snapshot.data()["Amount"] + value;
-      // transaction.update(documentReference, {"Amount": newAmount});
+      transaction.update(documentReference, Product.toMap(product));
+      return true;
+    });
+
+    return true;
+  } catch (e) {
+    print(e.toString());
+  }
+  return false;
+}
+
+Future<bool> addShop(Shop shop) async {
+  try {
+    //  var uid = FirebaseAuth.instance.currentUser.uid;
+    var uid = "VHSWxOCNn0eI84R1A8Fa";
+    DocumentReference documentReference =
+        FirebaseFirestore.instance.collection(Shop.COLLECTION_NAME).doc(uid);
+
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot snapshot = await transaction.get(documentReference);
+      if (!snapshot.exists) {
+        documentReference.set(Shop.toMap(shop));
+        return true;
+      }
+      transaction.update(documentReference, Shop.toMap(shop));
       return true;
     });
 

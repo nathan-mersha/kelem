@@ -51,6 +51,14 @@ class _AddItemPageState extends State<AddItemPage> {
   void dispose() {
     valueController.dispose();
     keyController.dispose();
+    categoryController.dispose();
+    subcategoryController.dispose();
+    nameController.dispose();
+    authorController.dispose();
+    priceController.dispose();
+    availableController.dispose();
+    tagController.dispose();
+    descriptionController.dispose();
     super.dispose();
   }
 
@@ -235,6 +243,7 @@ class _AddItemPageState extends State<AddItemPage> {
                                   decoration:
                                       InputDecoration(labelText: "description"),
                                   controller: descriptionController,
+                                  keyboardType: TextInputType.multiline,
                                   validator: (value) {
                                     if (value == "") {
                                       return "description cant be empty";
@@ -434,10 +443,14 @@ class _AddItemPageState extends State<AddItemPage> {
                                                   authorController.text,
                                               tag: tagList,
                                               metaData: metaData,
+                                              deliverable: true,
+                                              publishedStatus: "published",
                                             );
                                             // todo edit or add product
                                             if (true) {
                                               product.firstModified =
+                                                  DateTime.now();
+                                              product.lastModified =
                                                   DateTime.now();
                                             } else {
                                               product.lastModified =

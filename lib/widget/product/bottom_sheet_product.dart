@@ -106,6 +106,7 @@ Expanded buildProductViewSectionBottomSheet(
                       BlocProvider.of<DownBloc>(context)
                           .add(DownUnSelectedEvent());
                       Navigator.pop(context);
+
                       Navigator.pushNamed(context, RouteTo.PRODUCT_DETAIL,
                           arguments: product);
                     },

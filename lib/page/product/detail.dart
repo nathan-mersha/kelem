@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -173,8 +174,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  Container buildShopInformationSection(
-      Shop shop, BuildContext context, Product _product) {
+  Container buildShopInformationSection(Shop shop, BuildContext context, Product _product) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,11 +182,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           GestureDetector(
             onTap: () {
               /// Navigating to item shop page
-              Navigator.pushNamed(context, RouteTo.SHOP_ADMIN,
+              Navigator.pushNamed(context, RouteTo.SHOP_DETAIL,
                   arguments: _product);
             },
             child: Text(
-              shop.name,
+              shop.name ?? "a",
               textScaleFactor: 1.2,
               style: TextStyle(
                 color: CustomColor.GRAY_DARK,
@@ -262,15 +262,31 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
 
               // todo : change this with shop's logo
-              shop.logo == null
-                  ? Icon(
-                      Icons.shopping_basket,
-                      color: Colors.orange,
-                      size: 30,
-                    )
-                  : CircleAvatar(
-                      child: Image.asset(shop.logo),
-                    )
+              CircleAvatar(
+                child: shop.logo == null
+                    ? Text(
+                        "${shop.name.substring(0, 1)}",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: shop.logo,
+                        useOldImageOnUrlChange: false,
+                        placeholderFadeInDuration: Duration(seconds: 1),
+                        placeholder: (BuildContext context, String imageURL) {
+                          return Text(
+                            "${shop.name.substring(0, 1).toUpperCase()}",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                            ),
+                          );
+                        },
+                      ),
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
             ],
           )
         ],

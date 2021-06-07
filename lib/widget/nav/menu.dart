@@ -66,7 +66,7 @@ class Menu {
           onTap: () {
             // todo : navigate
             Navigator.of(context).pop();
-            Navigator.pushNamed(context, RouteTo.SHOP_DETAIL);
+            Navigator.pushNamed(context, RouteTo.SHOP_ADMIN);
           },
         ),
         ListTile(

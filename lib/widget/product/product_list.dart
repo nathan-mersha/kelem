@@ -293,7 +293,7 @@ class _ProductListState extends State<ProductList> {
       Product p = Product.toModel(documentSnapshot.data());
       //this is only for test
       p.productId = documentSnapshot.id;
-
+      print("proda p ${p.shop}");
       return p;
     }).toList();
 
