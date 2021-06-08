@@ -1,6 +1,8 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kelemapp/bloc/theme/theme_bloc.dart';
+import 'package:kelemapp/bloc/user/user_bloc.dart';
 import 'package:kelemapp/consetance/enums.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 import 'package:kelemapp/widget/nav/category_menu.dart';
@@ -175,6 +177,72 @@ class Menu {
             // todo : help page here.
           },
         ),
+        BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+          if (state is UserSignedInState) {
+            return ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("sign out"),
+              onTap: () {
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.INFO_REVERSED,
+                  borderSide: BorderSide(color: Colors.transparent, width: 2),
+                  width: 380,
+                  buttonsBorderRadius: BorderRadius.all(Radius.circular(2)),
+                  headerAnimationLoop: false,
+                  animType: AnimType.BOTTOMSLIDE,
+                  title: 'Sign out',
+                  desc: 'do you want to sing out?',
+                  showCloseIcon: true,
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () async {
+                    BlocProvider.of<UserBloc>(context).add(UserSignOut());
+
+                    BlocListener<UserBloc, UserState>(
+                      listener: (context, state) {
+                        // TODO: implement listener}
+                        if (state is UserSignedOutState) {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.SUCCES,
+                            borderSide:
+                                BorderSide(color: Colors.transparent, width: 2),
+                            width: 380,
+                            buttonsBorderRadius:
+                                BorderRadius.all(Radius.circular(2)),
+                            headerAnimationLoop: false,
+                            animType: AnimType.BOTTOMSLIDE,
+                            title: 'Successful',
+                            desc: 'you have Successful Sign out',
+                            showCloseIcon: true,
+                            btnOkOnPress: () {},
+                          )..show();
+                        }
+                      },
+                    );
+                  },
+                )..show();
+
+                //Navigator.pop(context); // Pops the navigation side drawer
+                // todo : help page here.
+              },
+            );
+          } else if (state is UserSignedOutState) {
+            return ListTile(
+              leading: Icon(Icons.login),
+              title: Text("sign in"),
+              onTap: () {
+                Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
+
+                //Navigator.pop(context); // Pops the navigation side drawer
+                // todo : help page here.
+              },
+            );
+          } else if (state is UserInitial) {
+            return ListTile();
+          }
+          return null;
+        }),
       ],
     ));
   }

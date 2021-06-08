@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kelemapp/bloc/down/down_bloc.dart';
 import 'package:kelemapp/model/commerce/product.dart';
+import 'package:kelemapp/route/route.dart';
 import 'package:kelemapp/widget/product/product_placeholder.dart';
 
 class ProductView extends StatelessWidget {
   final Product _product;
   final String size;
+  bool pageAdmin;
 
   static const String SIZE_SMALL = "SIZE_SMALL";
   static const String SIZE_MEDIUM = "SIZE_MEDIUM";
   static const String SIZE_LARGE = "SIZE_LARGE";
 
-  ProductView(this._product, {this.size = SIZE_MEDIUM});
+  ProductView(this._product, {this.size = SIZE_MEDIUM, this.pageAdmin = false});
 
   static Widget getThumbnailView(Product product,
       {bool expand = true, String size = SIZE_MEDIUM}) {
@@ -78,9 +80,13 @@ class ProductView extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         /// Navigating to item detail page
-
-        BlocProvider.of<DownBloc>(context)
-            .add(DownSelectedEvent(product: _product, context: context));
+        if (!pageAdmin) {
+          BlocProvider.of<DownBloc>(context)
+              .add(DownSelectedEvent(product: _product, context: context));
+        } else {
+          Navigator.pushNamed(context, RouteTo.SHOP_ADD_ITEM,
+              arguments: _product);
+        }
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

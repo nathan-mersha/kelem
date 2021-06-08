@@ -86,7 +86,8 @@ Future<bool> addCoupon(Coupon coupon) async {
 
 Future<bool> addProduct(Product product) async {
   try {
-    var uid = FirebaseAuth.instance.currentUser.uid;
+    //var uid = FirebaseAuth.instance.currentUser.uid;
+    var uid = product.productId;
     //var uid = "mixWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection("product").doc(uid);
@@ -100,6 +101,22 @@ Future<bool> addProduct(Product product) async {
       transaction.update(documentReference, Product.toMap(product));
       return true;
     });
+
+    return true;
+  } catch (e) {
+    print(e.toString());
+  }
+  return false;
+}
+
+Future<bool> deleteProduct(Product product) async {
+  try {
+    var uid = product.productId;
+
+    await FirebaseFirestore.instance
+        .collection(Product.COLLECTION_NAME)
+        .doc(uid)
+        .delete();
 
     return true;
   } catch (e) {
@@ -125,6 +142,16 @@ Future<bool> addShop(Shop shop) async {
       return true;
     });
 
+    return true;
+  } catch (e) {
+    print(e.toString());
+  }
+  return false;
+}
+
+Future<bool> signOut() async {
+  try {
+    await FirebaseAuth.instance.signOut();
     return true;
   } catch (e) {
     print(e.toString());

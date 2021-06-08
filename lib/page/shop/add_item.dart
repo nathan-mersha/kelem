@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kelemapp/api/flutterfire.dart';
 import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/model/profile/shop.dart';
+import 'package:kelemapp/route/route.dart';
 import 'package:kelemapp/widget/icon/icons.dart';
 import 'package:kelemapp/widget/info/message.dart';
 import 'package:kelemapp/widget/nav/menu.dart';
 import 'package:material_tag_editor/tag_editor.dart';
 import 'package:path/path.dart';
+import 'package:uuid/uuid.dart';
 
 class AddItemPage extends StatefulWidget {
   @override
@@ -20,10 +23,7 @@ class AddItemPage extends StatefulWidget {
 
 class _AddItemPageState extends State<AddItemPage> {
   File imageFile;
-  List<Map<String, dynamic>> metaData = [
-    {"key": "ert", "value": "sa"},
-    {"key": "ert21", "value": "sa23"},
-  ];
+  List<dynamic> metaData = [];
   TextEditingController valueController = TextEditingController();
   TextEditingController keyController = TextEditingController();
   GlobalKey<FormState> _globalFormStateKey = GlobalKey<FormState>();
@@ -38,8 +38,15 @@ class _AddItemPageState extends State<AddItemPage> {
   TextEditingController tagController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   bool absorbing = false;
-  List<String> tagList = [];
+  List<dynamic> tagList = [];
   final picker = ImagePicker();
+  bool allSeen = false;
+  String productImage;
+  String productId;
+  Shop shop;
+  Product productOld;
+  String title = "Add Item";
+  var uuid = Uuid();
   chooseImage(ImageSource source) async {
     final pickedFile = await picker.getImage(source: source);
     setState(() {
@@ -64,10 +71,30 @@ class _AddItemPageState extends State<AddItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Shop shop = ModalRoute.of(context).settings.arguments;
+    try {
+      shop = ModalRoute.of(context).settings.arguments;
+    } catch (e) {
+      productOld = ModalRoute.of(context).settings.arguments;
+      if (productOld != null && !allSeen) {
+        title = "Edit Item";
+        productImage = productOld.image;
+        categoryController.text = productOld.category;
+        subcategoryController.text = productOld.subCategory;
+        nameController.text = productOld.name;
+        authorController.text = productOld.authorOrManufacturer;
+        priceController.text = productOld.price.toString();
+        availableController.text = productOld.availableStock.toString();
+        tagList = productOld.tag;
+        descriptionController.text = productOld.description;
+        metaData = productOld.metaData;
+        productId = productOld.productId;
+        allSeen = true;
 
+        setState(() {});
+      }
+    }
     return Scaffold(
-      appBar: Menu.getAppBar(context, "Add Item"),
+      appBar: Menu.getAppBar(context, title),
       drawer: Menu.getSideDrawer(context),
       body: AbsorbPointer(
         absorbing: absorbing,
@@ -116,27 +143,52 @@ class _AddItemPageState extends State<AddItemPage> {
                             child: Container(
                               height: 150,
                               width: 100,
-                              child: imageFile != null
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: FileImage(imageFile),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                              child: allSeen &&
+                                      imageFile == null &&
+                                      productImage != null
+                                  ? CachedNetworkImage(
+                                      imageUrl: productImage,
+                                      useOldImageOnUrlChange: false,
+                                      placeholderFadeInDuration:
+                                          Duration(seconds: 1),
+                                      placeholder: (BuildContext context,
+                                          String imageURL) {
+                                        return CircleAvatar(
+                                          backgroundColor:
+                                              Theme.of(context).primaryColor,
+                                          radius: 50,
+                                          child: Text(
+                                            "${shop.name.substring(0, 1).toUpperCase()}",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 40,
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     )
-                                  : Container(
-                                      height: 150,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                      ),
-                                      child: Icon(
-                                        Icons.camera,
-                                        size: 50,
-                                        color: Theme.of(context).accentColor,
-                                      ),
-                                    ),
+                                  : imageFile != null
+                                      ? Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: FileImage(imageFile),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        )
+                                      : Container(
+                                          height: 150,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                          ),
+                                          child: Icon(
+                                            Icons.camera,
+                                            size: 50,
+                                            color:
+                                                Theme.of(context).accentColor,
+                                          ),
+                                        ),
                             ),
                           ),
                           SizedBox(
@@ -196,6 +248,7 @@ class _AddItemPageState extends State<AddItemPage> {
                                   decoration:
                                       InputDecoration(labelText: "price"),
                                   controller: priceController,
+                                  keyboardType: TextInputType.number,
                                   validator: (value) {
                                     if (value == "") {
                                       return "price cant be empty";
@@ -207,6 +260,7 @@ class _AddItemPageState extends State<AddItemPage> {
                                   decoration: InputDecoration(
                                       labelText: "available stock"),
                                   controller: availableController,
+                                  keyboardType: TextInputType.number,
                                   validator: (value) {
                                     if (value == "") {
                                       return "stack cant be empty";
@@ -409,7 +463,9 @@ class _AddItemPageState extends State<AddItemPage> {
                                   children: [
                                     Expanded(
                                       child: ElevatedButton(
-                                        child: Text("update"),
+                                        child: Text(productOld != null
+                                            ? "update"
+                                            : "save"),
                                         style: ElevatedButton.styleFrom(
                                           primary:
                                               Theme.of(context).accentColor,
@@ -427,8 +483,9 @@ class _AddItemPageState extends State<AddItemPage> {
                                               return;
                                             }
                                             Product product = Product(
-                                              shop: shop,
-                                              image: urlImage,
+                                              shop: shop ?? productOld.shop,
+                                              productId: productId ?? uuid.v1(),
+                                              image: urlImage ?? productImage,
                                               name: nameController.text,
                                               price: num.parse(
                                                   priceController.text),
@@ -445,6 +502,7 @@ class _AddItemPageState extends State<AddItemPage> {
                                               metaData: metaData,
                                               deliverable: true,
                                               publishedStatus: "published",
+                                              rating: 0,
                                             );
                                             // todo edit or add product
                                             if (true) {
@@ -480,21 +538,59 @@ class _AddItemPageState extends State<AddItemPage> {
                                         },
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
                                     Expanded(
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary:
-                                              Theme.of(context).primaryColor,
+                                      child: Visibility(
+                                        visible: productOld != null,
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Theme.of(context)
+                                                      .primaryColor,
+                                                ),
+                                                child: Text("delete"),
+                                                onPressed: () async {
+                                                  if (productOld != null) {
+                                                    final result =
+                                                        await deleteProduct(
+                                                            productOld);
+                                                    absorbing = false;
+                                                    if (result) {
+                                                      print("good");
+                                                      nameController.text = "";
+                                                      priceController.text = "";
+                                                      descriptionController
+                                                          .text = "";
+                                                      categoryController.text =
+                                                          "";
+                                                      subcategoryController
+                                                          .text = "";
+                                                      availableController.text =
+                                                          "";
+                                                      authorController.text =
+                                                          "";
+                                                      tagList = [];
+                                                      metaData = [];
+                                                      imageFile = null;
+                                                      productImage = null;
+                                                    } else {
+                                                      print("bad");
+                                                    }
+                                                    setState(() {});
+                                                    Navigator.pop(context);
+                                                    Navigator.pushNamed(context,
+                                                        RouteTo.SHOP_ADMIN);
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        child: Text("delete"),
-                                        onPressed: () {},
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 30,
                                     ),
                                   ],
                                 ),

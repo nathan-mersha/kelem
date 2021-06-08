@@ -33,6 +33,7 @@ class _EditShopPageState extends State<EditShopPage> {
   bool absorbing = false;
   bool allSeen = false;
   bool imageSelected = false;
+  String docId;
   final picker = ImagePicker();
 
   chooseImage(ImageSource source) async {

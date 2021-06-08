@@ -32,6 +32,8 @@ dependencies:
   flutter_bloc:
   connectivity_plus: ^0.5.0
   image_picker: ^0.6.7+22
+  uuid: ^2.2.2
+  awesome_dialog: ^2.1.0
 # Dev dependencies
 dev_dependencies:
   flutter_test:

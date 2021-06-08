@@ -11,6 +11,7 @@ import 'package:kelemapp/route/route.dart';
 
 import 'bloc/mybloc.dart';
 import 'bloc/theme/theme_bloc.dart';
+import 'bloc/user/user_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +48,9 @@ class MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => CartBloc(),
+        ),
+        BlocProvider(
+          create: (context) => UserBloc(),
         ),
         BlocProvider(
           create: (context) => InternetBloc(connectivity: Connectivity()),
