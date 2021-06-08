@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -423,7 +424,7 @@ class _AddItemPageState extends State<AddItemPage> {
                                                     const EdgeInsets.all(8.0),
                                                 child: Center(
                                                     child: Text(metaData[index]
-                                                        ["value"])),
+                                                        ["key"])),
                                               ),
                                             ),
                                             SizedBox(
@@ -528,6 +529,29 @@ class _AddItemPageState extends State<AddItemPage> {
                                                 absorbing = false;
                                                 if (result) {
                                                   print("good");
+
+                                                  AwesomeDialog(
+                                                    context: context,
+                                                    dialogType:
+                                                        DialogType.SUCCES,
+                                                    borderSide: BorderSide(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 2),
+                                                    width: 380,
+                                                    buttonsBorderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(2)),
+                                                    headerAnimationLoop: false,
+                                                    animType:
+                                                        AnimType.BOTTOMSLIDE,
+                                                    title: 'Successful',
+                                                    desc:
+                                                        'you have successful added ${product.name}',
+                                                    showCloseIcon: true,
+                                                    btnOkOnPress: () {},
+                                                  )..show();
+
                                                   nameController.text = "";
                                                   priceController.text = "";
                                                   descriptionController.text =
@@ -542,6 +566,26 @@ class _AddItemPageState extends State<AddItemPage> {
                                                   imageFile = null;
                                                 } else {
                                                   print("bad");
+                                                  AwesomeDialog(
+                                                    context: context,
+                                                    dialogType:
+                                                        DialogType.ERROR,
+                                                    borderSide: BorderSide(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 2),
+                                                    width: 380,
+                                                    buttonsBorderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(2)),
+                                                    headerAnimationLoop: false,
+                                                    animType:
+                                                        AnimType.BOTTOMSLIDE,
+                                                    title: 'Error',
+                                                    desc: 'please try again',
+                                                    showCloseIcon: true,
+                                                    btnOkOnPress: () {},
+                                                  )..show();
                                                 }
                                                 setState(() {});
                                               }
@@ -617,6 +661,25 @@ class _AddItemPageState extends State<AddItemPage> {
                                               absorbing = false;
                                               if (result) {
                                                 print("good");
+                                                AwesomeDialog(
+                                                  context: context,
+                                                  dialogType: DialogType.SUCCES,
+                                                  borderSide: BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 2),
+                                                  width: 380,
+                                                  buttonsBorderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(2)),
+                                                  headerAnimationLoop: false,
+                                                  animType:
+                                                      AnimType.BOTTOMSLIDE,
+                                                  title: 'Successful',
+                                                  desc:
+                                                      'you have successful edited ${product.name}',
+                                                  showCloseIcon: true,
+                                                  btnOkOnPress: () {},
+                                                )..show();
                                                 nameController.text = "";
                                                 priceController.text = "";
                                                 descriptionController.text = "";
@@ -653,6 +716,25 @@ class _AddItemPageState extends State<AddItemPage> {
                                               absorbing = false;
                                               if (result) {
                                                 print("good");
+                                                AwesomeDialog(
+                                                  context: context,
+                                                  dialogType: DialogType.SUCCES,
+                                                  borderSide: BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 2),
+                                                  width: 380,
+                                                  buttonsBorderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(2)),
+                                                  headerAnimationLoop: false,
+                                                  animType:
+                                                      AnimType.BOTTOMSLIDE,
+                                                  title: 'Successful',
+                                                  desc:
+                                                      'you have successful deleted ${productOld.name}',
+                                                  showCloseIcon: true,
+                                                  btnOkOnPress: () {},
+                                                )..show();
                                                 nameController.text = "";
                                                 priceController.text = "";
                                                 descriptionController.text = "";
@@ -666,6 +748,24 @@ class _AddItemPageState extends State<AddItemPage> {
                                                 productImage = null;
                                               } else {
                                                 print("bad");
+                                                AwesomeDialog(
+                                                  context: context,
+                                                  dialogType: DialogType.ERROR,
+                                                  borderSide: BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 2),
+                                                  width: 380,
+                                                  buttonsBorderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(2)),
+                                                  headerAnimationLoop: false,
+                                                  animType:
+                                                      AnimType.BOTTOMSLIDE,
+                                                  title: 'Error',
+                                                  desc: 'please try again',
+                                                  showCloseIcon: true,
+                                                  btnOkOnPress: () {},
+                                                )..show();
                                               }
                                               setState(() {});
                                               Navigator.pop(context);

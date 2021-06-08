@@ -61,10 +61,10 @@ Future<bool> addCoupon(Coupon coupon) async {
     var uid = FirebaseAuth.instance.currentUser.uid;
     //var uid = "f9fWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference = FirebaseFirestore.instance
-        .collection("Users")
+        .collection(Coupon.COLLECTION_NAME)
         .doc(uid)
-        .collection("Coupon")
-        .doc(coupon.code);
+        .collection("coupon")
+        .doc(coupon.couponId);
 
     FirebaseFirestore.instance.runTransaction((transaction) async {
       DocumentSnapshot snapshot = await transaction.get(documentReference);
@@ -72,8 +72,7 @@ Future<bool> addCoupon(Coupon coupon) async {
         documentReference.set(Coupon.toMap(coupon));
         return true;
       }
-      // double newAmount = snapshot.data()["Amount"] + value;
-      // transaction.update(documentReference, {"Amount": newAmount});
+      transaction.update(documentReference, Coupon.toMap(coupon));
       return true;
     });
 
