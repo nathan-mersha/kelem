@@ -164,7 +164,7 @@ class RouteTo {
     } else if (snapshot.data == false) {
       return HomePage(); // change to home page
     } else {
-      return CircularProgressIndicator();
+      return Container(color: Colors.white, child: CircularProgressIndicator());
     }
   }
 

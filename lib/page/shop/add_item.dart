@@ -457,143 +457,227 @@ class _AddItemPageState extends State<AddItemPage> {
                                 SizedBox(
                                   height: 30,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: ElevatedButton(
-                                        child: Text(productOld != null
-                                            ? "update"
-                                            : "save"),
-                                        style: ElevatedButton.styleFrom(
-                                          primary:
-                                              Theme.of(context).accentColor,
-                                        ),
-                                        onPressed: () async {
-                                          if (_globalAllFormStateKey
-                                              .currentState
-                                              .validate()) {
-                                            setState(() {
-                                              absorbing = true;
-                                            });
-                                            final urlImage = await uploadFile();
-                                            if (urlImage == null &&
-                                                imageFile != null) {
-                                              return;
-                                            }
-                                            Product product = Product(
-                                              shop: shop ?? productOld.shop,
-                                              productId: productId ?? uuid.v1(),
-                                              image: urlImage ?? productImage,
-                                              name: nameController.text,
-                                              price: num.parse(
-                                                  priceController.text),
-                                              description:
-                                                  descriptionController.text,
-                                              category: categoryController.text,
-                                              subCategory:
-                                                  subcategoryController.text,
-                                              availableStock: num.parse(
-                                                  availableController.text),
-                                              authorOrManufacturer:
-                                                  authorController.text,
-                                              tag: tagList,
-                                              metaData: metaData,
-                                              deliverable: true,
-                                              publishedStatus: "published",
-                                              rating: 0,
-                                            );
-                                            // todo edit or add product
-                                            if (true) {
-                                              product.firstModified =
-                                                  DateTime.now();
-                                              product.lastModified =
-                                                  DateTime.now();
-                                            } else {
-                                              product.lastModified =
-                                                  DateTime.now();
-                                            }
-
-                                            final result =
-                                                await addProduct(product);
-                                            absorbing = false;
-                                            if (result) {
-                                              print("good");
-                                              nameController.text = "";
-                                              priceController.text = "";
-                                              descriptionController.text = "";
-                                              categoryController.text = "";
-                                              subcategoryController.text = "";
-                                              availableController.text = "";
-                                              authorController.text = "";
-                                              tagList = [];
-                                              metaData = [];
-                                              imageFile = null;
-                                            } else {
-                                              print("bad");
-                                            }
-                                            setState(() {});
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Visibility(
-                                        visible: productOld != null,
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 10,
+                                Builder(builder: (context) {
+                                  if (productOld == null) {
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: ElevatedButton(
+                                            child: Text(productOld != null
+                                                ? "update"
+                                                : "save"),
+                                            style: ElevatedButton.styleFrom(
+                                              primary:
+                                                  Theme.of(context).accentColor,
                                             ),
-                                            Expanded(
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  primary: Theme.of(context)
-                                                      .primaryColor,
-                                                ),
-                                                child: Text("delete"),
-                                                onPressed: () async {
-                                                  if (productOld != null) {
-                                                    final result =
-                                                        await deleteProduct(
-                                                            productOld);
-                                                    absorbing = false;
-                                                    if (result) {
-                                                      print("good");
-                                                      nameController.text = "";
-                                                      priceController.text = "";
+                                            onPressed: () async {
+                                              if (_globalAllFormStateKey
+                                                  .currentState
+                                                  .validate()) {
+                                                setState(() {
+                                                  absorbing = true;
+                                                });
+                                                final urlImage =
+                                                    await uploadFile();
+                                                if (urlImage == null &&
+                                                    imageFile != null) {
+                                                  return;
+                                                }
+                                                Product product = Product(
+                                                  shop: shop ?? productOld.shop,
+                                                  productId:
+                                                      productId ?? uuid.v1(),
+                                                  image:
+                                                      urlImage ?? productImage,
+                                                  name: nameController.text,
+                                                  price: num.parse(
+                                                      priceController.text),
+                                                  description:
                                                       descriptionController
-                                                          .text = "";
-                                                      categoryController.text =
-                                                          "";
+                                                          .text,
+                                                  category:
+                                                      categoryController.text,
+                                                  subCategory:
                                                       subcategoryController
-                                                          .text = "";
-                                                      availableController.text =
-                                                          "";
-                                                      authorController.text =
-                                                          "";
-                                                      tagList = [];
-                                                      metaData = [];
-                                                      imageFile = null;
-                                                      productImage = null;
-                                                    } else {
-                                                      print("bad");
-                                                    }
-                                                    setState(() {});
-                                                    Navigator.pop(context);
-                                                    Navigator.pushNamed(context,
-                                                        RouteTo.SHOP_ADMIN);
-                                                  }
-                                                },
-                                              ),
-                                            ),
-                                          ],
+                                                          .text,
+                                                  availableStock: num.parse(
+                                                      availableController.text),
+                                                  authorOrManufacturer:
+                                                      authorController.text,
+                                                  tag: tagList,
+                                                  metaData: metaData,
+                                                  deliverable: true,
+                                                  publishedStatus: "published",
+                                                  rating: 0,
+                                                );
+                                                // todo edit or add product
+                                                if (true) {
+                                                  product.firstModified =
+                                                      DateTime.now();
+                                                  product.lastModified =
+                                                      DateTime.now();
+                                                } else {
+                                                  product.lastModified =
+                                                      DateTime.now();
+                                                }
+
+                                                final result =
+                                                    await addProduct(product);
+                                                absorbing = false;
+                                                if (result) {
+                                                  print("good");
+                                                  nameController.text = "";
+                                                  priceController.text = "";
+                                                  descriptionController.text =
+                                                      "";
+                                                  categoryController.text = "";
+                                                  subcategoryController.text =
+                                                      "";
+                                                  availableController.text = "";
+                                                  authorController.text = "";
+                                                  tagList = [];
+                                                  metaData = [];
+                                                  imageFile = null;
+                                                } else {
+                                                  print("bad");
+                                                }
+                                                setState(() {});
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                  return Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          child: Text(productOld != null
+                                              ? "update"
+                                              : "save"),
+                                          style: ElevatedButton.styleFrom(
+                                            primary:
+                                                Theme.of(context).accentColor,
+                                          ),
+                                          onPressed: () async {
+                                            if (_globalAllFormStateKey
+                                                .currentState
+                                                .validate()) {
+                                              setState(() {
+                                                absorbing = true;
+                                              });
+                                              final urlImage =
+                                                  await uploadFile();
+                                              if (urlImage == null &&
+                                                  imageFile != null) {
+                                                return;
+                                              }
+                                              Product product = Product(
+                                                shop: shop ?? productOld.shop,
+                                                productId:
+                                                    productId ?? uuid.v1(),
+                                                image: urlImage ?? productImage,
+                                                name: nameController.text,
+                                                price: num.parse(
+                                                    priceController.text),
+                                                description:
+                                                    descriptionController.text,
+                                                category:
+                                                    categoryController.text,
+                                                subCategory:
+                                                    subcategoryController.text,
+                                                availableStock: num.parse(
+                                                    availableController.text),
+                                                authorOrManufacturer:
+                                                    authorController.text,
+                                                tag: tagList,
+                                                metaData: metaData,
+                                                deliverable: true,
+                                                publishedStatus: "published",
+                                                rating: 0,
+                                              );
+                                              // todo edit or add product
+                                              if (true) {
+                                                product.firstModified =
+                                                    DateTime.now();
+                                                product.lastModified =
+                                                    DateTime.now();
+                                              } else {
+                                                product.lastModified =
+                                                    DateTime.now();
+                                              }
+
+                                              final result =
+                                                  await addProduct(product);
+                                              absorbing = false;
+                                              if (result) {
+                                                print("good");
+                                                nameController.text = "";
+                                                priceController.text = "";
+                                                descriptionController.text = "";
+                                                categoryController.text = "";
+                                                subcategoryController.text = "";
+                                                availableController.text = "";
+                                                authorController.text = "";
+                                                tagList = [];
+                                                metaData = [];
+                                                imageFile = null;
+                                              } else {
+                                                print("bad");
+                                              }
+                                              setState(() {});
+                                            }
+                                          },
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            primary:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                          child: Text("delete"),
+                                          onPressed: () async {
+                                            if (productOld != null) {
+                                              final result =
+                                                  await deleteProduct(
+                                                      productOld);
+                                              absorbing = false;
+                                              if (result) {
+                                                print("good");
+                                                nameController.text = "";
+                                                priceController.text = "";
+                                                descriptionController.text = "";
+                                                categoryController.text = "";
+                                                subcategoryController.text = "";
+                                                availableController.text = "";
+                                                authorController.text = "";
+                                                tagList = [];
+                                                metaData = [];
+                                                imageFile = null;
+                                                productImage = null;
+                                              } else {
+                                                print("bad");
+                                              }
+                                              setState(() {});
+                                              Navigator.pop(context);
+                                              Navigator.pushNamed(
+                                                  context, RouteTo.SHOP_ADMIN);
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
                               ],
                             ),
                           ),
