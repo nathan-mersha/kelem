@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:kelemapp/api/config/global.dart';
 import 'package:kelemapp/api/flutterfire.dart';
+import 'package:kelemapp/bloc/user/user_bloc.dart';
 import 'package:kelemapp/route/route.dart';
 import 'package:kelemapp/rsr/theme/color.dart';
 
@@ -91,6 +93,8 @@ class _SignInPageState extends State<SignInPage> {
                                       await signInWithGoogle();
                                   print("registerResult $registerResult");
                                   if (registerResult) {
+                                    BlocProvider.of<UserBloc>(context)
+                                        .add(UserSignIn());
                                     Navigator.pushReplacementNamed(
                                         context, RouteTo.HOME);
                                   }

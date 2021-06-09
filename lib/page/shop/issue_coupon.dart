@@ -4,6 +4,7 @@ import 'package:kelemapp/model/commerce/coupon.dart';
 import 'package:kelemapp/widget/icon/icons.dart';
 import 'package:kelemapp/widget/info/message.dart';
 import 'package:kelemapp/widget/nav/menu.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../model/profile/shop.dart';
 import '../../rsr/theme/color.dart';
@@ -29,6 +30,7 @@ class _IssueCouponPageState extends State<IssueCouponPage> {
 
   GlobalKey<FormState> _globalIssueFormStateKey = GlobalKey<FormState>();
   bool absorbing = false;
+  var uuid = Uuid();
 
   @override
   void initState() {
@@ -221,6 +223,7 @@ class _IssueCouponPageState extends State<IssueCouponPage> {
                                             num.parse(couponValue.text),
                                         quantity: num.parse(couponMuch.text),
                                         shop: shop,
+                                        couponId: uuid.v1(),
                                       );
 
                                       final result = await addCoupon(coupon);

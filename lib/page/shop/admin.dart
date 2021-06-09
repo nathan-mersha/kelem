@@ -492,7 +492,7 @@ class _ShopAdminPageState extends State<ShopAdminPage> {
                               ),
                               itemCount: newProducts.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return ProductView(newProducts[index]);
+                                return ProductView(newProducts[index],pageAdmin : true);
                               }),
                         );
                 } else if (snapshot.hasError) {
@@ -538,7 +538,6 @@ class _ShopAdminPageState extends State<ShopAdminPage> {
         .get();
 
     if (documentSnapshot.data() == null) return false;
-    print("her to stay ${Shop.toModel(documentSnapshot.data())}");
 
     Shop shopData = Shop.toModel(documentSnapshot.data());
     return shopData;
