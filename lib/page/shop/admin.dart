@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,7 +22,7 @@ class ShopAdminPage extends StatefulWidget {
 
 class _ShopAdminPageState extends State<ShopAdminPage> {
   Shop shop;
-
+  List<Product> newProducts;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -275,9 +276,44 @@ class _ShopAdminPageState extends State<ShopAdminPage> {
                                                 ),
                                                 GestureDetector(
                                                   onTap: () {
-                                                    Navigator.pushNamed(context,
-                                                        RouteTo.SHOP_ADD_ITEM,
-                                                        arguments: shop);
+                                                    if (shop.isVerified) {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          RouteTo.SHOP_ADD_ITEM,
+                                                          arguments: shop);
+                                                    } else if (!shop
+                                                            .isVerified &&
+                                                        newProducts.length <
+                                                            3) {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          RouteTo.SHOP_ADD_ITEM,
+                                                          arguments: shop);
+                                                    } else {
+                                                      AwesomeDialog(
+                                                        context: context,
+                                                        dialogType:
+                                                            DialogType.INFO,
+                                                        borderSide: BorderSide(
+                                                            color: Colors
+                                                                .transparent,
+                                                            width: 2),
+                                                        width: 380,
+                                                        buttonsBorderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    2)),
+                                                        headerAnimationLoop:
+                                                            false,
+                                                        animType: AnimType
+                                                            .BOTTOMSLIDE,
+                                                        title: 'Limit',
+                                                        desc:
+                                                            'you have reached the limit of this account get a pro account to add more items',
+                                                        showCloseIcon: true,
+                                                        btnOkOnPress: () {},
+                                                      )..show();
+                                                    }
                                                   },
                                                   child: Column(
                                                     children: [
@@ -454,7 +490,7 @@ class _ShopAdminPageState extends State<ShopAdminPage> {
                   );
                 } else if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.hasData) {
-                  List<Product> newProducts = snapshot.data;
+                  newProducts = snapshot.data;
                   return newProducts.isEmpty
                       ? Expanded(
                           child: Column(
@@ -492,7 +528,8 @@ class _ShopAdminPageState extends State<ShopAdminPage> {
                               ),
                               itemCount: newProducts.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return ProductView(newProducts[index],pageAdmin : true);
+                                return ProductView(newProducts[index],
+                                    pageAdmin: true);
                               }),
                         );
                 } else if (snapshot.hasError) {
