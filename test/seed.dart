@@ -497,7 +497,7 @@ class Seed {
   static Future<bool> createSeedData() {
     products.forEach((Product product) {
       print(Product.toMap(product));
-      Firestore.instance.collection("product").add(Product.toMap(product));
+      FirebaseFirestore.instance.collection("product").add(Product.toMap(product));
     });
     return Future.value(true);
   }
