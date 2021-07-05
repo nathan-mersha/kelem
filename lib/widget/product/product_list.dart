@@ -29,10 +29,12 @@ class ProductList extends StatefulWidget {
 
 class _ProductListState extends State<ProductList> {
   double _childAspectRatio;
+
   // total amount of data to be retrieved once.
   static const int PRODUCT_LIMIT = 4;
 
   List googleBooks = [];
+
   // true if item is being retrieved from fire store
   bool _loading = false;
   bool _noMoreItem = false;
@@ -46,11 +48,14 @@ class _ProductListState extends State<ProductList> {
   Shop shopTwo;
   String search;
   List<int> money = [125, 350, 560, 300, 400, 800];
+
   //add the name of the book you dont want to find here !!!!!!!!!!
   List<String> notFoundList = ["wolf human", "cat"];
+
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   bool bookNotFound = false;
+
   @override
   void initState() {
     super.initState();
@@ -145,7 +150,7 @@ class _ProductListState extends State<ProductList> {
                         Message(
                           icon: CustomIcons.getHorizontalLoading(),
                           message:
-                              "book called \"$search\" not found do you want to request it", //No internet
+                          "book called \"$search\" not found do you want to request it", //No internet
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -178,7 +183,7 @@ class _ProductListState extends State<ProductList> {
                         Message(
                           icon: CustomIcons.getHorizontalLoading(),
                           message:
-                              "book called $search  has been requested it", //No internet
+                          "book called $search  has been requested it", //No internet
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -199,9 +204,9 @@ class _ProductListState extends State<ProductList> {
                 } else {
                   return Center(
                       child: Message(
-                    icon: CustomIcons.noInternet(),
-                    message: "No internet",
-                  ));
+                        icon: CustomIcons.noInternet(),
+                        message: "No internet",
+                      ));
                 }
               } else if (snapshot.hasData &&
                   snapshot.connectionState == ConnectionState.done) {
@@ -216,28 +221,32 @@ class _ProductListState extends State<ProductList> {
                 // Got data here
                 return _products.isEmpty
                     ? Message(
-                        message: "No $_subCategory ${_category.name}s found",
-                        icon: Icon(
-                          Icons.whatshot,
-                          color: Theme.of(context).primaryColor,
-                          size: 45,
-                        ),
-                      )
+                  message: "No $_subCategory ${_category.name}s found",
+                  icon: Icon(
+                    Icons.whatshot,
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
+                    size: 45,
+                  ),
+                )
                     : GridView.builder(
-                        controller: _scrollController,
-                        shrinkWrap: false,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 4,
-                            childAspectRatio: _childAspectRatio),
-                        itemCount: _products.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ProductView(_products[index]);
-                        });
+                    controller: _scrollController,
+                    shrinkWrap: false,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 4,
+                        childAspectRatio: _childAspectRatio),
+                    itemCount: _products.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ProductView(_products[index]);
+                    });
               } else {
                 return Message(
                   icon: SpinKitFadingFour(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
                   ),
                   message: "loading ${_subCategory ?? ""} ${_category.name}s",
                 );
@@ -247,9 +256,11 @@ class _ProductListState extends State<ProductList> {
         ),
         _loading && !_noMoreItem
             ? SpinKitThreeBounce(
-                color: Theme.of(context).primaryColor,
-                size: 20,
-              )
+          color: Theme
+              .of(context)
+              .primaryColor,
+          size: 20,
+        )
             : Container(),
       ],
     );
@@ -260,21 +271,21 @@ class _ProductListState extends State<ProductList> {
 
     QuerySnapshot querySnapshot = _lastDocumentSnapShot != null
         ? await FirebaseFirestore.instance
-            .collection(Product.COLLECTION_NAME)
-            .where(Product.CATEGORY, isEqualTo: _category.name)
-            .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
-            .limit(PRODUCT_LIMIT)
-            .orderBy(Product.LAST_MODIFIED)
-            .startAfterDocument(_lastDocumentSnapShot)
-            .get()
-        // if there is a previous document query begins searching from the last document.
+        .collection(Product.COLLECTION_NAME)
+        .where(Product.CATEGORY, isEqualTo: _category.name)
+        .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
+        .limit(PRODUCT_LIMIT)
+        .orderBy(Product.LAST_MODIFIED)
+        .startAfterDocument(_lastDocumentSnapShot)
+        .get()
+    // if there is a previous document query begins searching from the last document.
         : await FirebaseFirestore.instance
-            .collection(Product.COLLECTION_NAME)
-            .where(Product.CATEGORY, isEqualTo: _category.name)
-            .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
-            .limit(PRODUCT_LIMIT)
-            .orderBy(Product.LAST_MODIFIED)
-            .get();
+        .collection(Product.COLLECTION_NAME)
+        .where(Product.CATEGORY, isEqualTo: _category.name)
+        .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
+        .limit(PRODUCT_LIMIT)
+        .orderBy(Product.LAST_MODIFIED)
+        .get();
     print("Document snapshot web web a");
     List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
     print("Document snapshot web web");
@@ -289,7 +300,7 @@ class _ProductListState extends State<ProductList> {
     }
     int i = 0;
     List<Product> products =
-        documentSnapshot.map((DocumentSnapshot documentSnapshot) {
+    documentSnapshot.map((DocumentSnapshot documentSnapshot) {
       Product p = Product.toModel(documentSnapshot.data());
       //this is only for test
       p.productId = documentSnapshot.id;
@@ -335,19 +346,19 @@ class _ProductListState extends State<ProductList> {
     //return products;
   }
 
-  Future getBookByQuery({String query}) async {
-    print("query 123 $query");
-    if (notFoundList.contains(query)) {
-      googleBooks = null;
-      return null;
-    }
-    return await BookAPI.getBooks(query).then((List result) {
-      googleBooks = result.isEmpty ? null : result; //
-      print("searchResults $googleBooks");
-      if (googleBooks != null) {
-        return true;
-      }
-      return false;
-    });
-  }
+// Future getBookByQuery({String query}) async {
+//   print("query 123 $query");
+//   if (notFoundList.contains(query)) {
+//     googleBooks = null;
+//     return null;
+//   }
+//   return await BookAPI.getBooks(query).then((List result) {
+//     googleBooks = result.isEmpty ? null : result; //
+//     print("searchResults $googleBooks");
+//     if (googleBooks != null) {
+//       return true;
+//     }
+//     return false;
+//   });
+// }
 }

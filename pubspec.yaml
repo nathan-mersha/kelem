@@ -20,10 +20,10 @@ dependencies:
   firebase_core: "^0.7.0"
   firebase_storage: "^7.0.0"
   material_tag_editor: ^0.0.1
-  firebase_analytics: ^5.0.15
+  firebase_analytics: "^7.0.1"
   rxdart: ^0.20.0
   flutter_signin_button: ^1.0.0
-  flutter_rating_bar: ^3.0.1+1
+  flutter_rating_bar: 3.0.1+1
   auto_size_text: ^2.1.0
   url_launcher: ^5.7.6
   dio: ^3.0.8
