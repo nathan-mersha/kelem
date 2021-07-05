@@ -10,7 +10,7 @@ class ApiGlobalConfig {
         .doc(GLOBAL_KEY_ID)
         .snapshots()
         .listen((DocumentSnapshot globalConfigSnapShot) {
-      var globalConfigCloud = globalConfigSnapShot.data();
+      Map globalConfigCloud = globalConfigSnapShot.data();
 
       /// Extracting global config id
       String globalConfigId = globalConfigCloud[GlobalConfig.GLOBAL_CONFIG_ID];

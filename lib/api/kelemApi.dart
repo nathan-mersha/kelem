@@ -37,32 +37,32 @@ class Helper {
   }
 }
 
-class BookAPI {
-  static String _bookURL = Config.dnAdrs + "/books/v1";
-
-  static Future<List> getBooks(String title) {
-    return Helper.gotInternet().then((bool thereIsInternet) {
-      // Got internet
-      if (thereIsInternet) {
-        String url =
-            "$_bookURL/volumes?q=intitle:$title&orderBy:relevance&subject:fiction&printType=books&maxResults=40&key=AIzaSyCcDUQ8o9nSt_Esd4by-1xvz2WxtSPwRUs";
-        return http.get(
-          url,
-          headers: {"Content-Type": "application/json"},
-        ).then((http.Response response) {
-          print("responseBody ${jsonDecode(response.body)}");
-          Map<String, dynamic> responseBodyMap = jsonDecode(response.body);
-          List responseBody = responseBodyMap["items"];
-          return responseBody;
-        }, onError: (err) {
-          print("responseBody $err");
-          return null;
-        });
-      }
-      // No internet, Dial ussd
-      else {
-        return null;
-      }
-    });
-  }
-}
+// class BookAPI {
+//   static String _bookURL = Config.dnAdrs + "/books/v1";
+//
+//   static Future<List> getBooks(String title) {
+//     return Helper.gotInternet().then((bool thereIsInternet) {
+//       // Got internet
+//       if (thereIsInternet) {
+//         String url =
+//             "$_bookURL/volumes?q=intitle:$title&orderBy:relevance&subject:fiction&printType=books&maxResults=40&key=AIzaSyCcDUQ8o9nSt_Esd4by-1xvz2WxtSPwRUs";
+//         return http.get(
+//           url,
+//           headers: {"Content-Type": "application/json"},
+//         ).then((http.Response response) {
+//           print("responseBody ${jsonDecode(response.body)}");
+//           Map<String, dynamic> responseBodyMap = jsonDecode(response.body);
+//           List responseBody = responseBodyMap["items"];
+//           return responseBody;
+//         }, onError: (err) {
+//           print("responseBody $err");
+//           return null;
+//         });
+//       }
+//       // No internet, Dial ussd
+//       else {
+//         return null;
+//       }
+//     });
+//   }
+// }
