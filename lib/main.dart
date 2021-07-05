@@ -59,7 +59,10 @@ class MyAppState extends State<MyApp> {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           return MaterialApp(
-              title: "Kelem", theme: state.themeData, routes: routes);
+              debugShowCheckedModeBanner: false,
+              title: "Kelem",
+              theme: state.themeData,
+              routes: routes);
         },
       ),
     );

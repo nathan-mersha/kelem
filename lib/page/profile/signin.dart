@@ -101,6 +101,27 @@ class _SignInPageState extends State<SignInPage> {
                                 },
                               ),
                               SignInButton(
+                                Buttons.Apple,
+                                onPressed: () async {
+                                  // todo : signin with the prefered method
+                                  // todo : navigate to home
+//                                  authService
+//                                       .signInWithGoogle()
+//                                      .then((firebaseUser) {
+//                                    Navigator.pushReplacementNamed(
+//                                        context, RouteTo.HOME);
+//                                  });
+                                  bool registerResult = await signInWithApple();
+                                  print("registerResult $registerResult");
+                                  if (registerResult) {
+                                    BlocProvider.of<UserBloc>(context)
+                                        .add(UserSignIn());
+                                    Navigator.pushReplacementNamed(
+                                        context, RouteTo.HOME);
+                                  }
+                                },
+                              ),
+                              SignInButton(
                                 Buttons.Facebook,
                                 onPressed: () {},
                               ),

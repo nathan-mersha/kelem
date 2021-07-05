@@ -1,12 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kelemapp/model/commerce/coupon.dart';
 import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/model/profile/shop.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 Future<bool> signIn(String email, String emailLink) async {
   try {
@@ -38,6 +42,50 @@ Future<bool> signInWithGoogle() async {
     // Once signed in, return the UserCredential
     await FirebaseAuth.instance.signInWithCredential(credential);
     print("here 2");
+
+    return true;
+  } catch (e) {
+    print("error is $e");
+
+    return false;
+  }
+}
+
+String generateNonce([int length = 32]) {
+  final charset =
+      '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+  final random = Random.secure();
+  return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+      .join();
+}
+
+/// Returns the sha256 hash of [input] in hex notation.
+String sha256ofString(String input) {
+  final bytes = utf8.encode(input);
+  final digest = sha256.convert(bytes);
+  return digest.toString();
+}
+
+Future<bool> signInWithApple() async {
+  try {
+    final rawNonce = generateNonce();
+    final nonce = sha256ofString(rawNonce);
+
+    // Request credential for the currently signed in Apple account.
+    final appleCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: nonce,
+    );
+
+    // Create an `OAuthCredential` from the credential returned by Apple.
+    final oauthCredential = OAuthProvider("apple.com").credential(
+      idToken: appleCredential.identityToken,
+      rawNonce: rawNonce,
+    );
+    await FirebaseAuth.instance.signInWithCredential(oauthCredential);
 
     return true;
   } catch (e) {
