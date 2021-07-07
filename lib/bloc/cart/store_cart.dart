@@ -19,7 +19,7 @@ class StoreCart {
       transactionFee: globalConfig.additionalFee.transactionFeeValue,
       tax: globalConfig.additionalFee.taxFeeValue,
     );
-    int subTotal = 0;
+    double subTotal = 0;
     for (int i = 0; i < _productListData.length; i++) {
       subTotal = subTotal +
           (_productListData[i].price * num.parse(_productListData[i].quantity));

@@ -174,7 +174,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  Container buildShopInformationSection(Shop shop, BuildContext context, Product _product) {
+  Container buildShopInformationSection(
+      Shop shop, BuildContext context, Product _product) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,21 +242,24 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       style: TextStyle(color: CustomColor.GRAY_LIGHT),
                       textScaleFactor: 0.9,
                     ),
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          shop.physicalAddress ?? "no physical address",
-                          style: TextStyle(color: CustomColor.GRAY),
-                          textScaleFactor: 0.9,
-                        ),
-                        TextButton(
-                          child: Text("view on map"),
-                          onPressed: () {
-                            _lunchMapsUrl(shop.physicalAddress);
-                            // Open map application to show the shops physical location
-                          },
-                        )
-                      ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            shop.physicalAddress ?? "no physical address",
+                            style: TextStyle(color: CustomColor.GRAY),
+                            textScaleFactor: 0.9,
+                          ),
+                          TextButton(
+                            child: Text("view on map"),
+                            onPressed: () {
+                              _lunchMapsUrl(shop.physicalAddress);
+                              // Open map application to show the shops physical location
+                            },
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),

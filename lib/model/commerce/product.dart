@@ -101,26 +101,33 @@ class Product {
 
   /// Converts Map to Model
   static Product toModel(dynamic map) {
-    return Product(
-        productId: map[PRODUCT_ID],
-        name: map[NAME],
-        category: map[CATEGORY],
-        subCategory: map[SUB_CATEGORY],
-        authorOrManufacturer: map[AUTHOR_OR_MANUFACTURER],
-        price: map[PRICE],
-        regularPrice: map[REGULAR_PRICE],
-        tag: map[TAG],
-        description: map[DESCRIPTION],
-        rating: map[RATING],
-        reference: map[REFERENCE],
-        availableStock: map[AVAILABLE_STOCK],
-        image: map[IMAGE],
-        deliverable: map[DELIVERABLE],
-        metaData: map[META_DATA],
-        publishedStatus: map[PUBLISHED_STATUS],
-        shop: map[SHOP] == null ? Shop() : Shop.toModel(map[SHOP]),
-        firstModified: DateTime.parse(map[FIRST_MODIFIED]),
-        lastModified: DateTime.parse(map[LAST_MODIFIED]));
+    try {
+      return Product(
+          productId: map[PRODUCT_ID],
+          name: map[NAME],
+          category: map[CATEGORY],
+          subCategory: map[SUB_CATEGORY],
+          authorOrManufacturer: map[AUTHOR_OR_MANUFACTURER],
+          price: map[PRICE],
+          regularPrice: map[REGULAR_PRICE],
+          tag: map[TAG],
+          description: map[DESCRIPTION],
+          rating: map[RATING] ?? 0.0,
+          reference: map[REFERENCE].toString(),
+          availableStock: map[AVAILABLE_STOCK],
+          image: map[IMAGE],
+          deliverable: map[DELIVERABLE],
+          metaData: map[META_DATA],
+          publishedStatus: map[PUBLISHED_STATUS],
+          shop: map[SHOP] == null ? Shop() : Shop.toModel(map[SHOP]),
+          firstModified: DateTime.parse(
+              map[FIRST_MODIFIED] ?? DateTime.now().toIso8601String()),
+          lastModified: DateTime.parse(
+              map[LAST_MODIFIED] ?? DateTime.now().toIso8601String()));
+    } catch (e) {
+      print(e);
+      return null;
+    }
   }
 
   /// Changes List of Map to List of Model

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:kelemapp/api/kelemApi.dart';
 import 'package:kelemapp/global.dart' as global;
 import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/model/config/global.dart';
@@ -150,7 +149,7 @@ class _ProductListState extends State<ProductList> {
                         Message(
                           icon: CustomIcons.getHorizontalLoading(),
                           message:
-                          "book called \"$search\" not found do you want to request it", //No internet
+                              "book called \"$search\" not found do you want to request it", //No internet
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +182,7 @@ class _ProductListState extends State<ProductList> {
                         Message(
                           icon: CustomIcons.getHorizontalLoading(),
                           message:
-                          "book called $search  has been requested it", //No internet
+                              "book called $search  has been requested it", //No internet
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -204,9 +203,9 @@ class _ProductListState extends State<ProductList> {
                 } else {
                   return Center(
                       child: Message(
-                        icon: CustomIcons.noInternet(),
-                        message: "No internet",
-                      ));
+                    icon: CustomIcons.noInternet(),
+                    message: "No internet",
+                  ));
                 }
               } else if (snapshot.hasData &&
                   snapshot.connectionState == ConnectionState.done) {
@@ -217,36 +216,32 @@ class _ProductListState extends State<ProductList> {
                   _products.addAll(newProducts);
                   _initialProductsLoaded = true;
                 }
-
+                print("_subCategory $_subCategory");
                 // Got data here
                 return _products.isEmpty
                     ? Message(
-                  message: "No $_subCategory ${_category.name}s found",
-                  icon: Icon(
-                    Icons.whatshot,
-                    color: Theme
-                        .of(context)
-                        .primaryColor,
-                    size: 45,
-                  ),
-                )
+                        message: "No $_subCategory ${_category.name}s found",
+                        icon: Icon(
+                          Icons.whatshot,
+                          color: Theme.of(context).primaryColor,
+                          size: 45,
+                        ),
+                      )
                     : GridView.builder(
-                    controller: _scrollController,
-                    shrinkWrap: false,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 4,
-                        childAspectRatio: _childAspectRatio),
-                    itemCount: _products.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ProductView(_products[index]);
-                    });
+                        controller: _scrollController,
+                        shrinkWrap: false,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 4,
+                            childAspectRatio: _childAspectRatio),
+                        itemCount: _products.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ProductView(_products[index]);
+                        });
               } else {
                 return Message(
                   icon: SpinKitFadingFour(
-                    color: Theme
-                        .of(context)
-                        .primaryColor,
+                    color: Theme.of(context).primaryColor,
                   ),
                   message: "loading ${_subCategory ?? ""} ${_category.name}s",
                 );
@@ -256,11 +251,9 @@ class _ProductListState extends State<ProductList> {
         ),
         _loading && !_noMoreItem
             ? SpinKitThreeBounce(
-          color: Theme
-              .of(context)
-              .primaryColor,
-          size: 20,
-        )
+                color: Theme.of(context).primaryColor,
+                size: 20,
+              )
             : Container(),
       ],
     );
@@ -268,43 +261,45 @@ class _ProductListState extends State<ProductList> {
 
   Future<List<Product>> getProducts() async {
     // await getBookByQuery(query: search ?? "b");
-
+    print("_subCategory er $_subCategory");
     QuerySnapshot querySnapshot = _lastDocumentSnapShot != null
         ? await FirebaseFirestore.instance
-        .collection(Product.COLLECTION_NAME)
-        .where(Product.CATEGORY, isEqualTo: _category.name)
-        .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
-        .limit(PRODUCT_LIMIT)
-        .orderBy(Product.LAST_MODIFIED)
-        .startAfterDocument(_lastDocumentSnapShot)
-        .get()
-    // if there is a previous document query begins searching from the last document.
+            .collection(Product.COLLECTION_NAME)
+            .where(Product.CATEGORY, isEqualTo: _category.name)
+            .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
+            .limit(PRODUCT_LIMIT)
+            .orderBy(Product.LAST_MODIFIED)
+            .startAfterDocument(_lastDocumentSnapShot)
+            .get()
+        // if there is a previous document query begins searching from the last document.
         : await FirebaseFirestore.instance
-        .collection(Product.COLLECTION_NAME)
-        .where(Product.CATEGORY, isEqualTo: _category.name)
-        .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
-        .limit(PRODUCT_LIMIT)
-        .orderBy(Product.LAST_MODIFIED)
-        .get();
-    print("Document snapshot web web a");
-    List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
-    print("Document snapshot web web");
-    print("Document snapshot : $documentSnapshot");
+            .collection(Product.COLLECTION_NAME)
+            .where(Product.CATEGORY, isEqualTo: _category.name)
+            .where(Product.SUB_CATEGORY, isEqualTo: _subCategory)
+            .limit(PRODUCT_LIMIT)
+            .orderBy(Product.LAST_MODIFIED)
+            .get();
+
+    List<QueryDocumentSnapshot> documentSnapshot = querySnapshot.docs;
+    print("documentSnapshot er $documentSnapshot");
 
     // Assigning the last document snapshot for future query
     if (documentSnapshot.length > 0) {
       _lastDocumentSnapShot = documentSnapshot.last;
+
       _noMoreItem = false;
     } else {
+      print("data no");
       _noMoreItem = true;
     }
     int i = 0;
     List<Product> products =
-    documentSnapshot.map((DocumentSnapshot documentSnapshot) {
-      Product p = Product.toModel(documentSnapshot.data());
+        documentSnapshot.map((DocumentSnapshot documentSnapshot1) {
+      print("documentSnapshot1 ${documentSnapshot1.data()}");
+      Product p = Product.toModel(documentSnapshot1.data());
       //this is only for test
-      p.productId = documentSnapshot.id;
-      print("proda p ${p.shop}");
+
+      p.productId = documentSnapshot1.id;
       return p;
     }).toList();
 
