@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,7 +48,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   final num relatedProductLimit = 4;
   List<Product> cartItem = [];
   String cart;
-
+  bool showDescription = false;
+  int imageIndex = 0;
   @override
   Widget build(BuildContext context) {
     Product product = ModalRoute.of(context).settings.arguments;
@@ -57,116 +60,254 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       drawer: Menu.getSideDrawer(context),
       body: Container(
           padding: MainTheme.getPagePadding(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              // Section 1, Image, title, add to cart rating.
-              buildProductViewSection(product, context),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                // Section 1, Image, title, add to cart rating.
+                buildProductViewSection(product, context),
 
-              // Section 2, Introduction
-              buildIntroductionSection(product),
+                buildInfoData(product),
+                // Section 2, Introduction
+                //buildIntroductionSection(product),
 
-              Divider(
-                height: 20,
-              ),
-              // Section 3, Shop Information
+                // Divider(
+                //   height: 20,
+                // ),
+                // Section 3, Shop Information
 
-              buildShopInformationSection(shop, context, product),
+                //buildShopInformationSection(shop, context, product),
 
-              Divider(
-                color: Theme.of(context).primaryColor,
-                height: 20,
-              ),
-              // Section 4, Similar Items
-              buildSimilarItemsSection(product)
-            ],
+                // Divider(
+                //   color: Theme.of(context).primaryColor,
+                //   height: 20,
+                // ),
+                // Section 4, Similar Items
+                //buildSimilarItemsSection(product)
+              ],
+            ),
           )),
     );
   }
 
-  Expanded buildProductViewSection(Product product, BuildContext context) {
-    return Expanded(
-      flex: 8,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-              flex: 3,
-              child: Center(
-                child: ProductView.getThumbnailView(product,
-                    expand: false, size: ProductView.SIZE_SMALL),
-              )),
-          Expanded(
-            flex: 5,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    AutoSizeText(
-                      product.name,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                      maxLines: 3,
-                      overflow: TextOverflow.fade,
+  Widget buildProductViewSection(Product product, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        height: 200,
+        child: Stack(
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            CachedNetworkImage(
+              imageUrl: product.image,
+              imageBuilder: (context, imageProvider) {
+                return Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
                     ),
-                    AutoSizeText(
-                      product.authorOrManufacturer,
-                      style: TextStyle(color: CustomColor.GRAY_LIGHT),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        ProductView.getPricingView(context, product,
-                            size: ProductView.SIZE_LARGE),
-                        Text(
-                          product.tag
-                              .toString()
-                              .replaceAll("[", "")
-                              .replaceAll("]", ""),
-                          style: TextStyle(color: CustomColor.GRAY_LIGHT),
-                        ),
-                        SingleChildScrollView(
+                  ),
+                );
+              },
+              useOldImageOnUrlChange: true,
+              fit: BoxFit.cover,
+              placeholderFadeInDuration: Duration(microseconds: 200),
+              placeholder: (BuildContext context, String imageURL) {
+                return BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  child: Container(
+                    decoration:
+                        BoxDecoration(color: Colors.grey.withOpacity(0.0)),
+                  ),
+                );
+              },
+            ),
+            Container(
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: NetworkImage(product.image),
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                child: Container(
+                  decoration:
+                      BoxDecoration(color: Colors.grey.withOpacity(0.2)),
+                ),
+              ),
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 200,
+                    height: 150,
+                    child: ProductView.getThumbnailView(product,
+                        expand: false, size: ProductView.SIZE_SMALL),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 20,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      child: ListView.builder(
+                          itemCount: 3,
+                          shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: <Widget>[
-                              ProductDetailPage.getRatingStarView(product),
-                              TextButton(
-                                child: Text(
-                                  "to wishlist",
-                                  textScaleFactor: 0.9,
-                                ),
-                                onPressed: () {
-                                  // todo : Add to wish list
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                        cardButton(product),
-                      ],
-                    )
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 2.0),
+                              child: Icon(
+                                Icons.circle,
+                                size: 10,
+                                color: imageIndex == index
+                                    ? Colors.white
+                                    : Theme.of(context).accentColor,
+                              ),
+                            );
+                          }),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          imageIndex =
+                              imageIndex > 0 ? imageIndex - 1 : imageIndex;
+                          print(" imageIndex $imageIndex");
+                          setState(() {});
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: CustomColor.GRAY_VERY_LIGHT,
+                          size: 20,
+                        )),
+                    IconButton(
+                        onPressed: () {
+                          imageIndex =
+                              imageIndex < 2 ? imageIndex + 1 : imageIndex;
+                          print(" imageIndex $imageIndex");
+                          setState(() {});
+                        },
+                        icon: Icon(
+                          Icons.arrow_forward_ios,
+                          color: CustomColor.GRAY_VERY_LIGHT,
+                          size: 20,
+                        )),
                   ],
                 ),
               ),
             ),
-          )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildInfoData(Product product) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(15, 0, 0, 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          AutoSizeText(
+            product.name.substring(0, 10),
+            style: TextStyle(
+              fontSize: 20,
+            ),
+            maxLines: 3,
+            overflow: TextOverflow.fade,
+          ),
+          AutoSizeText(
+            product.authorOrManufacturer,
+            style: TextStyle(color: CustomColor.GRAY_LIGHT),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              ProductView.getPricingView(context, product,
+                  size: ProductView.SIZE_LARGE),
+              Text(
+                product.tag.toString().replaceAll("[", "").replaceAll("]", ""),
+                style: TextStyle(color: CustomColor.GRAY_LIGHT),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  ProductDetailPage.getRatingStarView(product),
+                  TextButton(
+                    child: Text(
+                      "to wishlist",
+                      textScaleFactor: 0.9,
+                    ),
+                    onPressed: () {
+                      // todo : Add to wish list
+                    },
+                  ),
+                  cardButton(product),
+                ],
+              ),
+            ],
+          ),
+          buildIntroductionSection(product),
+          Center(
+            child: IconButton(
+                onPressed: () {
+                  showDescription = !showDescription;
+                  setState(() {});
+                },
+                icon: showDescription
+                    ? Icon(Icons.keyboard_arrow_up_outlined)
+                    : Icon(Icons.keyboard_arrow_down_outlined)),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          buildShopInformationSection(product.shop, context, product),
+          Divider(
+            color: Theme.of(context).primaryColor,
+            height: 10,
+          ),
+          buildSimilarItemsSection(product)
         ],
       ),
     );
   }
 
   Container buildIntroductionSection(Product product) {
+    if (showDescription) {
+      return Container(
+        padding: EdgeInsets.only(top: 4),
+        child: Text(
+          product.description,
+          softWrap: true,
+          overflow: TextOverflow.fade,
+          textAlign: TextAlign.justify,
+          style: TextStyle(color: CustomColor.GRAY),
+        ),
+      );
+    }
     return Container(
       padding: EdgeInsets.only(top: 4),
       child: Text(
         product.description,
         softWrap: true,
-        maxLines: 6,
+        maxLines: 2,
         overflow: TextOverflow.fade,
         textAlign: TextAlign.justify,
         style: TextStyle(color: CustomColor.GRAY),
@@ -242,24 +383,53 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       style: TextStyle(color: CustomColor.GRAY_LIGHT),
                       textScaleFactor: 0.9,
                     ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            shop.physicalAddress ?? "no physical address",
-                            style: TextStyle(color: CustomColor.GRAY),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          shop.physicalAddress ?? "no physical address",
+                          style: TextStyle(color: CustomColor.GRAY),
+                          textScaleFactor: 0.7,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _lunchMapsUrl(
+                                shop.coOrdinates[0], shop.coOrdinates[1]);
+                            // Open map application to show the shops physical location
+                          },
+                          child: Text(
+                            "view on map",
+                            style: TextStyle(
+                              color: Theme.of(context).accentColor,
+                            ),
                             textScaleFactor: 0.9,
                           ),
-                          TextButton(
-                            child: Text("view on map"),
-                            onPressed: () {
-                              _lunchMapsUrl(shop.physicalAddress);
-                              // Open map application to show the shops physical location
-                            },
-                          )
-                        ],
-                      ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.facebook,
+                          color: Theme.of(context).accentColor,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Icon(
+                          Icons.facebook,
+                          color: Theme.of(context).accentColor,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Icon(
+                          Icons.facebook,
+                          color: Theme.of(context).accentColor,
+                        ),
+                      ],
                     )
                   ],
                 ),
@@ -298,13 +468,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  Expanded buildSimilarItemsSection(Product product) {
-    return Expanded(
-      flex: 7,
+  Widget buildSimilarItemsSection(Product product) {
+    return Container(
+      height: 155,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+        children: [
           FutureBuilder(
               future: getRelatedProduct(product),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -353,7 +521,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   );
                 }
-              })
+              }),
         ],
       ),
     );
@@ -382,12 +550,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return products;
   }
 
-  void _lunchMapsUrl(String address) async {
-    final url = 'https://www.google.com/maps/search/${Uri.encodeFull(address)}';
+  void _lunchMapsUrl(double lat, double long) async {
+    final url = 'https://www.google.com/maps/search/?api=1&query=$lat,$long';
     if (await canLaunch(url)) {
-      await launch(url);
+      try {
+        await launch(url);
+      } catch (e) {
+        print('Could not Launch $e');
+      }
     } else {
-      throw 'Could not Launch $url';
+      print('Could not Launch $url');
     }
   }
 }

@@ -131,7 +131,7 @@ class _ProductListState extends State<ProductList> {
 
   @override
   Widget build(BuildContext context) {
-    _childAspectRatio = widget._category.name == "book" ? 0.6 : 1;
+    _childAspectRatio = widget._category.name == "book" ? 0.6 : 0.8;
     return Column(
       children: <Widget>[
         Expanded(
