@@ -50,6 +50,7 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   final num relatedProductLimit = 4;
   List<Product> cartItem = [];
+
   String cart;
   @override
   Widget build(BuildContext context) {
