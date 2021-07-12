@@ -5,7 +5,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:kelemapp/bloc/description/description_cubit.dart';
+import 'package:kelemapp/bloc/images/image_cubit.dart';
 import 'package:kelemapp/model/commerce/product.dart';
 import 'package:kelemapp/model/profile/shop.dart';
 import 'package:kelemapp/route/route.dart';
@@ -48,8 +51,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   final num relatedProductLimit = 4;
   List<Product> cartItem = [];
   String cart;
-  bool showDescription = false;
-  int imageIndex = 0;
   @override
   Widget build(BuildContext context) {
     Product product = ModalRoute.of(context).settings.arguments;
@@ -96,123 +97,134 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       padding: const EdgeInsets.all(20.0),
       child: Container(
         height: 200,
-        child: Stack(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            CachedNetworkImage(
-              imageUrl: product.image,
-              imageBuilder: (context, imageProvider) {
-                return Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
+        child: BlocBuilder<ImageCubit, ImageState>(
+          builder: (context, state) {
+            if (state is ImageInitial) {
+              return Stack(
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  CachedNetworkImage(
+                    imageUrl: product.image,
+                    imageBuilder: (context, imageProvider) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                    useOldImageOnUrlChange: true,
+                    fit: BoxFit.cover,
+                    placeholderFadeInDuration: Duration(microseconds: 200),
+                    placeholder: (BuildContext context, String imageURL) {
+                      return BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.0)),
+                        ),
+                      );
+                    },
+                  ),
+                  Container(
+                    // decoration: BoxDecoration(
+                    //   image: DecorationImage(
+                    //     image: NetworkImage(product.image),
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                      child: Container(
+                        decoration:
+                            BoxDecoration(color: Colors.grey.withOpacity(0.2)),
+                      ),
                     ),
                   ),
-                );
-              },
-              useOldImageOnUrlChange: true,
-              fit: BoxFit.cover,
-              placeholderFadeInDuration: Duration(microseconds: 200),
-              placeholder: (BuildContext context, String imageURL) {
-                return BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                  child: Container(
-                    decoration:
-                        BoxDecoration(color: Colors.grey.withOpacity(0.0)),
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 200,
+                          height: 150,
+                          child: ProductView.getThumbnailView(product,
+                              expand: false, size: ProductView.SIZE_SMALL),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 20,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 4.0),
+                            child: ListView.builder(
+                                itemCount: 3,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 2.0),
+                                    child: Icon(
+                                      Icons.circle,
+                                      size: 10,
+                                      color: state.currentIndex == index
+                                          ? Colors.white
+                                          : Theme.of(context).accentColor,
+                                    ),
+                                  );
+                                }),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                );
-              },
-            ),
-            Container(
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     image: NetworkImage(product.image),
-              //     fit: BoxFit.cover,
-              //   ),
-              // ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                child: Container(
-                  decoration:
-                      BoxDecoration(color: Colors.grey.withOpacity(0.2)),
-                ),
-              ),
-            ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 200,
-                    height: 150,
-                    child: ProductView.getThumbnailView(product,
-                        expand: false, size: ProductView.SIZE_SMALL),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 20,
+                  Align(
+                    alignment: Alignment.center,
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
-                      child: ListView.builder(
-                          itemCount: 3,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 2.0),
-                              child: Icon(
-                                Icons.circle,
-                                size: 10,
-                                color: imageIndex == index
-                                    ? Colors.white
-                                    : Theme.of(context).accentColor,
-                              ),
-                            );
-                          }),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                // imageIndex =
+                                //     imageIndex > 0 ? imageIndex - 1 : imageIndex;
+                                // print(" imageIndex $imageIndex");
+                                // setState(() {});
+                                BlocProvider.of<ImageCubit>(context)
+                                    .emitPreviceImage(3);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                color: CustomColor.GRAY_VERY_LIGHT,
+                                size: 20,
+                              )),
+                          IconButton(
+                              onPressed: () {
+                                // imageIndex =
+                                //     imageIndex < 2 ? imageIndex + 1 : imageIndex;
+                                // print(" imageIndex $imageIndex");
+                                // setState(() {});
+                                BlocProvider.of<ImageCubit>(context)
+                                    .emitNextImage(3);
+                              },
+                              icon: Icon(
+                                Icons.arrow_forward_ios,
+                                color: CustomColor.GRAY_VERY_LIGHT,
+                                size: 20,
+                              )),
+                        ],
+                      ),
                     ),
                   ),
                 ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 4.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          imageIndex =
-                              imageIndex > 0 ? imageIndex - 1 : imageIndex;
-                          print(" imageIndex $imageIndex");
-                          setState(() {});
-                        },
-                        icon: Icon(
-                          Icons.arrow_back_ios,
-                          color: CustomColor.GRAY_VERY_LIGHT,
-                          size: 20,
-                        )),
-                    IconButton(
-                        onPressed: () {
-                          imageIndex =
-                              imageIndex < 2 ? imageIndex + 1 : imageIndex;
-                          print(" imageIndex $imageIndex");
-                          setState(() {});
-                        },
-                        icon: Icon(
-                          Icons.arrow_forward_ios,
-                          color: CustomColor.GRAY_VERY_LIGHT,
-                          size: 20,
-                        )),
-                  ],
-                ),
-              ),
-            ),
-          ],
+              );
+            }
+            return Container();
+          },
         ),
       ),
     );
@@ -266,14 +278,23 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           buildIntroductionSection(product),
           Center(
-            child: IconButton(
-                onPressed: () {
-                  showDescription = !showDescription;
-                  setState(() {});
-                },
-                icon: showDescription
-                    ? Icon(Icons.keyboard_arrow_up_outlined)
-                    : Icon(Icons.keyboard_arrow_down_outlined)),
+            child: BlocBuilder<DescriptionCubit, DescriptionState>(
+              builder: (context, state) {
+                if (state is DescriptionInitial) {
+                  return IconButton(
+                      onPressed: () {
+                        // showDescription = !showDescription;
+                        // setState(() {});
+                        BlocProvider.of<DescriptionCubit>(context)
+                            .emitDescription();
+                      },
+                      icon: state.showDescription
+                          ? Icon(Icons.keyboard_arrow_up_outlined)
+                          : Icon(Icons.keyboard_arrow_down_outlined));
+                }
+                return Container();
+              },
+            ),
           ),
           SizedBox(
             height: 5,
@@ -289,29 +310,34 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  Container buildIntroductionSection(Product product) {
-    if (showDescription) {
-      return Container(
-        padding: EdgeInsets.only(top: 4),
-        child: Text(
-          product.description,
-          softWrap: true,
-          overflow: TextOverflow.fade,
-          textAlign: TextAlign.justify,
-          style: TextStyle(color: CustomColor.GRAY),
-        ),
-      );
-    }
-    return Container(
-      padding: EdgeInsets.only(top: 4),
-      child: Text(
-        product.description,
-        softWrap: true,
-        maxLines: 2,
-        overflow: TextOverflow.fade,
-        textAlign: TextAlign.justify,
-        style: TextStyle(color: CustomColor.GRAY),
-      ),
+  Widget buildIntroductionSection(Product product) {
+    return BlocBuilder<DescriptionCubit, DescriptionState>(
+      builder: (context, state) {
+        if (state is DescriptionInitial && state.showDescription) {
+          return Container(
+            padding: EdgeInsets.only(top: 4),
+            child: Text(
+              product.description,
+              softWrap: true,
+              overflow: TextOverflow.fade,
+              textAlign: TextAlign.justify,
+              style: TextStyle(color: CustomColor.GRAY),
+            ),
+          );
+        }
+
+        return Container(
+          padding: EdgeInsets.only(top: 4),
+          child: Text(
+            product.description,
+            softWrap: true,
+            maxLines: 2,
+            overflow: TextOverflow.fade,
+            textAlign: TextAlign.justify,
+            style: TextStyle(color: CustomColor.GRAY),
+          ),
+        );
+      },
     );
   }
 
