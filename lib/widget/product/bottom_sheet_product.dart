@@ -103,7 +103,7 @@ Expanded buildProductViewSectionBottomSheet(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     ElevatedButton(
-                      child: Text("book detail"),
+                      child: Text("detail"),
                       onPressed: () {
                         BlocProvider.of<DownBloc>(context)
                             .add(DownUnSelectedEvent());
