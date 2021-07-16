@@ -481,6 +481,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       )
                     : CachedNetworkImage(
                         imageUrl: shop.logo,
+                        imageBuilder: (context, imageProvider) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(40)),
+                          );
+                        },
                         useOldImageOnUrlChange: false,
                         placeholderFadeInDuration: Duration(seconds: 1),
                         placeholder: (BuildContext context, String imageURL) {
@@ -493,7 +503,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           );
                         },
                       ),
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Theme.of(context).accentColor,
               ),
             ],
           )
