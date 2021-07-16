@@ -105,7 +105,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   CachedNetworkImage(
-                    imageUrl: product.image,
+                    imageUrl: product.image[state.currentIndex],
                     imageBuilder: (context, imageProvider) {
                       return Container(
                         decoration: BoxDecoration(
@@ -157,67 +157,74 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          height: 20,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 4.0),
-                            child: ListView.builder(
-                                itemCount: 3,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 2.0),
-                                    child: Icon(
-                                      Icons.circle,
-                                      size: 10,
-                                      color: state.currentIndex == index
-                                          ? Colors.white
-                                          : Theme.of(context).accentColor,
-                                    ),
-                                  );
-                                }),
+                        Visibility(
+                          visible: product.image.length > 1,
+                          child: Container(
+                            height: 20,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 4.0),
+                              child: ListView.builder(
+                                  itemCount: product.image.length,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 2.0),
+                                      child: Icon(
+                                        Icons.circle,
+                                        size: 10,
+                                        color: state.currentIndex == index
+                                            ? Colors.white
+                                            : Theme.of(context).accentColor,
+                                      ),
+                                    );
+                                  }),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 4.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                // imageIndex =
-                                //     imageIndex > 0 ? imageIndex - 1 : imageIndex;
-                                // print(" imageIndex $imageIndex");
-                                // setState(() {});
-                                BlocProvider.of<ImageCubit>(context)
-                                    .emitPreviceImage(3);
-                              },
-                              icon: Icon(
-                                Icons.arrow_back_ios,
-                                color: CustomColor.GRAY_VERY_LIGHT,
-                                size: 20,
-                              )),
-                          IconButton(
-                              onPressed: () {
-                                // imageIndex =
-                                //     imageIndex < 2 ? imageIndex + 1 : imageIndex;
-                                // print(" imageIndex $imageIndex");
-                                // setState(() {});
-                                BlocProvider.of<ImageCubit>(context)
-                                    .emitNextImage(3);
-                              },
-                              icon: Icon(
-                                Icons.arrow_forward_ios,
-                                color: CustomColor.GRAY_VERY_LIGHT,
-                                size: 20,
-                              )),
-                        ],
+                  Visibility(
+                    visible: product.image.length > 1,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 4.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  // imageIndex =
+                                  //     imageIndex > 0 ? imageIndex - 1 : imageIndex;
+                                  // print(" imageIndex $imageIndex");
+                                  // setState(() {});
+                                  BlocProvider.of<ImageCubit>(context)
+                                      .emitPreviceImage(product.image.length);
+                                },
+                                icon: Icon(
+                                  Icons.arrow_back_ios,
+                                  color: CustomColor.GRAY_VERY_LIGHT,
+                                  size: 20,
+                                )),
+                            IconButton(
+                                onPressed: () {
+                                  // imageIndex =
+                                  //     imageIndex < 2 ? imageIndex + 1 : imageIndex;
+                                  // print(" imageIndex $imageIndex");
+                                  // setState(() {});
+                                  BlocProvider.of<ImageCubit>(context)
+                                      .emitNextImage(product.image.length);
+                                },
+                                icon: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: CustomColor.GRAY_VERY_LIGHT,
+                                  size: 20,
+                                )),
+                          ],
+                        ),
                       ),
                     ),
                   ),

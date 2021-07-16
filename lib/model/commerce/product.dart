@@ -40,7 +40,7 @@ class Product {
   num rating;
   String reference;
   num availableStock;
-  String image;
+  List image;
   bool deliverable;
   dynamic metaData;
   String publishedStatus;

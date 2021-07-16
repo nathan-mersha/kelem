@@ -42,7 +42,7 @@ class _AddItemPageState extends State<AddItemPage> {
   List<dynamic> tagList = [];
   final picker = ImagePicker();
   bool allSeen = false;
-  String productImage;
+  List productImage;
   String productId;
   Shop shop;
   Product productOld;
@@ -148,7 +148,7 @@ class _AddItemPageState extends State<AddItemPage> {
                                       imageFile == null &&
                                       productImage != null
                                   ? CachedNetworkImage(
-                                      imageUrl: productImage,
+                                      imageUrl: productImage[0],
                                       useOldImageOnUrlChange: false,
                                       placeholderFadeInDuration:
                                           Duration(seconds: 1),

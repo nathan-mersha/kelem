@@ -25,7 +25,7 @@ class ProductView extends StatelessWidget {
             size: size,
           )
         : CachedNetworkImage(
-            imageUrl: product.image,
+            imageUrl: product.image[0],
             useOldImageOnUrlChange: true,
             placeholderFadeInDuration: Duration(seconds: 1),
             placeholder: (BuildContext context, String imageURL) {
